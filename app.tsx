@@ -10,6 +10,7 @@ import { rootAttributes } from "./settings";
 import { registerCoinsWorklet } from "./coins-worklet";
 import { mountSpatialTooltips } from "./spatial-tooltip";
 import { mountContextMeter } from "./context-meter";
+import { mountTimelineMarks } from "./timeline-marks";
 import { PokecutSettings } from "./settings-section";
 import { ThemeModeIcon, ThemeModeSwitch } from "./theme-mode";
 import { t } from "./i18n";
@@ -33,6 +34,9 @@ function PokecutChatLayer() {
 
   const meter = !off.includes("prompt");
   useEffect(() => (meter ? mountContextMeter() : undefined), [meter]);
+
+  const rows = !off.includes("rows");
+  useEffect(() => (rows ? mountTimelineMarks() : undefined), [rows]);
 
   const tooltips = !off.includes("actions");
   useEffect(() => (tooltips ? mountSpatialTooltips() : undefined), [tooltips]);

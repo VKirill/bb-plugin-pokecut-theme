@@ -1342,11 +1342,11 @@ ul)>li+li:before {
   margin-left: 7px;
   padding-left: 16px;
 }
-:root:not([data-pk-off~="tree"]) [data-timeline-row-list="bundle"] > [data-timeline-row-id] {
+:root:not([data-pk-off~="tree"]) [data-timeline-row-list="bundle"] > [data-timeline-items] > [data-timeline-row-id] {
   position: relative;
 }
 /* Trunk. */
-:root:not([data-pk-off~="tree"]) [data-timeline-row-list="bundle"] > [data-timeline-row-id]:not(:last-child)::after {
+:root:not([data-pk-off~="tree"]) [data-timeline-row-list="bundle"] > [data-timeline-items] > [data-timeline-row-id]:not(:last-child)::after {
   content: "";
   position: absolute;
   top: 0;
@@ -1357,11 +1357,11 @@ ul)>li+li:before {
   pointer-events: none;
 }
 /* The first row's trunk reaches up to meet the header. */
-:root:not([data-pk-off~="tree"]) [data-timeline-row-list="bundle"] > [data-timeline-row-id]:first-child:not(:last-child)::after {
+:root:not([data-pk-off~="tree"]) [data-timeline-row-list="bundle"] > [data-timeline-items] > [data-timeline-row-id]:first-child:not(:last-child)::after {
   top: -4px;
 }
 /* Elbow: just the curve; the trunk supplies the straight part. */
-:root:not([data-pk-off~="tree"]) [data-timeline-row-list="bundle"] > [data-timeline-row-id]::before {
+:root:not([data-pk-off~="tree"]) [data-timeline-row-list="bundle"] > [data-timeline-items] > [data-timeline-row-id]::before {
   content: "";
   position: absolute;
   top: 6px;
@@ -1374,22 +1374,22 @@ ul)>li+li:before {
   pointer-events: none;
 }
 /* The last row has no trunk, so its elbow carries the straight part itself. */
-:root:not([data-pk-off~="tree"]) [data-timeline-row-list="bundle"] > [data-timeline-row-id]:last-child::before {
+:root:not([data-pk-off~="tree"]) [data-timeline-row-list="bundle"] > [data-timeline-items] > [data-timeline-row-id]:last-child::before {
   top: 0;
   height: 12px;
 }
-:root:not([data-pk-off~="tree"]) [data-timeline-row-list="bundle"] > [data-timeline-row-id]:first-child:last-child::before {
+:root:not([data-pk-off~="tree"]) [data-timeline-row-list="bundle"] > [data-timeline-items] > [data-timeline-row-id]:first-child:last-child::before {
   top: -4px;
   height: 16px;
 }
 /* Current node: the running row's curve, and the path above it, light up. */
-:root:not([data-pk-off~="tree"]) [data-timeline-row-list="bundle"] > [data-timeline-row-id]:has(.animate-shine)::before {
+:root:not([data-pk-off~="tree"]) [data-timeline-row-list="bundle"] > [data-timeline-items] > [data-timeline-row-id]:has(.animate-shine)::before {
   border-color: var(--pk-tree-lit);
 }
-:root:not([data-pk-off~="tree"]) [data-timeline-row-list="bundle"] > [data-timeline-row-id]:has(~ [data-timeline-row-id] .animate-shine)::after {
+:root:not([data-pk-off~="tree"]) [data-timeline-row-list="bundle"] > [data-timeline-items] > [data-timeline-row-id]:has(~ [data-timeline-row-id] .animate-shine)::after {
   background: var(--pk-tree-lit);
 }
-:root:not([data-pk-off~="tree"]) [data-timeline-row-list="bundle"] > [data-timeline-row-id]:has(.animate-shine):not(:last-child)::after {
+:root:not([data-pk-off~="tree"]) [data-timeline-row-list="bundle"] > [data-timeline-items] > [data-timeline-row-id]:has(.animate-shine):not(:last-child)::after {
   background: linear-gradient(var(--pk-tree-lit) 0 12px, var(--pk-tree-dim) 12px);
 }
 /* Compact work rows' straight guide line would double up with the tree. */
@@ -1779,6 +1779,97 @@ ul)>li+li:before {
   border-radius: 6px !important;
   opacity: 0;
   cursor: pointer;
+}
+
+/* ── Expanded work group as one card (workRows) ────────────────────────────
+   Rows of an expanded group (inside BB's [data-timeline-items] wrapper) sit in
+   one card with hairline dividers instead of each row being an outlined chip.
+   The repeated verb ("Ran") moves to the row's tooltip; a dot shows status; the
+   command reads as code; durations align right; errors are red
+   (timeline-marks.ts marks them). */
+:root:not([data-pk-off~="rows"]) [data-timeline-row-list="bundle"] {
+  padding-top: 3px;
+  padding-bottom: 3px;
+  padding-right: 6px;
+  border: 1px solid var(--pk-hairline);
+  border-radius: 12px;
+  background-color: var(--pk-card);
+  box-shadow: var(--pk-card-drop);
+}
+
+:root:not([data-pk-off~="rows"]) [data-timeline-row-list="bundle"] > [data-timeline-items] > [data-timeline-row-id] + [data-timeline-row-id] > .rounded-md {
+  border-top: 1px solid var(--pk-hairline);
+}
+
+:root:not([data-pk-off~="rows"]) [data-timeline-row-list="bundle"] > [data-timeline-items] > [data-timeline-row-id] > .rounded-md > .group\/timeline-row > button {
+  width: 100%;
+  margin-block: 0;
+  padding-inline: 4px;
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+
+:root:not([data-pk-off~="rows"]) [data-timeline-row-list="bundle"] > [data-timeline-items] > [data-timeline-row-id] .group\/timeline-row > button > span,
+:root:not([data-pk-off~="rows"]) [data-timeline-row-list="bundle"] > [data-timeline-items] > [data-timeline-row-id] .group\/timeline-row > button > span > span,
+:root:not([data-pk-off~="rows"]) [data-timeline-row-list="bundle"] > [data-timeline-items] > [data-timeline-row-id] .group\/timeline-row > button span[title] {
+  flex: 1 1 auto;
+  width: 100%;
+}
+
+/* The verb lives in the row's title (hover); only on rows that carry a command. */
+:root:not([data-pk-off~="rows"]) [data-timeline-row-list="bundle"] > [data-timeline-items] > [data-timeline-row-id] .group\/timeline-row > button span[title]:has(> span.font-medium) > span:first-child:not(.font-medium):not(.tabular-nums) {
+  display: none;
+}
+
+:root:not([data-pk-off~="rows"]) [data-timeline-row-list="bundle"] > [data-timeline-items] > [data-timeline-row-id] .group\/timeline-row > button span[title] > span.font-medium {
+  font-family: var(--font-mono, ui-monospace, "SF Mono", monospace);
+  font-size: 11.5px;
+  font-weight: 400;
+  opacity: 0.85;
+}
+
+:root:not([data-pk-off~="rows"]) [data-timeline-row-list="bundle"] > [data-timeline-items] > [data-timeline-row-id] .group\/timeline-row > button span[title] > span.tabular-nums {
+  margin-left: auto;
+  padding-left: 12px;
+}
+
+/* Status dot instead of the tool glyph on finished command rows. */
+:root:not([data-pk-off~="rows"]) [data-timeline-row-list="bundle"] > [data-timeline-items] > [data-timeline-row-id] .group\/timeline-row > button > span > span:not(:has(.animate-shine)):has(span.font-medium) > svg[data-icon] {
+  display: none;
+}
+
+:root:not([data-pk-off~="rows"]) [data-timeline-row-list="bundle"] > [data-timeline-items] > [data-timeline-row-id] .group\/timeline-row > button > span > span:not(:has(.animate-shine)):has(span.font-medium)::before {
+  content: "";
+  flex-shrink: 0;
+  width: 6px;
+  height: 6px;
+  margin-inline: 4px 2px;
+  border-radius: 50%;
+  background-color: color-mix(in oklab, var(--ink) 30%, transparent);
+}
+
+:root:not([data-pk-off~="rows"]) [data-timeline-row-list="bundle"] > [data-timeline-items] > [data-timeline-row-id][data-pk-err-row] .group\/timeline-row > button > span > span::before {
+  background-color: var(--destructive);
+}
+
+:root:not([data-pk-off~="rows"]) [data-timeline-row-list="bundle"] > [data-timeline-items] > [data-timeline-row-id][data-pk-err-row] > .rounded-md {
+  box-shadow: inset 2px 0 0 color-mix(in oklab, var(--destructive) 70%, transparent);
+}
+
+/* Error counts as red chips, in group headers and rows alike. */
+:root:not([data-pk-off~="rows"]) [data-timeline-row-list] .tabular-nums[data-pk-err] {
+  display: inline-flex;
+  align-items: center;
+  height: 18px;
+  margin-left: 4px;
+  padding: 0 7px;
+  border: 1px solid color-mix(in oklab, var(--destructive) 35%, transparent);
+  border-radius: 999px;
+  background-color: color-mix(in oklab, var(--destructive) 10%, transparent);
+  color: var(--destructive-text);
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 500;
 }
 
 @media (prefers-reduced-motion: reduce) {
