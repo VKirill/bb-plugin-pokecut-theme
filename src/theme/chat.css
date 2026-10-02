@@ -948,7 +948,7 @@ ul)>li+li:before {
 /* ── Context meter (context-meter.ts): a fill line instead of the ring ──────
    The line sits on the context row's top edge, i.e. the composer's bottom
    edge. The ring button stays as an invisible strip over the line so BB's
-   detail popover still opens from it. Past 50% a chip names the number. */
+   detail popover still opens from it; hovering shows the percentage. */
 :root:not([data-pk-off~="prompt"]) [data-follow-up-composer-footer][data-pk-ctx] {
   position: relative !important;
   overflow: visible !important;
@@ -984,27 +984,6 @@ ul)>li+li:before {
   border-radius: 6px !important;
   opacity: 0;
   cursor: pointer;
-}
-
-:root:not([data-pk-off~="prompt"]) [data-follow-up-composer-footer][data-pk-ctx]:not([data-pk-ctx-label=""])::after {
-  content: attr(data-pk-ctx-label);
-  order: 1;
-  display: inline-flex;
-  align-items: center;
-  height: 26px;
-  padding: 0 9px;
-  border: 1px solid color-mix(in oklab, var(--pk-ctx-color) 45%, var(--pk-outline));
-  border-radius: 8px;
-  background-color: color-mix(in oklab, var(--pk-ctx-color) 10%, var(--pk-card));
-  color: var(--pk-ctx-color);
-  font-size: 12px;
-  font-weight: 500;
-  white-space: nowrap;
-  pointer-events: none;
-}
-
-:root:not([data-pk-off~="prompt"]) [data-follow-up-composer-footer][data-pk-ctx] > div:last-child {
-  order: 2;
 }
 
 @media (prefers-reduced-motion: reduce) {

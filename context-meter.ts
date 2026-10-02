@@ -1,13 +1,12 @@
 // Context meter: BB shows context use as a ring button at the end of the
 // composer's context row ("Context window 22% used"). The theme replaces it with
-// a fill line along the composer's bottom edge plus a warning chip past 50%.
+// a fill line along the composer's bottom edge; hovering it shows the number.
 // The percentage only exists in the ring's accessible name, so this reads it and
 // hands it to CSS on the footer. The ring itself stays (invisible, stretched
 // over the line) so BB's own detail popover still opens from it.
-import { t } from "./i18n.ts";
 
 const RING = '[data-follow-up-composer-footer] button.rounded-full[aria-haspopup="dialog"]';
-const ATTRS = ["data-pk-ctx", "data-pk-ctx-level", "data-pk-ctx-label"];
+const ATTRS = ["data-pk-ctx", "data-pk-ctx-level"];
 
 /** "Context window 22% used" (or a translated label) → 22; null when there is no number. */
 export function parsePercent(label: string | null): number | null {
@@ -27,6 +26,9 @@ function sync() {
     const percent = parsePercent(ring.getAttribute("aria-label"));
     if (!footer) continue;
     ring.setAttribute("data-pk-ctx-ring", "");
+    // Native hover hint on the invisible strip: the ring's own label.
+    const label = ring.getAttribute("aria-label");
+    if (label && ring.getAttribute("title") !== label) ring.setAttribute("title", label);
     if (percent === null) {
       ATTRS.forEach((name) => footer.removeAttribute(name));
       continue;
@@ -36,7 +38,6 @@ function sync() {
     footer.setAttribute("data-pk-ctx", rounded);
     footer.style.setProperty("--pk-ctx", `${percent}%`);
     footer.setAttribute("data-pk-ctx-level", levelOf(percent));
-    footer.setAttribute("data-pk-ctx-label", percent >= 50 ? `${t("contextChip")} ${rounded}%` : "");
   }
 }
 
@@ -51,7 +52,10 @@ export function mountContextMeter(): () => void {
   return () => {
     observer.disconnect();
     cancelAnimationFrame(frame);
-    document.querySelectorAll("[data-pk-ctx-ring]").forEach((el) => el.removeAttribute("data-pk-ctx-ring"));
+    document.querySelectorAll("[data-pk-ctx-ring]").forEach((el) => {
+      el.removeAttribute("data-pk-ctx-ring");
+      el.removeAttribute("title");
+    });
     document.querySelectorAll<HTMLElement>("[data-pk-ctx]").forEach((el) => {
       ATTRS.forEach((name) => el.removeAttribute(name));
       el.style.removeProperty("--pk-ctx");
