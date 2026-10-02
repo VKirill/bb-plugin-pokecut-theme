@@ -3,3 +3,6 @@ dist/
 .gitnexus/
 *.log
 .DS_Store
+AGENTS.md
+CLAUDE.md
+.claude/
