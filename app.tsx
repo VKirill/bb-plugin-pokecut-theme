@@ -9,6 +9,7 @@ import { usePrefs } from "./prefs";
 import { rootAttributes } from "./settings";
 import { registerCoinsWorklet } from "./coins-worklet";
 import { mountSpatialTooltips } from "./spatial-tooltip";
+import { mountContextMeter } from "./context-meter";
 import { PokecutSettings } from "./settings-section";
 import { ThemeModeIcon, ThemeModeSwitch } from "./theme-mode";
 import { t } from "./i18n";
@@ -29,6 +30,9 @@ function PokecutChatLayer() {
     root.setAttribute("data-pk-off", offList);
     return () => ROOT_ATTRIBUTES.forEach((name) => root.removeAttribute(name));
   }, [prefs, loader, chips, offList]);
+
+  const meter = !off.includes("prompt");
+  useEffect(() => (meter ? mountContextMeter() : undefined), [meter]);
 
   const tooltips = !off.includes("actions");
   useEffect(() => (tooltips ? mountSpatialTooltips() : undefined), [tooltips]);
