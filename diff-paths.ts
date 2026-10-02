@@ -11,11 +11,23 @@ export function splitPath(path: string): [string, string] {
   return cut < 0 ? ["", path] : [path.slice(0, cut + 1), path.slice(cut + 1)];
 }
 
+/** The element that actually holds the path text: BB may wrap it (link/button). */
+function leafOf(el: HTMLElement): HTMLElement {
+  let leaf = el;
+  while (leaf.childElementCount === 1 && !leaf.hasAttribute(DONE)) {
+    const child = leaf.firstElementChild as HTMLElement;
+    if (child.hasAttribute("data-pk-path-dir") || child.hasAttribute("data-pk-path-name")) break;
+    leaf = child;
+  }
+  return leaf;
+}
+
 function apply() {
   for (const el of Array.from(document.querySelectorAll<HTMLElement>(PATH))) {
-    if (el.childElementCount > 0 && el.getAttribute(DONE) === el.textContent) continue;
-    if (el.childElementCount > 0) continue; // someone else's markup
-    const text = el.textContent ?? "";
+    const leaf = leafOf(el);
+    if (leaf.hasAttribute(DONE) && leaf.getAttribute(DONE) === leaf.textContent) continue;
+    if (leaf.childElementCount > 0 && !leaf.hasAttribute(DONE)) continue; // someone else's markup
+    const text = leaf.textContent ?? "";
     const [dir, name] = splitPath(text);
     if (!dir) continue;
     const dirSpan = document.createElement("span");
@@ -24,8 +36,8 @@ function apply() {
     const nameSpan = document.createElement("span");
     nameSpan.setAttribute("data-pk-path-name", "");
     nameSpan.textContent = name;
-    el.replaceChildren(dirSpan, nameSpan);
-    el.setAttribute(DONE, text);
+    leaf.replaceChildren(dirSpan, nameSpan);
+    leaf.setAttribute(DONE, text);
   }
 }
 
