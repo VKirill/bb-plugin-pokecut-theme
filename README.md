@@ -10,6 +10,23 @@ and a pink-violet gradient on the send button. Light and dark.
 
 [Русский](README.ru.md)
 
+![Before and after, light](assets/screenshots/compare-light.jpg)
+
+![Before and after, dark](assets/screenshots/compare-dark.jpg)
+
+![Before and after on a phone](assets/screenshots/compare-phone.jpg)
+
+<details>
+<summary>Full-size screenshots</summary>
+
+![Pokecut, light](assets/screenshots/after-light.jpg)
+![Pokecut, dark](assets/screenshots/after-dark.jpg)
+
+</details>
+
+Screenshots use demo content; the original design is
+[Pokecut](https://pokecut.rakibulism.space).
+
 Only the visual language is reproduced. No Pokecut source, images or fonts are
 bundled; BB already ships Inter.
 

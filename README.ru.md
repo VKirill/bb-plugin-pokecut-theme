@@ -8,6 +8,14 @@
 
 [English](README.md)
 
+![До и после, светлая](assets/screenshots/compare-light.jpg)
+
+![До и после, тёмная](assets/screenshots/compare-dark.jpg)
+
+![До и после на телефоне](assets/screenshots/compare-phone.jpg)
+
+На скриншотах демонстрационные данные.
+
 Повторён только визуальный язык: исходники, картинки и шрифты Pokecut не
 включены, Inter в BB уже есть.
 
