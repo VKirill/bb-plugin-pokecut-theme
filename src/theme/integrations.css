@@ -1,0 +1,129 @@
+/* Integrations — other plugins' panels and BB's diff view in the Pokecut look.
+   Only colors, radii and elevation are restyled; layout and behavior stay theirs. */
+
+/* ── Git History (yusuf8834/bb-git-history) ─────────────────────────────────
+   The plugin exposes its palette as --gh-* / --git-ref-* variables on
+   .git-history-panel; re-pointing them at our tokens repaints everything. */
+.git-history-workspace .git-history-panel {
+  --gh-surface: var(--pk-panel);
+  --gh-surface-subtle: var(--pk-well);
+  --gh-hover: var(--state-hover);
+  --gh-border: var(--pk-hairline);
+  --gh-hairline: var(--pk-hairline);
+  --gh-rail: color-mix(in oklab, var(--ink) 16%, var(--pk-panel));
+  --gh-node: color-mix(in oklab, var(--ink) 38%, var(--pk-panel));
+  --gh-accent: var(--primary);
+  --gh-accent-foreground: var(--primary-foreground);
+  --gh-accent-tint: var(--pk-card);
+  --gh-accent-border: var(--pk-outline);
+  --gh-tag: #8c69c3;
+  --git-ref-head-bg: var(--pk-accent-gradient);
+  --git-ref-remote-bg: color-mix(in oklab, var(--ink) 58%, var(--pk-panel));
+  --git-ref-tag-bg: #8c69c3;
+  --git-ref-filled-fg: #ffffff;
+  background-color: var(--pk-panel);
+}
+
+.git-history-workspace .git-toolbar {
+  border-bottom: 0;
+}
+
+.git-history-workspace .git-search-wrap {
+  border-bottom: 0;
+  padding: 2px 10px 8px;
+}
+
+.git-history-workspace .git-search-wrap input {
+  height: 30px;
+  border-color: var(--pk-outline);
+  border-radius: 10px;
+  background-color: var(--pk-card);
+}
+
+.git-history-workspace .git-commit-row {
+  border-radius: 9px;
+}
+
+.git-history-workspace .git-commit-row:hover {
+  background-color: var(--state-hover);
+}
+
+.git-history-workspace .git-commit-row[data-expanded="true"] {
+  background-color: var(--pk-card);
+  box-shadow: inset 0 0 0 1px var(--pk-outline), var(--pk-card-drop);
+}
+
+.git-history-workspace .git-graph-node[data-head="true"] {
+  background: var(--pk-accent-gradient);
+}
+
+.git-history-workspace .git-ref {
+  border-radius: 6px;
+}
+
+.git-history-workspace .git-date-header {
+  letter-spacing: 0.04em;
+  color: var(--subtle-foreground);
+}
+
+.git-history-workspace .git-file-row:hover,
+.git-history-workspace .git-uncommitted-file-row:hover {
+  background-color: var(--state-hover);
+}
+
+/* ── BB diff view ("All changes"): file cards ───────────────────────────────
+   Each changed file is a card (the one holding a "Copy path for" button).
+   diff-paths.ts splits the path so the folder reads quiet, the name strong. */
+.overflow-clip.rounded-lg.border:has(button[aria-label^="Copy path for"]) {
+  border-color: var(--pk-hairline);
+  border-radius: 12px;
+  background-color: var(--pk-card);
+  box-shadow: var(--pk-card-drop);
+  transition: border-color 150ms ease;
+}
+
+.overflow-clip.rounded-lg.border:has(button[aria-label^="Copy path for"]):hover {
+  border-color: var(--pk-outline);
+}
+
+.overflow-clip.rounded-lg.border:has(button[aria-label^="Copy path for"]) > div:nth-child(2),
+.overflow-clip.rounded-lg.border:has(button[aria-label^="Copy path for"]) > div:nth-child(2) > div {
+  border-top-color: transparent;
+  background-color: var(--pk-card);
+}
+
+[data-pk-path-dir] {
+  color: var(--subtle-foreground);
+  font-weight: 400;
+}
+
+[data-pk-path-name] {
+  color: var(--foreground);
+  font-weight: 500;
+}
+
+/* Copy / open-in-editor appear with the card's hover. */
+.overflow-clip.rounded-lg.border:has(button[aria-label^="Copy path for"]) button[aria-label^="Copy path for"],
+.overflow-clip.rounded-lg.border:has(button[aria-label^="Copy path for"]) button[aria-label^="Open "][aria-label$=" in editor"] {
+  opacity: 0;
+  transition: opacity 150ms ease;
+}
+
+.overflow-clip.rounded-lg.border:has(button[aria-label^="Copy path for"]):is(:hover, :focus-within) button:is([aria-label^="Copy path for"], [aria-label$=" in editor"]) {
+  opacity: 1;
+}
+
+/* +N −M as small tinted chips. */
+.overflow-clip.rounded-lg.border:has(button[aria-label^="Copy path for"]) :is(.text-diff-added, .text-diff-removed) {
+  padding: 1px 6px;
+  border-radius: 6px;
+  font-variant-numeric: tabular-nums;
+}
+
+.overflow-clip.rounded-lg.border:has(button[aria-label^="Copy path for"]) .text-diff-added {
+  background-color: color-mix(in oklab, var(--diff-added) 12%, transparent);
+}
+
+.overflow-clip.rounded-lg.border:has(button[aria-label^="Copy path for"]) .text-diff-removed {
+  background-color: color-mix(in oklab, var(--diff-removed) 12%, transparent);
+}

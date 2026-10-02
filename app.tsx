@@ -12,6 +12,7 @@ import { mountSpatialTooltips } from "./spatial-tooltip";
 import { mountContextMeter } from "./context-meter";
 import { mountTimelineMarks } from "./timeline-marks";
 import { mountMessageTimes } from "./message-times";
+import { mountDiffPaths } from "./diff-paths";
 import { PokecutSettings } from "./settings-section";
 import { ThemeModeIcon, ThemeModeSwitch } from "./theme-mode";
 import { t } from "./i18n";
@@ -49,6 +50,8 @@ function PokecutChatLayer() {
         : undefined,
     [times, threadId, rpc],
   );
+
+  useEffect(() => mountDiffPaths(), []);
 
   const tooltips = !off.includes("actions");
   useEffect(() => (tooltips ? mountSpatialTooltips() : undefined), [tooltips]);

@@ -9,10 +9,12 @@ const root = dirname(fileURLToPath(import.meta.url));
 const css = readFileSync(join(root, "themes/pokecut.css"), "utf8");
 const base = readFileSync(join(root, "src/theme/base.css"), "utf8");
 const chat = readFileSync(join(root, "src/theme/chat.css"), "utf8");
+const integrations = readFileSync(join(root, "src/theme/integrations.css"), "utf8");
 
 test("generated theme is base + chat and fits BB's theme limit", () => {
   assert.ok(css.includes(base.trimEnd()));
   assert.ok(css.includes(chat.trimEnd()));
+  assert.ok(css.includes(integrations.trimEnd()));
   assert.ok(Buffer.byteLength(css) < 256_000);
 });
 

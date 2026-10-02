@@ -7,7 +7,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
-const PARTS = ["base.css", "chat.css"];
+const PARTS = ["base.css", "chat.css", "integrations.css"];
 const MAX_BYTES = 256_000; // BB's CUSTOM_THEME_CSS_MAX_LENGTH
 
 const header =

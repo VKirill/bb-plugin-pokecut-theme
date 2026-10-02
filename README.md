@@ -72,6 +72,11 @@ Lane Pilot's toggle as an icon; expanded work groups as one card on a single
 grid with red error chips; message times in the action strip on hover
 (adapted from [Chat Timestamps](https://github.com/pixexid/bb-plugin-chat-timestamps), MIT).
 
+Integrations (`src/theme/integrations.css`): [Git History](https://github.com/yusuf8834/bb-git-history)
+is recolored through its own `--gh-*` variables (accent graph, gradient HEAD chip,
+raised selected commit); BB's diff view shows file cards with a quiet folder and
+a strong file name, tinted +/− chips and hover-only copy buttons.
+
 Shape rules use BB's stable markup only: `[data-sidebar="inset"]` for the
 panel (from 768px wide), `.bb-sidebar-selected-row` and the project-folders
 `.pf-thread.pf-active` for the open thread, `[data-app-composer]
@@ -103,6 +108,7 @@ is in the section). Stored in plugin storage, mirrored onto `<html>` as
 | `src/theme/chat.css` | Chat layer ported from Beautiful Chat, on Pokecut tokens. |
 | `scripts/build-theme.mjs` | Concatenates the two into `themes/pokecut.css` (generated; BB loads it via `bb.themes`). |
 | `app.tsx`, `prefs.ts` | App overlay: mirrors preferences onto `<html>`, mounts the spatial tooltip and the coins Paint Worklet. |
+| `src/theme/integrations.css`, `diff-paths.ts` | Git History and BB diff view styling; folder/name split of diff paths. |
 | `context-meter.ts`, `timeline-marks.ts`, `theme-mode.tsx` | Context meter line, error marks in work groups, light/dark/system switch. |
 | `settings-section.tsx`, `app.css`, `i18n.ts` | Bilingual settings section. |
 | `server.ts`, `contract.ts`, `settings.ts` | Preferences in plugin storage over RPC; validation of untrusted values. |
