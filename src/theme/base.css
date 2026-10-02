@@ -385,6 +385,52 @@ section[data-root-compose-mobile-recents] li:active {
   border-color: transparent;
 }
 
+/* ── Lane Pilot toggle as an icon ──────────────────────────────────────────
+   Lane Pilot's composer button ("Enable Lane Pilot" / agent name) becomes a
+   28px icon chip with the agents glyph; the text stays as the accessible name
+   and tooltip. Off: quiet outline. On (any other label): accent tint. */
+[data-plugin-composer-action-plugin="lane-pilot"] button {
+  position: relative;
+  width: 28px !important;
+  min-width: 28px;
+  height: 28px !important;
+  padding: 0 !important;
+  border: 1px solid var(--pk-outline);
+  border-radius: 8px !important;
+  background-color: var(--pk-card);
+  color: var(--muted-foreground);
+  font-size: 0 !important;
+}
+
+[data-plugin-composer-action-plugin="lane-pilot"] button > * {
+  display: none !important;
+}
+
+[data-plugin-composer-action-plugin="lane-pilot"] button::before {
+  content: "";
+  width: 16px;
+  height: 16px;
+  margin: auto;
+  background-color: currentColor;
+  -webkit-mask: var(--pk-icon-agents) center / contain no-repeat;
+  mask: var(--pk-icon-agents) center / contain no-repeat;
+}
+
+[data-plugin-composer-action-plugin="lane-pilot"] button:hover {
+  color: var(--foreground);
+  background-color: var(--pk-panel);
+}
+
+[data-plugin-composer-action-plugin="lane-pilot"] button:not([aria-label="Включить Lane Pilot"]):not([aria-label="Enable Lane Pilot"]) {
+  border-color: color-mix(in oklab, var(--primary) 45%, var(--pk-outline));
+  background-color: color-mix(in oklab, var(--primary) 12%, var(--pk-card));
+  color: var(--primary);
+}
+
+:root {
+  --pk-icon-agents: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='5' r='2.5'/%3E%3Ccircle cx='5' cy='19' r='2.5'/%3E%3Ccircle cx='19' cy='19' r='2.5'/%3E%3Cpath d='M12 7.5v4M12 11.5l-5.5 5.2M12 11.5l5.5 5.2'/%3E%3C/svg%3E");
+}
+
 /* ── Floating surfaces: menus, popovers and dialogs ───────────────────────
    Pokecut's dropdown: a frosted card with an outline and a soft drop; rows
    become hairline pills when highlighted. Popovers are solid cards; modal
@@ -575,16 +621,6 @@ section[data-root-compose-mobile-recents] li:active {
   }
   [data-promptbox-action-row] {
     gap: 6px;
-  }
-
-  /* Lane Pilot's off-state toggle reads "Lane Pilot" instead of a clipped
-     "Включить …"; the accessible name stays on the button. */
-  [data-promptbox-action-row] button:is([aria-label="Включить Lane Pilot"], [aria-label="Enable Lane Pilot"]) > span {
-    font-size: 0;
-  }
-  [data-promptbox-action-row] button:is([aria-label="Включить Lane Pilot"], [aria-label="Enable Lane Pilot"]) > span::after {
-    content: "Lane Pilot";
-    font-size: 12px;
   }
 
   /* Composer sits as a card above the shell edge. */
