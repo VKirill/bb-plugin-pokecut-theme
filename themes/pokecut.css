@@ -1,0 +1,243 @@
+/*
+ * Pokecut — a BB theme after the Pokecut admin dashboard
+ * (https://pokecut.rakibulism.space): a flat gray shell, the content area as
+ * one raised rounded panel with a hairline and a soft drop, white cards,
+ * pill-shaped raised selection and a pink-violet gradient on the primary
+ * action. Only the visual language is reproduced; no site assets are bundled.
+ *
+ * Palette values live in the two top-level blocks so BB tooling and Theme
+ * Preview can read them. Shape rules below are scoped by BB's own stable
+ * markup (data-sidebar, data-promptbox, bb-sidebar-selected-row) and only use
+ * the tokens declared here, so light and dark follow automatically.
+ */
+
+:root,
+.light {
+  /* Pokecut source values: shell #EDEDED, panel #FAFAFA, card #FFFFFF,
+     well #F5F5F5, outline #CFCFCF, hairline #EAECEB, ink #393846. */
+  --canvas: #fafafa;
+  --ink: #393846;
+  --primary: #9b4d8f;
+  --primary-foreground: #ffffff;
+
+  --card: #ffffff;
+  --popover: #ffffff;
+  --secondary: #f2f2f2;
+  --accent: #efefef;
+  --muted: #ebebeb;
+  --muted-foreground: #5e5e5e;
+  --subtle-foreground: #6a6b73;
+  --readback-foreground: #626269;
+
+  --timeline-accent: #3e7be8;
+  --file-accent: var(--timeline-accent);
+  --destructive: #d93a2b;
+  --destructive-text: #c2412d;
+  --warning: #f08c1a;
+  --warning-text: #b4540f;
+  --attention: #f2c230;
+  --success: #3fae4a;
+  --diff-added: #2f8a45;
+  --diff-removed: #c2412d;
+  --pr-merged: #8c69c3;
+
+  --state-hover: color-mix(in oklab, var(--ink) 5%, transparent);
+  --state-active: color-mix(in oklab, var(--ink) 8%, transparent);
+  --surface-selected: color-mix(in oklab, var(--primary) 12%, transparent);
+
+  --border: #d6d6d6;
+  --border-hairline: #e2e3e2;
+  --border-seam: #eaeceb;
+  --input: #cfcfcf;
+  --ring: color-mix(in oklch, var(--primary) 70%, var(--canvas));
+
+  --sidebar: #ededed;
+  --sidebar-foreground: var(--ink);
+  --sidebar-accent: #e3e3e3;
+  --sidebar-accent-foreground: var(--ink);
+  --sidebar-border: #d9d9d9;
+  --sidebar-ring: var(--ring);
+
+  --pill-surface: linear-gradient(to bottom, #ffffff, #fafafa);
+  --pill-surface-border: #cfcfcf;
+  --pill-shadow: 0 4px 10px -4px #dedede;
+
+  --radius: 0.75rem;
+
+  --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.08);
+  --shadow: 0 8px 16px -4px #dedede;
+  --shadow-md: 0 8px 16px -4px #dedede;
+  --shadow-lg: 0 14px 28px -8px rgb(0 0 0 / 0.14);
+  --shadow-xl: 0 20px 40px -12px rgb(0 0 0 / 0.18);
+
+  /* Theme-private tokens used by the shape rules below. */
+  --pk-shell: #ededed;
+  --pk-panel: var(--canvas);
+  --pk-card: #ffffff;
+  --pk-well: #f5f5f5;
+  --pk-outline: #cfcfcf;
+  --pk-hairline: #eaeceb;
+  --pk-drop: 0 8px 16px -4px #dedede;
+  --pk-card-drop: 0 18px 20px -24px #dedede;
+  --pk-accent-gradient:
+    radial-gradient(80% 130% at 27% 16%, rgb(240 168 192 / 0.8) 0%, rgb(240 168 192 / 0) 58%),
+    linear-gradient(101deg, #d96d98 0%, #d27aa2 38%, #aa79bf 71%, #8c69c3 100%);
+  --pk-accent-edge: inset 0 -4.5px 1px -4px rgb(255 255 255 / 0.3);
+}
+
+.dark {
+  /* Pokecut dark: shell #0E1014, panel #16181D, raised #1F232A,
+     outline #3A3F49, hairline #282D35, ink #E9EAEE. */
+  --canvas: #16181d;
+  --ink: #dcdde2;
+  --primary: #d88bc4;
+  --primary-foreground: #16181d;
+
+  --card: #1b1e24;
+  --popover: #1f232a;
+  --secondary: #1f232a;
+  --accent: #23272f;
+  --muted: #262a32;
+  --muted-foreground: #9b9ea6;
+  --subtle-foreground: #8a8d96;
+  --readback-foreground: #9295a0;
+
+  --timeline-accent: #6b9bf5;
+  --file-accent: var(--timeline-accent);
+  --destructive: #e5534b;
+  --destructive-text: #f08a80;
+  --warning: #f0a040;
+  --warning-text: #f2b46a;
+  --attention: #f2c94c;
+  --success: #57c46a;
+  --diff-added: #57c46a;
+  --diff-removed: #e5534b;
+  --pr-merged: #ac8fe0;
+
+  --state-hover: color-mix(in oklab, var(--ink) 6%, transparent);
+  --state-active: color-mix(in oklab, var(--ink) 10%, transparent);
+  --surface-selected: color-mix(in oklab, var(--primary) 14%, transparent);
+
+  --border: #3a3f49;
+  --border-hairline: #30353e;
+  --border-seam: #282d35;
+  --input: #3a3f49;
+  --ring: color-mix(in oklch, var(--primary) 70%, var(--canvas));
+
+  --sidebar: #0e1014;
+  --sidebar-foreground: var(--ink);
+  --sidebar-accent: #1a1d23;
+  --sidebar-accent-foreground: var(--ink);
+  --sidebar-border: #23272e;
+  --sidebar-ring: var(--ring);
+
+  --pill-surface: linear-gradient(to bottom, #232730, #1f232a);
+  --pill-surface-border: #3a3f49;
+  --pill-shadow: 0 4px 10px -4px rgb(0 0 0 / 0.5);
+
+  --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.4);
+  --shadow: 0 8px 16px -4px rgb(0 0 0 / 0.5);
+  --shadow-md: 0 8px 16px -4px rgb(0 0 0 / 0.5);
+  --shadow-lg: 0 14px 28px -8px rgb(0 0 0 / 0.6);
+  --shadow-xl: 0 20px 40px -12px rgb(0 0 0 / 0.65);
+
+  --pk-shell: #0e1014;
+  --pk-panel: var(--canvas);
+  --pk-card: #1b1e24;
+  --pk-well: #1f232a;
+  --pk-outline: #3a3f49;
+  --pk-hairline: #282d35;
+  --pk-drop: 0 8px 16px -4px rgb(0 0 0 / 0.5);
+  --pk-card-drop: 0 18px 20px -24px rgb(0 0 0 / 0.55);
+}
+
+/* ── Shell: gray frame, content as one raised rounded panel (desktop) ──────── */
+body {
+  background-color: var(--pk-shell);
+}
+
+[data-sidebar="panel"] {
+  border-right-color: transparent;
+}
+
+@media (min-width: 768px) {
+  [data-sidebar="inset"] {
+    margin: 12px 12px 12px 0;
+    height: calc(var(--bb-shell-height, 100%) - 24px);
+    border: 1px solid var(--pk-outline);
+    border-radius: 20px;
+    background-color: var(--pk-panel);
+    box-shadow: var(--pk-drop);
+    overflow: hidden;
+  }
+
+  /* With the sidebar collapsed the panel gets a left gutter too. */
+  [data-collapsible="offcanvas"] ~ [data-sidebar="inset"] {
+    margin-left: 12px;
+  }
+}
+
+/* ── Sidebar: the open thread is a raised pill ─────────────────────────────── */
+/* .pf-thread.pf-active is the open row when the project-folders plugin
+   replaces BB's thread list. */
+[data-sidebar="sidebar"] .bb-sidebar-selected-row,
+[data-sidebar="sidebar"] .pf-thread.pf-active {
+  background-color: var(--pk-panel);
+  box-shadow:
+    inset 0 0 0 1px var(--pk-outline),
+    var(--pk-drop);
+  border-radius: calc(var(--radius) - 2px);
+}
+
+[data-sidebar="sidebar"] input {
+  border-radius: calc(var(--radius) - 2px);
+}
+
+/* ── Composer: white card with an outline, focus firms the hairline ───────── */
+/* The repeated :root lifts these rules above chat-restyling plugins such as
+   Beautiful Chat, which style the same form at (0,5,1). */
+:root:root:root:root [data-app-composer] form[data-promptbox] {
+  border-color: var(--pk-outline);
+  border-radius: 16px;
+  background-color: var(--pk-card);
+  box-shadow: var(--pk-drop);
+}
+
+:root:root:root:root [data-app-composer] form[data-promptbox]:focus-within {
+  border-color: color-mix(in oklch, var(--primary) 45%, var(--pk-outline));
+}
+
+/* The send split button (send + options chevron) wears the Pokecut
+   primary-action gradient as one piece while there is something to send. */
+:root:root:root:root [data-app-composer] [data-promptbox-send-menu]:has([data-promptbox-submit-action]:not(:disabled)) {
+  background-color: #c2649d;
+  background-image: var(--pk-accent-gradient);
+  box-shadow: var(--pk-accent-edge);
+  border-radius: 8px;
+}
+
+:root:root:root:root [data-app-composer] [data-promptbox-send-menu]:has([data-promptbox-submit-action]:not(:disabled)) > button {
+  background: transparent;
+  color: #ffffff;
+  border-color: transparent;
+  box-shadow: none;
+}
+
+:root:root:root:root [data-app-composer] [data-promptbox-send-menu]:has([data-promptbox-submit-action]:not(:disabled)) > button:hover {
+  background: rgb(255 255 255 / 0.14);
+}
+
+/* ── Floating surfaces: menus, popovers and dialogs ───────────────────────── */
+[data-radix-popper-content-wrapper] > [role="menu"],
+[data-radix-popper-content-wrapper] > [role="listbox"],
+[data-radix-popper-content-wrapper] > [role="dialog"] {
+  border-color: var(--pk-outline);
+  box-shadow: var(--pk-drop);
+}
+
+/* ── Code blocks as recessed wells ────────────────────────────────────────── */
+[data-markdown-preview] pre {
+  background-color: var(--pk-well);
+  border: 1px solid var(--pk-hairline);
+  border-radius: 12px;
+}
