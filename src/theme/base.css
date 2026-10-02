@@ -305,6 +305,11 @@ section[data-root-compose-mobile-recents] li:active {
   font-weight: 600;
 }
 
+[data-sidebar="sidebar"] .pf-heading,
+[data-sidebar="sidebar"] .pf-thread {
+  border-radius: 12px;
+}
+
 [data-sidebar="sidebar"] .pf-thread:not(.pf-active):hover,
 [data-sidebar="sidebar"] .pf-heading:hover {
   background-color: var(--state-hover);

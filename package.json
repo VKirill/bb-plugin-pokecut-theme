@@ -1,6 +1,6 @@
 {
   "name": "bb-plugin-pokecut-theme",
-  "version": "0.5.2",
+  "version": "0.5.3",
   "type": "module",
   "description": "Pokecut theme for BB: gray shell, raised rounded content panel, white cards, pink-violet accent, plus a restyled chat (composer, messages, work rows, loaders, approval cards). Light and dark.",
   "engines": {
@@ -45,9 +45,9 @@
   },
   "devDependencies": {
     "@types/node": "^22.0.0",
-    "typescript": "^5.7.0",
     "@types/react": "^19.0.0",
-    "@types/react-dom": "^19.0.0"
+    "@types/react-dom": "^19.0.0",
+    "typescript": "^5.7.0"
   },
   "dependencies": {
     "@get-bb/plugin-sdk": "0.5.29",
