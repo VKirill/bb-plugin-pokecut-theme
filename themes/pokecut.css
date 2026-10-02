@@ -320,6 +320,26 @@ section[data-root-compose-mobile-recents] li:active {
   box-shadow: var(--pk-drop);
 }
 
+/* Narrow drawers: the footer strip holds 6+ tools; keep them from colliding. */
+@media (max-width: 767px) {
+  [data-sidebar="footer"] > ul[data-sidebar="menu"] {
+    gap: 0;
+    flex-wrap: nowrap;
+  }
+
+  [data-sidebar="footer"] > ul[data-sidebar="menu"] > li > [data-sidebar="menu-button"] {
+    width: 32px;
+    padding-inline: 0;
+    justify-content: center;
+  }
+
+  [data-sidebar="footer"] > ul[data-sidebar="menu"] > li.usage-tracker-sidebar {
+    flex-shrink: 1;
+    min-width: 0;
+    margin-left: auto;
+  }
+}
+
 [data-sidebar="sidebar"] input {
   border-radius: calc(var(--radius) - 2px);
 }

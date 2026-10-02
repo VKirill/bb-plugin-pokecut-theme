@@ -43,3 +43,23 @@
 .pk-settings-reset:hover { background: var(--state-hover); }
 .pk-settings-heading h3 { margin: 0; font-size: 14px; font-weight: 600; color: var(--foreground); }
 .pk-settings-heading p { margin: 4px 0 0; font-size: 13px; color: var(--muted-foreground); }
+
+/* Sidebar-footer light/dark/system switch: Pokecut's segmented control. */
+.pk-mode { display: flex; flex-direction: column; gap: 6px; padding: 8px; }
+.pk-mode-title { font-size: 12px; font-weight: 500; color: var(--muted-foreground); padding-inline: 2px; }
+.pk-segmented {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; padding: 3px;
+  border-radius: 10px; background: color-mix(in oklab, var(--ink) 7%, var(--canvas));
+}
+.pk-segment {
+  height: 30px; padding: 0 8px; border: 0; border-radius: 7px; background: transparent;
+  color: var(--muted-foreground); font-size: 13px; font-weight: 500; cursor: pointer;
+  transition: background-color 150ms ease, color 150ms ease, box-shadow 150ms ease;
+}
+.pk-segment:hover { color: var(--foreground); }
+.pk-segment[aria-checked="true"] {
+  background: var(--card); color: var(--foreground); font-weight: 600;
+  box-shadow: 0 1px 3px rgb(0 0 0 / 0.12);
+}
+.pk-segment:focus-visible { outline: 2px solid var(--ring); outline-offset: 1px; }
+@media (max-width: 767px) and (pointer: coarse) { .pk-segment { height: 38px; font-size: 14px; } }

@@ -10,6 +10,8 @@ import { rootAttributes } from "./settings";
 import { registerCoinsWorklet } from "./coins-worklet";
 import { mountSpatialTooltips } from "./spatial-tooltip";
 import { PokecutSettings } from "./settings-section";
+import { ThemeModeIcon, ThemeModeSwitch } from "./theme-mode";
+import { t } from "./i18n";
 
 const ROOT_ATTRIBUTES = ["data-pk-loader", "data-pk-chips", "data-pk-off"];
 
@@ -52,4 +54,12 @@ export default definePluginApp((app) => {
   app.slots.experimental_appOverlay({ id: "pokecut-chat-layer", component: PokecutChatLayer });
   // The heading is rendered inside the section so it follows the live language.
   app.slots.settingsSection({ id: "chat", component: PokecutSettings });
+  app.experimental_icons.register({ name: "pokecut-theme/SunMoon", component: ThemeModeIcon });
+  app.experimental_sidebarFooter.register({
+    kind: "disclosure",
+    id: "theme-mode",
+    label: t("themeMode"),
+    icon: "pokecut-theme/SunMoon",
+    component: ThemeModeSwitch,
+  });
 });
