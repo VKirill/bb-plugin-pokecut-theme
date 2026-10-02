@@ -1979,6 +1979,12 @@ ul)>li+li:before {
   content: none;
 }
 
+/* Timeline rows (cross-thread deliveries, agent events) keep the time only in
+   their tooltip: an inline label there would push the row's title aside. */
+.group\/timeline-row > [data-pk-time]::before {
+  content: none !important;
+}
+
 @media (prefers-reduced-motion: reduce) {
   [data-promptbox] [data-promptbox-submit-action]:not(:disabled):active,
   [data-promptbox-action-row] button:not([data-promptbox-submit-action]):active,

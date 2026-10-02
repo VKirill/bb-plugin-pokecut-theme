@@ -33,7 +33,8 @@ function formatExact(timestamp: number): string {
   }
 }
 
-/** The action strip under a message bubble, or the row header for other rows. */
+/** The action strip under a message bubble, or the row header for other rows
+    (those show the time in their tooltip only; see chat.css). */
 function hostOf(row: HTMLElement): HTMLElement | null {
   const message = row.querySelector<HTMLElement>(".group\\/message");
   if (message) return message.querySelector<HTMLElement>(".relative.w-full > .absolute") ?? message;

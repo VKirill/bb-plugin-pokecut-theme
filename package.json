@@ -1,6 +1,6 @@
 {
   "name": "bb-plugin-pokecut-theme",
-  "version": "0.3.11",
+  "version": "0.3.12",
   "type": "module",
   "description": "Pokecut theme for BB: gray shell, raised rounded content panel, white cards, pink-violet accent, plus a restyled chat (composer, messages, work rows, loaders, approval cards). Light and dark.",
   "engines": {
