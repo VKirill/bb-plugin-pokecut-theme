@@ -14,9 +14,9 @@
 
 :root {
   --pk-surface: var(--pk-card);
-  --pk-field: color-mix(in oklch, var(--ink) 6%, var(--canvas));
+  --pk-field: color-mix(in oklab, var(--ink) 6%, var(--canvas));
   --pk-inset: var(--pk-well);
-  --pk-hover: color-mix(in oklch, var(--ink) 6%, transparent);
+  --pk-hover: color-mix(in oklab, var(--ink) 6%, transparent);
   --pk-line: var(--pk-hairline);
   --pk-line-strong: var(--pk-outline);
   --pk-ink: var(--foreground);
@@ -45,7 +45,7 @@
     box-shadow 150ms ease;
 }
 :root:not([data-pk-off~="prompt"]) [data-app-composer] form[data-promptbox]:focus-within {
-  border-color: color-mix(in oklch, var(--primary) 45%, var(--pk-outline));
+  border-color: color-mix(in oklab, var(--primary) 45%, var(--pk-outline));
 }
 :root:not([data-pk-off~="prompt"]) [data-promptbox] [data-promptbox-submit-action] {
   width: 28px;
@@ -225,15 +225,15 @@
 :root[data-pk-loader="drive"] [data-timeline-row-list] .group\/timeline-row > button > span > span:has(> span > .animate-shine:first-child)::before,
 :root[data-pk-loader="coins"]:not([data-pk-coins-ready]) [data-timeline-row-list] .group\/timeline-row > button > span > span:has(> span > .animate-shine:first-child)::before {
   background:
-    linear-gradient(color-mix(in oklch, var(--pk-px-on) calc(var(--pk-px-b) * 100%), transparent) 0 0) 0px 0px / 4px 4px no-repeat,
-    linear-gradient(color-mix(in oklch, var(--pk-px-on) calc(var(--pk-px-c) * 100%), transparent) 0 0) 5px 0px / 4px 4px no-repeat,
-    linear-gradient(color-mix(in oklch, var(--pk-px-on) calc(var(--pk-px-d) * 100%), transparent) 0 0) 10px 0px / 4px 4px no-repeat,
-    linear-gradient(color-mix(in oklch, var(--pk-px-on) calc(var(--pk-px-a) * 100%), transparent) 0 0) 0px 5px / 4px 4px no-repeat,
-    linear-gradient(color-mix(in oklch, var(--pk-px-on) calc(var(--pk-px-b) * 100%), transparent) 0 0) 5px 5px / 4px 4px no-repeat,
-    linear-gradient(color-mix(in oklch, var(--pk-px-on) calc(var(--pk-px-c) * 100%), transparent) 0 0) 10px 5px / 4px 4px no-repeat,
-    linear-gradient(color-mix(in oklch, var(--pk-px-on) calc(var(--pk-px-b) * 100%), transparent) 0 0) 0px 10px / 4px 4px no-repeat,
-    linear-gradient(color-mix(in oklch, var(--pk-px-on) calc(var(--pk-px-c) * 100%), transparent) 0 0) 5px 10px / 4px 4px no-repeat,
-    linear-gradient(color-mix(in oklch, var(--pk-px-on) calc(var(--pk-px-d) * 100%), transparent) 0 0) 10px 10px / 4px 4px no-repeat;
+    linear-gradient(color-mix(in oklab, var(--pk-px-on) calc(var(--pk-px-b) * 100%), transparent) 0 0) 0px 0px / 4px 4px no-repeat,
+    linear-gradient(color-mix(in oklab, var(--pk-px-on) calc(var(--pk-px-c) * 100%), transparent) 0 0) 5px 0px / 4px 4px no-repeat,
+    linear-gradient(color-mix(in oklab, var(--pk-px-on) calc(var(--pk-px-d) * 100%), transparent) 0 0) 10px 0px / 4px 4px no-repeat,
+    linear-gradient(color-mix(in oklab, var(--pk-px-on) calc(var(--pk-px-a) * 100%), transparent) 0 0) 0px 5px / 4px 4px no-repeat,
+    linear-gradient(color-mix(in oklab, var(--pk-px-on) calc(var(--pk-px-b) * 100%), transparent) 0 0) 5px 5px / 4px 4px no-repeat,
+    linear-gradient(color-mix(in oklab, var(--pk-px-on) calc(var(--pk-px-c) * 100%), transparent) 0 0) 10px 5px / 4px 4px no-repeat,
+    linear-gradient(color-mix(in oklab, var(--pk-px-on) calc(var(--pk-px-b) * 100%), transparent) 0 0) 0px 10px / 4px 4px no-repeat,
+    linear-gradient(color-mix(in oklab, var(--pk-px-on) calc(var(--pk-px-c) * 100%), transparent) 0 0) 5px 10px / 4px 4px no-repeat,
+    linear-gradient(color-mix(in oklab, var(--pk-px-on) calc(var(--pk-px-d) * 100%), transparent) 0 0) 10px 10px / 4px 4px no-repeat;
   animation:
     pk-px-a 650ms ease-in-out 0ms infinite,
     pk-px-b 650ms ease-in-out 90ms infinite,
@@ -243,15 +243,15 @@
 /* Dots: the same sweep with round pixels. */
 :root[data-pk-loader="dots"] [data-timeline-row-list] .group\/timeline-row > button > span > span:has(> span > .animate-shine:first-child)::before {
   background:
-    radial-gradient(closest-side, color-mix(in oklch, var(--pk-px-on) calc(var(--pk-px-b) * 100%), transparent) 90%, transparent) 0px 0px / 4px 4px no-repeat,
-    radial-gradient(closest-side, color-mix(in oklch, var(--pk-px-on) calc(var(--pk-px-c) * 100%), transparent) 90%, transparent) 5px 0px / 4px 4px no-repeat,
-    radial-gradient(closest-side, color-mix(in oklch, var(--pk-px-on) calc(var(--pk-px-d) * 100%), transparent) 90%, transparent) 10px 0px / 4px 4px no-repeat,
-    radial-gradient(closest-side, color-mix(in oklch, var(--pk-px-on) calc(var(--pk-px-a) * 100%), transparent) 90%, transparent) 0px 5px / 4px 4px no-repeat,
-    radial-gradient(closest-side, color-mix(in oklch, var(--pk-px-on) calc(var(--pk-px-b) * 100%), transparent) 90%, transparent) 5px 5px / 4px 4px no-repeat,
-    radial-gradient(closest-side, color-mix(in oklch, var(--pk-px-on) calc(var(--pk-px-c) * 100%), transparent) 90%, transparent) 10px 5px / 4px 4px no-repeat,
-    radial-gradient(closest-side, color-mix(in oklch, var(--pk-px-on) calc(var(--pk-px-b) * 100%), transparent) 90%, transparent) 0px 10px / 4px 4px no-repeat,
-    radial-gradient(closest-side, color-mix(in oklch, var(--pk-px-on) calc(var(--pk-px-c) * 100%), transparent) 90%, transparent) 5px 10px / 4px 4px no-repeat,
-    radial-gradient(closest-side, color-mix(in oklch, var(--pk-px-on) calc(var(--pk-px-d) * 100%), transparent) 90%, transparent) 10px 10px / 4px 4px no-repeat;
+    radial-gradient(closest-side, color-mix(in oklab, var(--pk-px-on) calc(var(--pk-px-b) * 100%), transparent) 90%, transparent) 0px 0px / 4px 4px no-repeat,
+    radial-gradient(closest-side, color-mix(in oklab, var(--pk-px-on) calc(var(--pk-px-c) * 100%), transparent) 90%, transparent) 5px 0px / 4px 4px no-repeat,
+    radial-gradient(closest-side, color-mix(in oklab, var(--pk-px-on) calc(var(--pk-px-d) * 100%), transparent) 90%, transparent) 10px 0px / 4px 4px no-repeat,
+    radial-gradient(closest-side, color-mix(in oklab, var(--pk-px-on) calc(var(--pk-px-a) * 100%), transparent) 90%, transparent) 0px 5px / 4px 4px no-repeat,
+    radial-gradient(closest-side, color-mix(in oklab, var(--pk-px-on) calc(var(--pk-px-b) * 100%), transparent) 90%, transparent) 5px 5px / 4px 4px no-repeat,
+    radial-gradient(closest-side, color-mix(in oklab, var(--pk-px-on) calc(var(--pk-px-c) * 100%), transparent) 90%, transparent) 10px 5px / 4px 4px no-repeat,
+    radial-gradient(closest-side, color-mix(in oklab, var(--pk-px-on) calc(var(--pk-px-b) * 100%), transparent) 90%, transparent) 0px 10px / 4px 4px no-repeat,
+    radial-gradient(closest-side, color-mix(in oklab, var(--pk-px-on) calc(var(--pk-px-c) * 100%), transparent) 90%, transparent) 5px 10px / 4px 4px no-repeat,
+    radial-gradient(closest-side, color-mix(in oklab, var(--pk-px-on) calc(var(--pk-px-d) * 100%), transparent) 90%, transparent) 10px 10px / 4px 4px no-repeat;
   animation:
     pk-px-a 650ms ease-in-out 0ms infinite,
     pk-px-b 650ms ease-in-out 90ms infinite,
@@ -261,15 +261,15 @@
 /* Orbit: one lit pixel walks the edge; the centre stays dim. */
 :root[data-pk-loader="orbit"] [data-timeline-row-list] .group\/timeline-row > button > span > span:has(> span > .animate-shine:first-child)::before {
   background:
-    linear-gradient(color-mix(in oklch, var(--pk-px-on) calc(var(--pk-orb-0) * 100%), transparent) 0 0) 0px 0px / 4px 4px no-repeat,
-    linear-gradient(color-mix(in oklch, var(--pk-px-on) calc(var(--pk-orb-1) * 100%), transparent) 0 0) 5px 0px / 4px 4px no-repeat,
-    linear-gradient(color-mix(in oklch, var(--pk-px-on) calc(var(--pk-orb-2) * 100%), transparent) 0 0) 10px 0px / 4px 4px no-repeat,
-    linear-gradient(color-mix(in oklch, var(--pk-px-on) calc(var(--pk-orb-7) * 100%), transparent) 0 0) 0px 5px / 4px 4px no-repeat,
-    linear-gradient(color-mix(in oklch, var(--pk-px-on) 7%, transparent) 0 0) 5px 5px / 4px 4px no-repeat,
-    linear-gradient(color-mix(in oklch, var(--pk-px-on) calc(var(--pk-orb-3) * 100%), transparent) 0 0) 10px 5px / 4px 4px no-repeat,
-    linear-gradient(color-mix(in oklch, var(--pk-px-on) calc(var(--pk-orb-6) * 100%), transparent) 0 0) 0px 10px / 4px 4px no-repeat,
-    linear-gradient(color-mix(in oklch, var(--pk-px-on) calc(var(--pk-orb-5) * 100%), transparent) 0 0) 5px 10px / 4px 4px no-repeat,
-    linear-gradient(color-mix(in oklch, var(--pk-px-on) calc(var(--pk-orb-4) * 100%), transparent) 0 0) 10px 10px / 4px 4px no-repeat;
+    linear-gradient(color-mix(in oklab, var(--pk-px-on) calc(var(--pk-orb-0) * 100%), transparent) 0 0) 0px 0px / 4px 4px no-repeat,
+    linear-gradient(color-mix(in oklab, var(--pk-px-on) calc(var(--pk-orb-1) * 100%), transparent) 0 0) 5px 0px / 4px 4px no-repeat,
+    linear-gradient(color-mix(in oklab, var(--pk-px-on) calc(var(--pk-orb-2) * 100%), transparent) 0 0) 10px 0px / 4px 4px no-repeat,
+    linear-gradient(color-mix(in oklab, var(--pk-px-on) calc(var(--pk-orb-7) * 100%), transparent) 0 0) 0px 5px / 4px 4px no-repeat,
+    linear-gradient(color-mix(in oklab, var(--pk-px-on) 7%, transparent) 0 0) 5px 5px / 4px 4px no-repeat,
+    linear-gradient(color-mix(in oklab, var(--pk-px-on) calc(var(--pk-orb-3) * 100%), transparent) 0 0) 10px 5px / 4px 4px no-repeat,
+    linear-gradient(color-mix(in oklab, var(--pk-px-on) calc(var(--pk-orb-6) * 100%), transparent) 0 0) 0px 10px / 4px 4px no-repeat,
+    linear-gradient(color-mix(in oklab, var(--pk-px-on) calc(var(--pk-orb-5) * 100%), transparent) 0 0) 5px 10px / 4px 4px no-repeat,
+    linear-gradient(color-mix(in oklab, var(--pk-px-on) calc(var(--pk-orb-4) * 100%), transparent) 0 0) 10px 10px / 4px 4px no-repeat;
   animation:
     pk-orb-0 950ms ease-in-out 0ms infinite,
     pk-orb-1 950ms ease-in-out 110ms infinite,
@@ -386,8 +386,8 @@
   border-radius: 999px;
   box-shadow:
     0 0 0 1px var(--pk-line),
-    0 8px 24px -6px color-mix(in oklch, black 35%, transparent),
-    0 2px 6px color-mix(in oklch, black 12%, transparent);
+    0 8px 24px -6px color-mix(in oklab, black 35%, transparent),
+    0 2px 6px color-mix(in oklab, black 12%, transparent);
   transform-origin: var(--radix-popover-content-transform-origin);
   animation-duration: 180ms;
   animation-timing-function: var(--pk-ease-out);
@@ -541,8 +541,8 @@ ul)>li+li:before {
    darkens. The running row is the current node: its curve and the trunk leading
    down to it from the header are lit. */
 :root:not([data-pk-off~="tree"]) [data-timeline-row-list="bundle"] {
-  --pk-tree-dim: color-mix(in oklch, var(--ink) 22%, var(--background));
-  --pk-tree-lit: color-mix(in oklch, var(--ink) 72%, var(--background));
+  --pk-tree-dim: color-mix(in oklab, var(--ink) 22%, var(--background));
+  --pk-tree-lit: color-mix(in oklab, var(--ink) 72%, var(--background));
   position: relative;
   margin-left: 7px;
   padding-left: 16px;
@@ -891,6 +891,57 @@ ul)>li+li:before {
     overflow: hidden !important;
     text-overflow: ellipsis !important;
     white-space: nowrap !important;
+  }
+}
+
+/* ── Phone context row: wrap instead of squeezing ───────────────────────────
+   With a project, a machine, a branch and access mode there is no room for one
+   line at 390px. The chips flow onto a second line; access stays right-aligned
+   on the last line; long project and branch names truncate only past 60%. */
+@media (max-width: 640px) {
+  :root:not([data-pk-off~="prompt"]) :is(
+    [data-follow-up-composer-footer],
+    [data-app-composer]:not(:has([data-follow-up-composer])) > div:has(> div [data-promptbox-project-control])
+  ) {
+    flex-wrap: wrap !important;
+    row-gap: 6px !important;
+    column-gap: 6px !important;
+  }
+
+  :root:not([data-pk-off~="prompt"]) :is(
+    [data-follow-up-composer-footer],
+    [data-app-composer]:not(:has([data-follow-up-composer])) > div:has(> div [data-promptbox-project-control])
+  ) > div:first-child {
+    display: contents !important;
+  }
+
+  :root:not([data-pk-off~="prompt"]) :is(
+    [data-follow-up-composer-footer],
+    [data-app-composer]:not(:has([data-follow-up-composer])) > div:has(> div [data-promptbox-project-control])
+  ) > div:first-child > div {
+    display: contents !important;
+  }
+
+  :root:not([data-pk-off~="prompt"]) :is(
+    [data-follow-up-composer-footer],
+    [data-app-composer]:not(:has([data-follow-up-composer])) > div:has(> div [data-promptbox-project-control])
+  ) > div:last-child {
+    margin-left: auto !important;
+  }
+
+  :root:not([data-pk-off~="prompt"]) [data-app-composer] :is(.pf-native-project-slot, [data-option-display]) {
+    flex: 0 1 auto !important;
+    max-width: 60% !important;
+    min-width: 0 !important;
+  }
+
+  :root:not([data-pk-off~="prompt"]) [data-app-composer] [data-bb-plugin="environment-project-checkout"] button[role="combobox"] {
+    max-width: 60%;
+    min-width: 0;
+  }
+
+  :root:not([data-pk-off~="prompt"]) [data-app-composer] :is(button[data-promptbox-shrinkable-control], [data-follow-up-composer-footer] span.inline-flex.h-6) {
+    flex: 0 0 auto !important;
   }
 }
 

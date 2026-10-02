@@ -49,7 +49,7 @@
   --border-hairline: #e2e3e2;
   --border-seam: #eaeceb;
   --input: #cfcfcf;
-  --ring: color-mix(in oklch, var(--primary) 70%, var(--canvas));
+  --ring: color-mix(in oklab, var(--primary) 70%, var(--canvas));
 
   --sidebar: #ededed;
   --sidebar-foreground: var(--ink);
@@ -125,7 +125,7 @@
   --border-hairline: #30353e;
   --border-seam: #282d35;
   --input: #3a3f49;
-  --ring: color-mix(in oklch, var(--primary) 70%, var(--canvas));
+  --ring: color-mix(in oklab, var(--primary) 70%, var(--canvas));
 
   --sidebar: #0e1014;
   --sidebar-foreground: var(--ink);
@@ -178,6 +178,43 @@ body {
   [data-collapsible="offcanvas"] ~ [data-sidebar="inset"] {
     margin-left: 12px;
   }
+}
+
+/* ── Page header (desktop): Pokecut's header strip, a card inside the panel ─ */
+@media (min-width: 768px) {
+  [data-sidebar="inset"] :has(> [data-testid="app-page-header-content-row"]) {
+    border-bottom-color: transparent;
+  }
+
+  [data-sidebar="inset"] [data-testid="app-page-header-content-row"] {
+    margin: 8px 8px 0;
+    padding-inline: 8px;
+    border: 1px solid var(--pk-hairline);
+    border-radius: 14px;
+    background-color: var(--pk-card);
+    box-shadow: var(--pk-card-drop);
+  }
+}
+
+/* ── Recents on the phone start screen: one card, rows as pills ──────────── */
+section[data-root-compose-mobile-recents] > div:first-child {
+  background-color: transparent;
+}
+
+section[data-root-compose-mobile-recents] ul {
+  padding: 4px;
+  border: 1px solid var(--pk-hairline);
+  border-radius: 16px;
+  background-color: var(--pk-card);
+  box-shadow: var(--pk-card-drop);
+}
+
+section[data-root-compose-mobile-recents] li {
+  border-radius: 12px;
+}
+
+section[data-root-compose-mobile-recents] li:active {
+  background-color: var(--state-hover);
 }
 
 /* ── Right panel (desktop): gray well, the panel body as one raised card ───── */
@@ -260,7 +297,7 @@ body {
   padding: 4px;
   border: 1px solid var(--pk-hairline);
   border-radius: 16px;
-  background-color: color-mix(in oklch, var(--pk-panel) 70%, var(--pk-shell));
+  background-color: color-mix(in oklab, var(--pk-panel) 70%, var(--pk-shell));
   box-shadow: var(--pk-card-drop);
 }
 
@@ -296,7 +333,7 @@ body {
 }
 
 :root:root:root:root [data-app-composer] form[data-promptbox]:focus-within {
-  border-color: color-mix(in oklch, var(--primary) 45%, var(--pk-outline));
+  border-color: color-mix(in oklab, var(--primary) 45%, var(--pk-outline));
 }
 
 /* The send split button (send + options chevron) wears the Pokecut
@@ -328,12 +365,45 @@ body {
   border-color: transparent;
 }
 
-/* ── Floating surfaces: menus, popovers and dialogs ───────────────────────── */
-[data-radix-popper-content-wrapper] > [role="menu"],
-[data-radix-popper-content-wrapper] > [role="listbox"],
+/* ── Floating surfaces: menus, popovers and dialogs ───────────────────────
+   Pokecut's dropdown: a frosted card with an outline and a soft drop; rows
+   become hairline pills when highlighted. Popovers are solid cards; modal
+   dialogs are 20px cards. Drawers and the side panels keep their own shape. */
+[data-radix-popper-content-wrapper] > :is([role="menu"], [role="listbox"]) {
+  padding: 4px;
+  border: 1px solid var(--pk-outline);
+  border-radius: 12px;
+  background-color: color-mix(in oklab, var(--popover) 84%, transparent);
+  -webkit-backdrop-filter: blur(16px) saturate(1.4);
+  backdrop-filter: blur(16px) saturate(1.4);
+  box-shadow: var(--pk-drop), 0 18px 40px -18px rgb(0 0 0 / 0.22);
+}
+
+[data-radix-popper-content-wrapper] :is([role="menuitem"], [role="menuitemradio"], [role="menuitemcheckbox"], [role="option"]) {
+  border-radius: 8px;
+}
+
+[data-radix-popper-content-wrapper] :is([role="menuitem"], [role="menuitemradio"], [role="menuitemcheckbox"], [role="option"]):is([data-highlighted], [aria-selected="true"]) {
+  background-color: var(--pk-card);
+  box-shadow: inset 0 0 0 1px var(--pk-hairline);
+}
+
+[data-radix-popper-content-wrapper] [role="separator"] {
+  background-color: var(--pk-hairline);
+}
+
 [data-radix-popper-content-wrapper] > [role="dialog"] {
   border-color: var(--pk-outline);
-  box-shadow: var(--pk-drop);
+  border-radius: 14px;
+  box-shadow: var(--pk-drop), 0 18px 40px -18px rgb(0 0 0 / 0.22);
+}
+
+@media (min-width: 768px) {
+  [role="dialog"][data-state="open"]:not([data-radix-popper-content-wrapper] *):not([data-sidebar]):not([data-testid="secondary-panel-shelf"]):not([data-vaul-drawer]):not([data-vaul-drawer-direction]) {
+    border-color: var(--pk-outline);
+    border-radius: 20px;
+    box-shadow: var(--pk-drop), 0 30px 60px -20px rgb(0 0 0 / 0.3);
+  }
 }
 
 /* ── Code blocks as recessed wells ────────────────────────────────────────── */
@@ -361,7 +431,8 @@ body {
   [data-option-display],
   button[data-promptbox-project-control]:not(.pf-native-project-slot ~ *),
   button[data-promptbox-shrinkable-control],
-  button[aria-haspopup="menu"]:has([data-promptbox-compact-label])
+  button[aria-haspopup="menu"]:has([data-promptbox-compact-label]),
+  [data-bb-plugin="environment-project-checkout"] button[role="combobox"]
 ),
 [data-follow-up-composer-footer] span.inline-flex.h-6 {
   display: inline-flex;
