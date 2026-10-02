@@ -1,7 +1,7 @@
-// Timeline marks: BB prints "1 error" / "2 errors" in the same tabular slot as a
-// row's duration, so CSS cannot tell them apart. This marks those labels (and the
+// Timeline marks: BB prints "1 error" / "2 errors" as a small mono label next to
+// a row's label or duration, with no attribute of its own, so CSS cannot find it. This marks those labels (and the
 // rows that carry them) so the theme can draw a red chip and a red status dot.
-const LABEL = '[data-timeline-row-list] .group\\/timeline-row > button .tabular-nums';
+const LABEL = '[data-timeline-row-list] [data-timeline-row-id] span:is(.tabular-nums, .font-mono)';
 const ERROR_TEXT = /\berrors?\b|ошиб/i;
 
 export function isErrorLabel(text: string | null): boolean {

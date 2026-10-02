@@ -220,8 +220,7 @@
   width: 14px;
   height: 14px;
 }
-/* Drive (default): square pixels sweep diagonally. */
-:root:not([data-pk-loader]) [data-timeline-row-list] .group\/timeline-row > button > span > span:has(> span > .animate-shine:first-child)::before,
+/* Drive: square pixels sweep diagonally. */
 :root[data-pk-loader="drive"] [data-timeline-row-list] .group\/timeline-row > button > span > span:has(> span > .animate-shine:first-child)::before,
 :root[data-pk-loader="coins"]:not([data-pk-coins-ready]) [data-timeline-row-list] .group\/timeline-row > button > span > span:has(> span > .animate-shine:first-child)::before {
   background:
@@ -239,6 +238,16 @@
     pk-px-b 650ms ease-in-out 90ms infinite,
     pk-px-c 650ms ease-in-out 180ms infinite,
     pk-px-d 650ms ease-in-out 270ms infinite;
+}
+/* Pokecut ring (default): the accent gradient turning in a thin ring. */
+@keyframes pk-spin { to { transform: rotate(1turn); } }
+:root:not([data-pk-loader]) [data-timeline-row-list] .group\/timeline-row > button > span > span:has(> span > .animate-shine:first-child)::before,
+:root[data-pk-loader="pokecut"] [data-timeline-row-list] .group\/timeline-row > button > span > span:has(> span > .animate-shine:first-child)::before {
+  border-radius: 50%;
+  background: conic-gradient(from 0deg, transparent 0 18%, #d96d98 40%, #aa79bf 72%, #8c69c3);
+  -webkit-mask: radial-gradient(circle, transparent 4.2px, #000 4.7px);
+  mask: radial-gradient(circle, transparent 4.2px, #000 4.7px);
+  animation: pk-spin 900ms linear infinite;
 }
 /* Dots: the same sweep with round pixels. */
 :root[data-pk-loader="dots"] [data-timeline-row-list] .group\/timeline-row > button > span > span:has(> span > .animate-shine:first-child)::before {
@@ -1002,8 +1011,12 @@ ul)>li+li:before {
   box-shadow: var(--pk-card-drop);
 }
 
-:root:not([data-pk-off~="rows"]) [data-timeline-row-list="bundle"] > [data-timeline-items] > [data-timeline-row-id] + [data-timeline-row-id] > .rounded-md {
+:root:not([data-pk-off~="rows"]) [data-timeline-row-list="bundle"] > [data-timeline-items] > [data-timeline-row-id] + [data-timeline-row-id] {
   border-top: 1px solid var(--pk-hairline);
+}
+
+:root:not([data-pk-off~="rows"]) [data-timeline-row-list="bundle"] > [data-timeline-items] > [data-timeline-row-id] > .rounded-md {
+  border-radius: 0;
 }
 
 :root:not([data-pk-off~="rows"]) [data-timeline-row-list="bundle"] > [data-timeline-items] > [data-timeline-row-id] > .rounded-md > .group\/timeline-row > button {
@@ -1046,15 +1059,15 @@ ul)>li+li:before {
 :root:not([data-pk-off~="rows"]) [data-timeline-row-list="bundle"] > [data-timeline-items] > [data-timeline-row-id] .group\/timeline-row > button > span > span:not(:has(.animate-shine)):has(span.font-medium)::before {
   content: "";
   flex-shrink: 0;
-  width: 6px;
-  height: 6px;
-  margin-inline: 4px 2px;
-  border-radius: 50%;
-  background-color: color-mix(in oklab, var(--ink) 30%, transparent);
+  width: 14px;
+  height: 14px;
+  margin: 0;
+  border-radius: 0;
+  background: radial-gradient(circle, var(--pk-dot, color-mix(in oklab, var(--ink) 32%, transparent)) 0 3px, transparent 3.5px);
 }
 
 :root:not([data-pk-off~="rows"]) [data-timeline-row-list="bundle"] > [data-timeline-items] > [data-timeline-row-id][data-pk-err-row] .group\/timeline-row > button > span > span::before {
-  background-color: var(--destructive);
+  --pk-dot: var(--destructive);
 }
 
 :root:not([data-pk-off~="rows"]) [data-timeline-row-list="bundle"] > [data-timeline-items] > [data-timeline-row-id][data-pk-err-row] > .rounded-md {
@@ -1062,7 +1075,7 @@ ul)>li+li:before {
 }
 
 /* Error counts as red chips, in group headers and rows alike. */
-:root:not([data-pk-off~="rows"]) [data-timeline-row-list] .tabular-nums[data-pk-err] {
+:root:not([data-pk-off~="rows"]) [data-timeline-row-list] [data-pk-err] {
   display: inline-flex;
   align-items: center;
   height: 18px;
@@ -1075,6 +1088,62 @@ ul)>li+li:before {
   font-family: var(--font-sans);
   font-size: 11px;
   font-weight: 500;
+}
+
+/* Inside the group card the card itself is the grouping: no tree lines, an
+   even left edge, and reasoning rows ("Thought") one step quieter. */
+:root:not([data-pk-off~="rows"]) [data-timeline-row-list="bundle"] {
+  margin-left: 4px !important;
+  padding-left: 6px !important;
+}
+
+:root:not([data-pk-off~="rows"]) [data-timeline-row-list="bundle"] > [data-timeline-items] > [data-timeline-row-id]::before,
+:root:not([data-pk-off~="rows"]) [data-timeline-row-list="bundle"] > [data-timeline-items] > [data-timeline-row-id]::after {
+  content: none !important;
+}
+
+:root:not([data-pk-off~="rows"]) [data-timeline-row-list="bundle"] > [data-timeline-items] > [data-timeline-row-id][data-timeline-row-id*="reasoning"] .group\/timeline-row > button {
+  opacity: 0.6;
+}
+
+:root:not([data-pk-off~="rows"]) [data-timeline-row-list="bundle"] > [data-timeline-items] > [data-timeline-row-id][data-timeline-row-id*="reasoning"] .group\/timeline-row > button:hover {
+  opacity: 1;
+}
+
+/* One grid for every row in a group card, whatever its markup (button rows,
+   static rows such as "Read file"): 8px inset, a 14px icon cell, 8px to the
+   text, durations and error marks in a right-hand column. */
+:root:not([data-pk-off~="rows"]) [data-timeline-row-list="bundle"] > [data-timeline-items] > [data-timeline-row-id] > .rounded-md > .group\/timeline-row > button,
+:root:not([data-pk-off~="rows"]) [data-timeline-row-list="bundle"] > [data-timeline-items] > [data-timeline-row-id] > .rounded-md > div.items-center {
+  width: 100%;
+  padding-inline: 8px !important;
+}
+
+:root:not([data-pk-off~="rows"]) [data-timeline-row-list="bundle"] > [data-timeline-items] > [data-timeline-row-id] .inline-flex.items-center:has(> span[title]) {
+  gap: 8px !important;
+  width: 100%;
+}
+
+:root:not([data-pk-off~="rows"]) [data-timeline-row-list="bundle"] > [data-timeline-items] > [data-timeline-row-id] .inline-flex.items-center:has(> span[title]) > svg {
+  width: 14px;
+  height: 14px;
+  flex: 0 0 14px;
+}
+
+:root:not([data-pk-off~="rows"]) [data-timeline-row-list="bundle"] > [data-timeline-items] > [data-timeline-row-id] span.min-w-0.max-w-full:has(> .inline-flex),
+:root:not([data-pk-off~="rows"]) [data-timeline-row-list="bundle"] > [data-timeline-items] > [data-timeline-row-id] span[title] {
+  flex: 1 1 auto;
+  width: 100%;
+}
+
+:root:not([data-pk-off~="rows"]) [data-timeline-row-list="bundle"] > [data-timeline-items] > [data-timeline-row-id] span[title] > span.font-medium + span,
+:root:not([data-pk-off~="rows"]) [data-timeline-row-list="bundle"] > [data-timeline-items] > [data-timeline-row-id] span[title] > span.tabular-nums:first-child {
+  margin-left: auto;
+  padding-left: 12px;
+}
+
+:root:not([data-pk-off~="rows"]) [data-timeline-row-list="bundle"] > [data-timeline-items] > [data-timeline-row-id] span[title] > span.font-medium + span + span {
+  margin-left: 6px;
 }
 
 @media (prefers-reduced-motion: reduce) {

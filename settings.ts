@@ -1,9 +1,9 @@
 // Chat-layer preferences → attributes on <html> that the theme CSS switches on.
 // Pure so it can be tested; values arrive from plugin storage and are untrusted.
 
-/** Pending-row loader. drive/dots/orbit are BeautifulUI's variants, coins is Originkit's
-    Coin Loader; bb keeps BB's own icon. */
-export const LOADERS = ["drive", "dots", "orbit", "coins", "bb"] as const;
+/** Pending-row loader. pokecut is the accent-gradient ring; drive/dots/orbit are
+    BeautifulUI's variants, coins is Originkit's Coin Loader; bb keeps BB's own icon. */
+export const LOADERS = ["pokecut", "drive", "dots", "orbit", "coins", "bb"] as const;
 
 /** Tool call rows: filled chip, hairline only, or BB's plain row. */
 export const CHIP_STYLES = ["surface", "outline", "plain"] as const;
@@ -33,7 +33,7 @@ export const TOGGLE_KEYS = Object.keys(TOGGLES) as ToggleKey[];
 export type Prefs = { loader: Loader; toolChips: ChipStyle } & Record<ToggleKey, boolean>;
 
 export const DEFAULT_PREFS: Prefs = {
-  loader: "drive",
+  loader: "pokecut",
   toolChips: "surface",
   ...(Object.fromEntries(TOGGLE_KEYS.map((key) => [key, true])) as Record<ToggleKey, boolean>),
 };
