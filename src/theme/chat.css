@@ -307,10 +307,10 @@
 }
 
 /* ── Streaming caret (streamingCaret): trails the reply while the run is live ── */
-:root:not([data-pk-off~="caret"]) #thread-detail-timeline-panel:has([data-promptbox-submit-action]:is([aria-label="Stop run"], [aria-label^="Steer current run"]))
+:root:not([data-pk-off~="caret"]) #thread-detail-timeline-panel:has([data-promptbox-submit-action]:is([aria-label="Stop run"], [aria-label^="Steer current run"], :has(svg[data-icon="Square"])))
   [data-timeline-row-list="top-level"] > [data-timeline-row-id*=":assistant:"]:last-child [data-markdown-preview]
   > :is(p, h1, h2, h3, h4, h5, h6):last-child::after,
-:root:not([data-pk-off~="caret"]) #thread-detail-timeline-panel:has([data-promptbox-submit-action]:is([aria-label="Stop run"], [aria-label^="Steer current run"]))
+:root:not([data-pk-off~="caret"]) #thread-detail-timeline-panel:has([data-promptbox-submit-action]:is([aria-label="Stop run"], [aria-label^="Steer current run"], :has(svg[data-icon="Square"])))
   [data-timeline-row-list="top-level"] > [data-timeline-row-id*=":assistant:"]:last-child [data-markdown-preview]
   > :is(ul, ol):last-child > li:last-child::after {
   content: "";
@@ -450,23 +450,23 @@
    the trigger swapped for the send button: "Stop run" means a run is live and the
    box is empty. Typing a follow-up flips it to "Steer current run", so the box
    grows back as soon as you type, focused or not; voice input keeps the full box. */
-:root:not([data-pk-off~="minimize"]) [data-follow-up-composer]:has([data-promptbox-submit-action][aria-label="Stop run"]) [data-promptbox]:not([data-promptbox-voice-active]) {
+:root:not([data-pk-off~="minimize"]) [data-follow-up-composer]:has([data-promptbox-submit-action]:is([aria-label="Stop run"], :has(svg[data-icon="Square"]))) [data-promptbox]:not([data-promptbox-voice-active]) {
   overflow: hidden;
 }
-:root:not([data-pk-off~="minimize"]) [data-follow-up-composer]:has([data-promptbox-submit-action][aria-label="Stop run"]) [data-promptbox]:not([data-promptbox-voice-active]) [data-promptbox-action-row] {
+:root:not([data-pk-off~="minimize"]) [data-follow-up-composer]:has([data-promptbox-submit-action]:is([aria-label="Stop run"], :has(svg[data-icon="Square"]))) [data-promptbox]:not([data-promptbox-voice-active]) [data-promptbox-action-row] {
   inset-block: 0;
   gap: 0;
   padding: 0;
   position: absolute;
   right: .5rem;
 }
-:root:not([data-pk-off~="minimize"]) [data-follow-up-composer]:has([data-promptbox-submit-action][aria-label="Stop run"]) [data-promptbox]:not([data-promptbox-voice-active]) [data-promptbox-main] {
+:root:not([data-pk-off~="minimize"]) [data-follow-up-composer]:has([data-promptbox-submit-action]:is([aria-label="Stop run"], :has(svg[data-icon="Square"]))) [data-promptbox]:not([data-promptbox-voice-active]) [data-promptbox-main] {
   height: 3rem;
 }
-:root:not([data-pk-off~="minimize"]) [data-follow-up-composer]:has([data-promptbox-submit-action][aria-label="Stop run"]) [data-promptbox]:not([data-promptbox-voice-active]) [data-promptbox-expanded-only] {
+:root:not([data-pk-off~="minimize"]) [data-follow-up-composer]:has([data-promptbox-submit-action]:is([aria-label="Stop run"], :has(svg[data-icon="Square"]))) [data-promptbox]:not([data-promptbox-voice-active]) [data-promptbox-expanded-only] {
   display: none!important;
 }
-:root:not([data-pk-off~="minimize"]) [data-follow-up-composer]:has([data-promptbox-submit-action][aria-label="Stop run"]) [data-promptbox]:not([data-promptbox-voice-active]) [data-promptbox-editor-scroll] {
+:root:not([data-pk-off~="minimize"]) [data-follow-up-composer]:has([data-promptbox-submit-action]:is([aria-label="Stop run"], :has(svg[data-icon="Square"]))) [data-promptbox]:not([data-promptbox-voice-active]) [data-promptbox-editor-scroll] {
   padding-top: 0;
   padding-bottom: 0;
   padding-right: 3.5rem;
@@ -475,12 +475,12 @@
   min-height: 3rem!important;
   max-height: 3rem!important;
 }
-:root:not([data-pk-off~="minimize"]) [data-follow-up-composer]:has([data-promptbox-submit-action][aria-label="Stop run"]) [data-promptbox]:not([data-promptbox-voice-active]) [data-promptbox-editor-content] {
+:root:not([data-pk-off~="minimize"]) [data-follow-up-composer]:has([data-promptbox-submit-action]:is([aria-label="Stop run"], :has(svg[data-icon="Square"]))) [data-promptbox]:not([data-promptbox-voice-active]) [data-promptbox-editor-content] {
   align-items: center;
   height: 100%;
   display: flex;
 }
-:root:not([data-pk-off~="minimize"]) [data-follow-up-composer]:has([data-promptbox-submit-action][aria-label="Stop run"]) [data-promptbox]:not([data-promptbox-voice-active]) [data-promptbox-editor-content] .ProseMirror[contenteditable] {
+:root:not([data-pk-off~="minimize"]) [data-follow-up-composer]:has([data-promptbox-submit-action]:is([aria-label="Stop run"], :has(svg[data-icon="Square"]))) [data-promptbox]:not([data-promptbox-voice-active]) [data-promptbox-editor-content] .ProseMirror[contenteditable] {
   text-overflow: ellipsis;
   width: 100%;
   max-height: 1.7em;
@@ -488,8 +488,8 @@
   white-space: nowrap!important;
   min-height: 0!important;
 }
-:root:not([data-pk-off~="minimize"]) [data-follow-up-composer]:has([data-promptbox-submit-action][aria-label="Stop run"]) [data-promptbox]:not([data-promptbox-voice-active]) [data-promptbox-editor-content] .ProseMirror[contenteditable]>*,
-:root:not([data-pk-off~="minimize"]) [data-follow-up-composer]:has([data-promptbox-submit-action][aria-label="Stop run"]) [data-promptbox]:not([data-promptbox-voice-active]) [data-promptbox-editor-content] .ProseMirror[contenteditable] :where(blockquote,
+:root:not([data-pk-off~="minimize"]) [data-follow-up-composer]:has([data-promptbox-submit-action]:is([aria-label="Stop run"], :has(svg[data-icon="Square"]))) [data-promptbox]:not([data-promptbox-voice-active]) [data-promptbox-editor-content] .ProseMirror[contenteditable]>*,
+:root:not([data-pk-off~="minimize"]) [data-follow-up-composer]:has([data-promptbox-submit-action]:is([aria-label="Stop run"], :has(svg[data-icon="Square"]))) [data-promptbox]:not([data-promptbox-voice-active]) [data-promptbox-editor-content] .ProseMirror[contenteditable] :where(blockquote,
 h1,
 h2,
 h3,
@@ -511,24 +511,24 @@ ul) {
   list-style: none;
   display: inline;
 }
-:root:not([data-pk-off~="minimize"]) [data-follow-up-composer]:has([data-promptbox-submit-action][aria-label="Stop run"]) [data-promptbox]:not([data-promptbox-voice-active]) [data-promptbox-editor-content] .ProseMirror[contenteditable]>*+:before,
-:root:not([data-pk-off~="minimize"]) [data-follow-up-composer]:has([data-promptbox-submit-action][aria-label="Stop run"]) [data-promptbox]:not([data-promptbox-voice-active]) [data-promptbox-editor-content] .ProseMirror[contenteditable] :where(blockquote,
+:root:not([data-pk-off~="minimize"]) [data-follow-up-composer]:has([data-promptbox-submit-action]:is([aria-label="Stop run"], :has(svg[data-icon="Square"]))) [data-promptbox]:not([data-promptbox-voice-active]) [data-promptbox-editor-content] .ProseMirror[contenteditable]>*+:before,
+:root:not([data-pk-off~="minimize"]) [data-follow-up-composer]:has([data-promptbox-submit-action]:is([aria-label="Stop run"], :has(svg[data-icon="Square"]))) [data-promptbox]:not([data-promptbox-voice-active]) [data-promptbox-editor-content] .ProseMirror[contenteditable] :where(blockquote,
 li)>*+:before,
-:root:not([data-pk-off~="minimize"]) [data-follow-up-composer]:has([data-promptbox-submit-action][aria-label="Stop run"]) [data-promptbox]:not([data-promptbox-voice-active]) [data-promptbox-editor-content] .ProseMirror[contenteditable] :where(ol,
+:root:not([data-pk-off~="minimize"]) [data-follow-up-composer]:has([data-promptbox-submit-action]:is([aria-label="Stop run"], :has(svg[data-icon="Square"]))) [data-promptbox]:not([data-promptbox-voice-active]) [data-promptbox-editor-content] .ProseMirror[contenteditable] :where(ol,
 ul)>li+li:before {
   content: " ";
 }
-:root:not([data-pk-off~="minimize"]) [data-follow-up-composer]:has([data-promptbox-submit-action][aria-label="Stop run"]) [data-promptbox]:not([data-promptbox-voice-active]) [data-promptbox-editor-content] .ProseMirror[contenteditable] br {
+:root:not([data-pk-off~="minimize"]) [data-follow-up-composer]:has([data-promptbox-submit-action]:is([aria-label="Stop run"], :has(svg[data-icon="Square"]))) [data-promptbox]:not([data-promptbox-voice-active]) [data-promptbox-editor-content] .ProseMirror[contenteditable] br {
   content: " ";
   display: inline;
 }
-:root:not([data-pk-off~="minimize"]) [data-follow-up-composer]:has([data-promptbox-submit-action][aria-label="Stop run"]) [data-promptbox]:not([data-promptbox-voice-active]) [data-promptbox-editor-content] .ProseMirror[contenteditable] br:after {
+:root:not([data-pk-off~="minimize"]) [data-follow-up-composer]:has([data-promptbox-submit-action]:is([aria-label="Stop run"], :has(svg[data-icon="Square"]))) [data-promptbox]:not([data-promptbox-voice-active]) [data-promptbox-editor-content] .ProseMirror[contenteditable] br:after {
   content: " ";
 }
-:root:not([data-pk-off~="minimize"]) [data-follow-up-composer]:has([data-promptbox-submit-action][aria-label="Stop run"]) [data-promptbox]:not([data-promptbox-voice-active]) [data-promptbox-editor-content] .prompt-mention-pill>span:last-child {
+:root:not([data-pk-off~="minimize"]) [data-follow-up-composer]:has([data-promptbox-submit-action]:is([aria-label="Stop run"], :has(svg[data-icon="Square"]))) [data-promptbox]:not([data-promptbox-voice-active]) [data-promptbox-editor-content] .prompt-mention-pill>span:last-child {
   min-width: 0;
 }
-:root:not([data-pk-off~="minimize"]) [data-follow-up-composer]:has([data-promptbox-submit-action][aria-label="Stop run"]) [data-promptbox]:not([data-promptbox-voice-active]) [data-promptbox-editor-content] .ProseMirror p.is-editor-empty:first-child:before {
+:root:not([data-pk-off~="minimize"]) [data-follow-up-composer]:has([data-promptbox-submit-action]:is([aria-label="Stop run"], :has(svg[data-icon="Square"]))) [data-promptbox]:not([data-promptbox-voice-active]) [data-promptbox-editor-content] .ProseMirror p.is-editor-empty:first-child:before {
   content: var(--promptbox-container-compact-placeholder);
 }
 
@@ -806,7 +806,9 @@ ul)>li+li:before {
     flex: 0 1 auto !important;
   }
 
-  :root:not([data-pk-off~="prompt"]) [data-follow-up-composer] form[data-promptbox],
+  /* Only when the context row is actually docked below: a minimized composer has
+     no footer and must keep its own bottom edge. */
+  :root:not([data-pk-off~="prompt"]) [data-follow-up-composer]:has([data-follow-up-composer-footer]) form[data-promptbox],
   :root:not([data-pk-off~="prompt"]) [data-app-composer]:not(:has([data-follow-up-composer])) form[data-promptbox] {
     border-bottom-left-radius: 0 !important;
     border-bottom-right-radius: 0 !important;

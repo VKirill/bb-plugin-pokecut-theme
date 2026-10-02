@@ -213,6 +213,74 @@ body {
   border-radius: calc(var(--radius) - 2px);
 }
 
+/* ── Sidebar as a Pokecut menu ─────────────────────────────────────────────
+   Navigation rows are quiet until hovered; "New thread" is the raised pill
+   (Pokecut's active menu item). Each project (project-folders) is its own
+   card; "New project" reads like Pokecut's outlined search field; the footer
+   tool strip is a card like Pokecut's profile block. */
+[data-testid="plugin-nav-sidebar-items"] [data-sidebar-navigation-item] > button {
+  border-radius: 12px;
+  color: var(--muted-foreground);
+  transition: background-color 150ms ease, box-shadow 150ms ease, color 150ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  [data-testid="plugin-nav-sidebar-items"] [data-sidebar-navigation-item] > button:hover {
+    background-color: var(--pk-panel);
+    box-shadow: inset 0 0 0 1px var(--pk-hairline);
+    color: var(--foreground);
+  }
+}
+
+[data-testid="plugin-nav-sidebar-items"] [data-sidebar-navigation-item="__bb__/new-thread"] > button {
+  background-color: var(--pk-panel);
+  box-shadow:
+    inset 0 0 0 1px var(--pk-outline),
+    var(--pk-drop);
+  color: var(--foreground);
+  font-weight: 500;
+}
+
+[data-testid="navigation-divider"] {
+  border-color: var(--pk-hairline);
+}
+
+[data-sidebar="sidebar"] .pf-tree > button:first-child {
+  width: calc(100% - 4px);
+  margin-inline: 2px;
+  justify-content: flex-start;
+  border: 1px solid var(--pk-outline);
+  border-radius: 12px;
+  background-color: var(--pk-panel);
+  color: var(--muted-foreground);
+}
+
+[data-sidebar="sidebar"] .pf-project {
+  margin-bottom: 8px;
+  padding: 4px;
+  border: 1px solid var(--pk-hairline);
+  border-radius: 16px;
+  background-color: color-mix(in oklch, var(--pk-panel) 70%, var(--pk-shell));
+  box-shadow: var(--pk-card-drop);
+}
+
+[data-sidebar="sidebar"] .pf-project > .pf-heading .pf-label {
+  font-weight: 600;
+}
+
+[data-sidebar="sidebar"] .pf-thread:not(.pf-active):hover,
+[data-sidebar="sidebar"] .pf-heading:hover {
+  background-color: var(--state-hover);
+}
+
+[data-sidebar="footer"] > ul[data-sidebar="menu"] {
+  padding: 2px;
+  border: 1px solid var(--pk-outline);
+  border-radius: 14px;
+  background-color: var(--pk-panel);
+  box-shadow: var(--pk-drop);
+}
+
 [data-sidebar="sidebar"] input {
   border-radius: calc(var(--radius) - 2px);
 }
