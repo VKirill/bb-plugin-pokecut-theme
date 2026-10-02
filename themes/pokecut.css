@@ -2135,3 +2135,36 @@ ul)>li+li:before {
 .overflow-clip.rounded-lg.border:has(button[aria-label^="Copy path for"]) .text-diff-removed {
   background-color: color-mix(in oklab, var(--diff-removed) 12%, transparent);
 }
+
+/* Repository navigator (several repositories in one workspace). */
+.git-history-workspace .git-repository-navigator {
+  margin: 0 8px 6px;
+  border: 1px solid var(--pk-hairline);
+  border-radius: 12px;
+  background-color: var(--pk-card);
+  box-shadow: var(--pk-card-drop);
+  overflow: hidden;
+}
+
+.git-history-workspace .git-repository-row {
+  border-radius: 8px;
+}
+
+.git-history-workspace .git-repository-row:hover {
+  background-color: var(--state-hover);
+}
+
+.git-history-workspace .git-repository-row[data-selected="true"] {
+  background-color: var(--pk-panel);
+  box-shadow: inset 0 0 0 1px var(--pk-outline);
+}
+
+.git-history-workspace .git-repository-status[data-dirty="true"] {
+  color: var(--warning-text);
+}
+
+.git-history-workspace .git-repository-search input {
+  border-color: var(--pk-outline);
+  border-radius: 10px;
+  background-color: var(--pk-card);
+}
