@@ -13,6 +13,12 @@ and a pink-violet gradient on the send button. Light and dark.
 Only the visual language is reproduced. No Pokecut source, images or fonts are
 bundled; BB already ships Inter.
 
+It also restyles BB's native chat — composer, user bubbles, code, work rows,
+tree lines, pixel loaders, approval cards, merged banners, a gliding tooltip —
+adapted from [Beautiful Chat](https://github.com/diip3sh/bb-plugin-beautiful-chat)
+(MIT) and recolored with Pokecut's tokens. It supersedes Beautiful Chat: keep
+that plugin disabled. See [NOTICE](NOTICE).
+
 ## Install
 
 ```sh
@@ -49,19 +55,38 @@ form[data-promptbox]` and `[data-promptbox-send-menu]` for the composer.
 Composer rules carry extra `:root` weight so they win over chat restylers such
 as Beautiful Chat, whose colors already derive from the active theme.
 
+## Chat settings
+
+Settings → Plugins → Pokecut Theme → **Chat appearance** (English or Russian,
+following BB's interface language or the Russifier plugin; a language switch
+is in the section). Stored in plugin storage, mirrored onto `<html>` as
+`data-pk-loader`, `data-pk-chips` and `data-pk-off`:
+
+| Preference | Values | Default |
+| --- | --- | --- |
+| Loading animation | pixel sweep, round pixels, orbit, coins, BB's icon | pixel sweep |
+| Tool call rows | filled card, outline only, plain | filled card |
+| Prompt bar, minimize while generating, merged banners | on/off | on |
+| User bubbles, code chips, message actions, selection pill, streaming caret, approval cards | on/off | on |
+| Compact work rows, tree lines, label shimmer, unread marker | on/off | on |
+
 ## Source layout
 
 | File | Contributes |
 | --- | --- |
-| `themes/pokecut.css` | The whole theme: palette in `:root, .light` and `.dark`, then shell, sidebar, composer, menus and code-block rules. |
-| `package.json` | Declares the theme under `bb.themes` (id `pokecut`). |
-| `server.ts` | Empty plugin entry; BB requires one. |
+| `src/theme/base.css` | Palette (`:root, .light` / `.dark`), shell panel, sidebar pill, right panel card, composer chips row, phone drawers. |
+| `src/theme/chat.css` | Chat layer ported from Beautiful Chat, on Pokecut tokens. |
+| `scripts/build-theme.mjs` | Concatenates the two into `themes/pokecut.css` (generated; BB loads it via `bb.themes`). |
+| `app.tsx`, `prefs.ts` | App overlay: mirrors preferences onto `<html>`, mounts the spatial tooltip and the coins Paint Worklet. |
+| `settings-section.tsx`, `app.css`, `i18n.ts` | Bilingual settings section. |
+| `server.ts`, `contract.ts`, `settings.ts` | Preferences in plugin storage over RPC; validation of untrusted values. |
+| `skills/pokecut-theme/SKILL.md` | Agent-facing description. |
 
 ## Develop
 
 ```sh
 npm install
-npm run build          # tsc + bb plugin build
+npm run build          # theme CSS + tsc + tests + bb plugin build
 bb plugin install path:. --yes
 bb plugin reload pokecut-theme   # after CSS edits
 ```

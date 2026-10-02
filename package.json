@@ -1,15 +1,15 @@
 {
   "name": "bb-plugin-pokecut-theme",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "type": "module",
-  "description": "Pokecut — a soft dashboard theme for BB: gray shell, the content area as a raised rounded panel, white cards, hairline borders and a pink-violet accent. Light and dark.",
+  "description": "Pokecut theme for BB: gray shell, raised rounded content panel, white cards, pink-violet accent, plus a restyled chat (composer, messages, work rows, loaders, approval cards). Light and dark.",
   "engines": {
     "bb": ">=0.44",
     "bbPluginSdk": ">=0.5.0"
   },
   "bb": {
     "name": "Pokecut Theme",
-    "description": "Soft dashboard theme: gray shell, raised rounded content panel, white cards, hairline borders, pink-violet accent. Light and dark.",
+    "description": "Pokecut theme for BB: gray shell, raised rounded content panel, white cards, pink-violet accent, plus a restyled chat (composer, messages, work rows, loaders, approval cards). Light and dark.",
     "branding": {
       "icon": "./assets/icon.svg"
     },
@@ -21,6 +21,10 @@
         "description": "Gray shell with the content area as a raised rounded panel, white cards and a pink-violet accent.",
         "css": "./themes/pokecut.css"
       }
+    ],
+    "app": "./app.tsx",
+    "skills": [
+      "skills"
     ]
   },
   "keywords": [
@@ -28,8 +32,10 @@
     "bb-theme"
   ],
   "scripts": {
+    "build:theme": "node scripts/build-theme.mjs",
     "typecheck": "tsc --noEmit",
-    "build": "npm run typecheck && bb plugin build ."
+    "test": "node --experimental-strip-types --test *.test.ts",
+    "build": "npm run build:theme && npm run typecheck && npm test && bb plugin build ."
   },
   "license": "MIT",
   "author": "Kirill Vechkasov",
@@ -38,8 +44,13 @@
     "url": "git+https://github.com/VKirill/bb-plugin-pokecut-theme.git"
   },
   "devDependencies": {
-    "@get-bb/plugin-sdk": "0.5.29",
     "@types/node": "^22.0.0",
-    "typescript": "^5.7.0"
+    "typescript": "^5.7.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0"
+  },
+  "dependencies": {
+    "@get-bb/plugin-sdk": "0.5.29",
+    "zod": "^4.3.6"
   }
 }
