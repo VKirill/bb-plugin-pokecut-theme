@@ -23,6 +23,7 @@ export const TOGGLES = {
   mergedBanners: "banners",
   minimizeWhileRunning: "minimize",
   treeLines: "tree",
+  messageTimes: "times",
 } as const;
 
 export type Loader = (typeof LOADERS)[number];

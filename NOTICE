@@ -26,6 +26,9 @@ https://github.com/diip3sh/bb-plugin-beautiful-chat
   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
   SOFTWARE.
 
+Message timestamps (message-times.ts, message-times-collect.ts) are adapted from
+Chat Timestamps: https://github.com/pixexid/bb-plugin-chat-timestamps (MIT).
+
 Beautiful Chat follows the design language of BeautifulUI
 (https://www.beautifului.dev, MIT). The "coins" loader redraws Originkit's
 Coin Loader. No BeautifulUI or Originkit source is bundled.

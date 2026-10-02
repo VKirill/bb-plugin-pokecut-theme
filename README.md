@@ -69,7 +69,8 @@ Other pieces: a light/dark/system switch in the sidebar footer; a context meter
 line on the composer's bottom edge instead of the ring (hover for the number);
 the model picker as one card with segmented provider tabs and sparkle favorites;
 Lane Pilot's toggle as an icon; expanded work groups as one card on a single
-grid with red error chips.
+grid with red error chips; message times in the action strip on hover
+(adapted from [Chat Timestamps](https://github.com/pixexid/bb-plugin-chat-timestamps), MIT).
 
 Shape rules use BB's stable markup only: `[data-sidebar="inset"]` for the
 panel (from 768px wide), `.bb-sidebar-selected-row` and the project-folders
@@ -92,6 +93,7 @@ is in the section). Stored in plugin storage, mirrored onto `<html>` as
 | Prompt bar, minimize while generating, merged banners | on/off | on |
 | User bubbles, code chips, message actions, selection pill, streaming caret, approval cards | on/off | on |
 | Compact work rows, tree lines, label shimmer, unread marker | on/off | on |
+| Message times | on/off | on |
 
 ## Source layout
 

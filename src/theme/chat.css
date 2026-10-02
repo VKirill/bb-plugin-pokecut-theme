@@ -1146,6 +1146,44 @@ ul)>li+li:before {
   margin-left: 6px;
 }
 
+/* ── Message times (message-times.ts) ───────────────────────────────────────
+   A quiet relative time leading a message's action strip, faded in on hover or
+   focus; tabular digits so the strip does not jitter as minutes tick. */
+:root:not([data-pk-off~="times"]) [data-pk-time]::before {
+  content: attr(data-pk-time);
+  flex: 0 0 auto;
+  align-self: center;
+  margin-right: 4px;
+  padding: 0 6px;
+  border-radius: 6px;
+  color: var(--subtle-foreground);
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+  line-height: 20px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 150ms ease;
+}
+
+:root:not([data-pk-off~="times"]) :is(.group\/message, .group\/timeline-row):is(:hover, :focus-within) [data-pk-time]::before,
+:root:not([data-pk-off~="times"]) .group\/message[data-pk-time]:is(:hover, :focus-within)::before {
+  opacity: 1;
+}
+
+:root:not([data-pk-off~="times"]) .group\/message[data-pk-time]::before {
+  display: block;
+  margin-top: 2px;
+}
+
+:root:not([data-pk-off~="times"]) .group\/message.ml-auto[data-pk-time]::before {
+  text-align: right;
+}
+
+:root[data-pk-off~="times"] [data-pk-time]::before {
+  content: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
   [data-promptbox] [data-promptbox-submit-action]:not(:disabled):active,
   [data-promptbox-action-row] button:not([data-promptbox-submit-action]):active,

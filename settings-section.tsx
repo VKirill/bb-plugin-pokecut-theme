@@ -8,7 +8,7 @@ import { CHIP_STYLES, LOADERS, type Prefs, type ToggleKey } from "./settings";
 
 const GROUPS: { title: I18nKey; toggles: ToggleKey[] }[] = [
   { title: "groupComposer", toggles: ["promptBar", "minimizeWhileRunning", "mergedBanners"] },
-  { title: "groupMessages", toggles: ["userBubbles", "codeChips", "messageActions", "selectionPill", "streamingCaret", "approvalCard"] },
+  { title: "groupMessages", toggles: ["messageTimes", "userBubbles", "codeChips", "messageActions", "selectionPill", "streamingCaret", "approvalCard"] },
   { title: "groupWork", toggles: ["workRows", "treeLines", "shimmer", "unreadMarker"] },
 ];
 

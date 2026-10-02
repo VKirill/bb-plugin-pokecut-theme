@@ -13,10 +13,22 @@ export const prefsSchema = z.object({
   ...toggles,
 });
 
+export const messageTimeSchema = z.object({
+  id: z.string(),
+  createdAt: z.number(),
+  direction: z.enum(["sent", "received"]),
+});
+
+export type MessageTime = z.infer<typeof messageTimeSchema>;
+
 export const rpcContract = defineRpcContract({
   getPrefs: { input: z.object({}), output: prefsSchema },
   setPrefs: { input: prefsSchema.partial(), output: prefsSchema },
   resetPrefs: { input: z.object({}), output: prefsSchema },
+  messageTimes: {
+    input: z.object({ threadIds: z.array(z.string().min(1).max(200)).min(1).max(8), includeHistory: z.boolean() }).strict(),
+    output: z.object({ messages: z.array(messageTimeSchema) }).strict(),
+  },
 });
 
 /** Realtime event published after preferences change. */

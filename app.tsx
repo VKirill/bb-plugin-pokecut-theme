@@ -4,13 +4,14 @@
 // section is the bilingual editor for those preferences.
 import "./app.css";
 import { useEffect } from "react";
-import { definePluginApp } from "@get-bb/plugin-sdk/app";
+import { definePluginApp, useBbContext } from "@get-bb/plugin-sdk/app";
 import { usePrefs } from "./prefs";
 import { rootAttributes } from "./settings";
 import { registerCoinsWorklet } from "./coins-worklet";
 import { mountSpatialTooltips } from "./spatial-tooltip";
 import { mountContextMeter } from "./context-meter";
 import { mountTimelineMarks } from "./timeline-marks";
+import { mountMessageTimes } from "./message-times";
 import { PokecutSettings } from "./settings-section";
 import { ThemeModeIcon, ThemeModeSwitch } from "./theme-mode";
 import { t } from "./i18n";
@@ -18,7 +19,8 @@ import { t } from "./i18n";
 const ROOT_ATTRIBUTES = ["data-pk-loader", "data-pk-chips", "data-pk-off"];
 
 function PokecutChatLayer() {
-  const { prefs } = usePrefs();
+  const { prefs, rpc } = usePrefs();
+  const { threadId } = useBbContext();
   const { loader, chips, off } = rootAttributes(prefs ?? {});
   const offList = off.join(" ");
 
@@ -37,6 +39,16 @@ function PokecutChatLayer() {
 
   const rows = !off.includes("rows");
   useEffect(() => (rows ? mountTimelineMarks() : undefined), [rows]);
+
+  const times = !off.includes("times") && !!threadId;
+  useEffect(
+    () =>
+      times && threadId
+        ? mountMessageTimes(threadId, async (threadIds, includeHistory) =>
+            (await rpc.call("messageTimes", { threadIds, includeHistory })).messages)
+        : undefined,
+    [times, threadId, rpc],
+  );
 
   const tooltips = !off.includes("actions");
   useEffect(() => (tooltips ? mountSpatialTooltips() : undefined), [tooltips]);
