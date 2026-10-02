@@ -2202,3 +2202,41 @@ ul)>li+li:before {
   border-radius: 10px;
   background-color: var(--pk-card);
 }
+
+/* ── Composer attachments as file cards ─────────────────────────────────────
+   BB's attachment chip (name + remove button) becomes a small Pokecut file
+   card: white, outlined, a leading document tile. Text files from the
+   Paste as File plugin (pasted-*.md / .json / .txt) get the accent tile. */
+[data-app-composer] span.inline-flex.rounded-full.border:has(> span > button[aria-label^="Remove "]) {
+  gap: 6px;
+  padding: 3px 6px 3px 3px;
+  border-color: var(--pk-outline);
+  border-radius: 10px;
+  background-color: var(--pk-card);
+  box-shadow: var(--pk-card-drop), 0 2px 6px -3px color-mix(in oklab, var(--ink) 22%, transparent);
+  color: var(--foreground);
+  font-weight: 500;
+}
+
+[data-app-composer] span.inline-flex.rounded-full.border:has(> span > button[aria-label^="Remove "])::before {
+  content: "";
+  flex: 0 0 22px;
+  width: 22px;
+  height: 22px;
+  border-radius: 7px;
+  background:
+    var(--pk-icon-doc) center / 13px 13px no-repeat,
+    color-mix(in oklab, var(--ink) 8%, var(--pk-card));
+  -webkit-mask: none;
+}
+
+[data-app-composer] span.inline-flex.rounded-full.border:has(> span > button:is([aria-label^="Remove pasted-"][aria-label$=".md"], [aria-label^="Remove pasted-"][aria-label$=".json"], [aria-label^="Remove pasted-"][aria-label$=".txt"]))::before {
+  background:
+    var(--pk-icon-doc-light) center / 13px 13px no-repeat,
+    var(--pk-accent-gradient);
+}
+
+:root {
+  --pk-icon-doc: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236a6b73' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z'/%3E%3Cpath d='M14 3v5h5M9 13h6M9 17h4'/%3E%3C/svg%3E");
+  --pk-icon-doc-light: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z'/%3E%3Cpath d='M14 3v5h5M9 13h6M9 17h4'/%3E%3C/svg%3E");
+}
