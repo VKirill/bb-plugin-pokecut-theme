@@ -1420,15 +1420,15 @@ ul)>li+li:before {
   margin-bottom: -8px;
   overflow: hidden;
 }
-:root:not([data-pk-off~="unread"]) [data-timeline-window-key^="divider:"]:has(+ [data-timeline-row-id] .group\/timeline-row) + [data-timeline-row-id] .group\/timeline-row {
+:root:not([data-pk-off~="unread"]) [data-timeline-window-key^="divider:"]:has(+ [data-timeline-row-id] .group\/timeline-row) + [data-timeline-row-id] > .rounded-md > .group\/timeline-row {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
 }
-:root:not([data-pk-off~="unread"]) [data-timeline-window-key^="divider:"]:has(+ [data-timeline-row-id] .group\/timeline-row) + [data-timeline-row-id] .group\/timeline-row > button {
+:root:not([data-pk-off~="unread"]) [data-timeline-window-key^="divider:"]:has(+ [data-timeline-row-id] .group\/timeline-row) + [data-timeline-row-id] > .rounded-md > .group\/timeline-row > button {
   order: 0;
 }
-:root:not([data-pk-off~="unread"]) [data-timeline-window-key^="divider:"]:has(+ [data-timeline-row-id] .group\/timeline-row) + [data-timeline-row-id] .group\/timeline-row::after {
+:root:not([data-pk-off~="unread"]) [data-timeline-window-key^="divider:"]:has(+ [data-timeline-row-id] .group\/timeline-row) + [data-timeline-row-id] > .rounded-md > .group\/timeline-row::after {
   order: 1;
   content: "NEW";
   color: var(--success);
@@ -1438,11 +1438,11 @@ ul)>li+li:before {
   line-height: 20px;
 }
 /* Compact work rows off: BB's own 14px label size. */
-:root[data-pk-off~="rows"]:not([data-pk-off~="unread"]) [data-timeline-window-key^="divider:"]:has(+ [data-timeline-row-id] .group\/timeline-row) + [data-timeline-row-id] .group\/timeline-row::after {
+:root[data-pk-off~="rows"]:not([data-pk-off~="unread"]) [data-timeline-window-key^="divider:"]:has(+ [data-timeline-row-id] .group\/timeline-row) + [data-timeline-row-id] > .rounded-md > .group\/timeline-row::after {
   font-size: 14px;
 }
 /* Expanded details keep their own line under the label. */
-:root:not([data-pk-off~="unread"]) [data-timeline-window-key^="divider:"]:has(+ [data-timeline-row-id] .group\/timeline-row) + [data-timeline-row-id] .group\/timeline-row > .grid {
+:root:not([data-pk-off~="unread"]) [data-timeline-window-key^="divider:"]:has(+ [data-timeline-row-id] .group\/timeline-row) + [data-timeline-row-id] > .rounded-md > .group\/timeline-row > .grid {
   order: 2;
   flex-basis: 100%;
 }
