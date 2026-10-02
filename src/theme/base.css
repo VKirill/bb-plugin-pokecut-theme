@@ -431,6 +431,168 @@ section[data-root-compose-mobile-recents] li:active {
   --pk-icon-agents: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='5' r='2.5'/%3E%3Ccircle cx='5' cy='19' r='2.5'/%3E%3Ccircle cx='19' cy='19' r='2.5'/%3E%3Cpath d='M12 7.5v4M12 11.5l-5.5 5.2M12 11.5l5.5 5.2'/%3E%3C/svg%3E");
 }
 
+/* ── Model picker (providers, models, reasoning, fast mode) ─────────────────
+   One Pokecut card in both forms: the desktop popover and the phone drawer.
+   Provider tabs become a segmented control, the search an outlined field,
+   models pill rows (the current one raised), reasoning a segmented control.
+   "Favorite" is Pokecut's AI sparkle: outlined, gradient-filled when pinned. */
+:is([data-radix-popper-content-wrapper] > [role="dialog"], [data-persistent-drawer-content][role="dialog"]):has([data-provider-logo]):has([role="listbox"]) {
+  overflow: hidden;
+  border: 1px solid var(--pk-outline);
+  background-color: var(--pk-panel);
+  box-shadow: var(--pk-drop), 0 18px 40px -18px rgb(0 0 0 / 0.22);
+}
+
+[data-radix-popper-content-wrapper] > [role="dialog"]:has([data-provider-logo]):has([role="listbox"]) {
+  border-radius: 16px;
+}
+
+[data-persistent-drawer-content][role="dialog"]:has([data-provider-logo]):has([role="listbox"]) {
+  border-radius: 20px 20px 0 0;
+}
+
+/* Provider tabs: segmented track with a raised active pill. */
+:is([data-radix-popper-content-wrapper] > [role="dialog"], [data-persistent-drawer-content][role="dialog"]):has([data-provider-logo]):has([role="listbox"]) div:has(> button[title] [data-provider-logo]) {
+  gap: 2px;
+  margin: 8px 8px 4px;
+  padding: 3px;
+  border: 0;
+  border-radius: 10px;
+  background-color: color-mix(in oklab, var(--ink) 6%, var(--pk-panel));
+}
+
+:is([data-radix-popper-content-wrapper] > [role="dialog"], [data-persistent-drawer-content][role="dialog"]):has([data-provider-logo]):has([role="listbox"]) div:has(> button[title] [data-provider-logo]) > button {
+  flex: 1 1 0;
+  width: auto;
+  height: 30px;
+  border: 0 !important;
+  border-radius: 7px;
+  transition: background-color 150ms ease, box-shadow 150ms ease, color 150ms ease;
+}
+
+:is([data-radix-popper-content-wrapper] > [role="dialog"], [data-persistent-drawer-content][role="dialog"]):has([data-provider-logo]):has([role="listbox"]) div:has(> button[title] [data-provider-logo]) > button.border-foreground {
+  background-color: var(--pk-card);
+  box-shadow: 0 1px 3px rgb(0 0 0 / 0.12), inset 0 0 0 1px var(--pk-hairline);
+}
+
+/* Search: an outlined field instead of a bare line. */
+:is([data-radix-popper-content-wrapper] > [role="dialog"], [data-persistent-drawer-content][role="dialog"]):has([data-provider-logo]):has([role="listbox"]) div:has(> div > input[role="combobox"]) {
+  padding: 4px 8px 6px;
+  border-bottom: 0;
+}
+
+:is([data-radix-popper-content-wrapper] > [role="dialog"], [data-persistent-drawer-content][role="dialog"]):has([data-provider-logo]):has([role="listbox"]) input[role="combobox"] {
+  height: 32px;
+  border: 1px solid var(--pk-outline);
+  border-radius: 10px;
+  background-color: var(--pk-card);
+}
+
+:is([data-radix-popper-content-wrapper] > [role="dialog"], [data-persistent-drawer-content][role="dialog"]):has([data-provider-logo]):has([role="listbox"]) input[role="combobox"]:focus-visible {
+  border-color: color-mix(in oklab, var(--primary) 45%, var(--pk-outline));
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--primary) 14%, transparent);
+}
+
+/* Model rows: pills; the current model is the raised one. */
+:is([data-radix-popper-content-wrapper] > [role="dialog"], [data-persistent-drawer-content][role="dialog"]):has([data-provider-logo]):has([role="listbox"]) [role="listbox"] {
+  padding-inline: 6px;
+}
+
+:is([data-radix-popper-content-wrapper] > [role="dialog"], [data-persistent-drawer-content][role="dialog"]):has([data-provider-logo]):has([role="listbox"]) [role="listbox"] > div:first-child {
+  background-color: var(--pk-panel);
+}
+
+:is([data-radix-popper-content-wrapper] > [role="dialog"], [data-persistent-drawer-content][role="dialog"]):has([data-provider-logo]):has([role="listbox"]) [role="listbox"] > div:has(> [role="option"]) {
+  margin-block: 1px;
+  border-radius: 9px;
+}
+
+:is([data-radix-popper-content-wrapper] > [role="dialog"], [data-persistent-drawer-content][role="dialog"]):has([data-provider-logo]):has([role="listbox"]) [role="listbox"] > div:has(> [role="option"] svg.opacity-100) {
+  background-color: var(--pk-card);
+  box-shadow: inset 0 0 0 1px var(--pk-outline), 0 4px 10px -6px rgb(0 0 0 / 0.18);
+  font-weight: 500;
+}
+
+:is([data-radix-popper-content-wrapper] > [role="dialog"], [data-persistent-drawer-content][role="dialog"]):has([data-provider-logo]):has([role="listbox"]) [role="listbox"] > div:has(> [role="option"] svg.opacity-100) [role="option"] svg {
+  color: var(--primary);
+}
+
+/* Favorite: the sparkle replaces the star. */
+:is([data-radix-popper-content-wrapper] > [role="dialog"], [data-persistent-drawer-content][role="dialog"]):has([data-provider-logo]):has([role="listbox"]) button[aria-pressed]:not([role]) {
+  display: inline-grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border-radius: 7px;
+}
+
+:is([data-radix-popper-content-wrapper] > [role="dialog"], [data-persistent-drawer-content][role="dialog"]):has([data-provider-logo]):has([role="listbox"]) button[aria-pressed]:not([role]) > svg {
+  display: none;
+}
+
+:is([data-radix-popper-content-wrapper] > [role="dialog"], [data-persistent-drawer-content][role="dialog"]):has([data-provider-logo]):has([role="listbox"]) button[aria-pressed]:not([role])::before {
+  content: "";
+  width: 15px;
+  height: 15px;
+  background-color: currentColor;
+  -webkit-mask: var(--pk-icon-sparkle) center / contain no-repeat;
+  mask: var(--pk-icon-sparkle) center / contain no-repeat;
+  opacity: 0.55;
+  transition: opacity 150ms ease, transform 150ms var(--pk-ease-out, ease);
+}
+
+:is([data-radix-popper-content-wrapper] > [role="dialog"], [data-persistent-drawer-content][role="dialog"]):has([data-provider-logo]):has([role="listbox"]) button[aria-pressed]:not([role]):hover::before {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+:is([data-radix-popper-content-wrapper] > [role="dialog"], [data-persistent-drawer-content][role="dialog"]):has([data-provider-logo]):has([role="listbox"]) button[aria-pressed="true"]:not([role])::before {
+  background: var(--pk-accent-gradient);
+  -webkit-mask-image: var(--pk-icon-sparkle-filled);
+  mask-image: var(--pk-icon-sparkle-filled);
+  opacity: 1;
+}
+
+/* Reasoning: segmented control. */
+:is([data-radix-popper-content-wrapper] > [role="dialog"], [data-persistent-drawer-content][role="dialog"]):has([data-provider-logo]):has([role="listbox"]) [role="radiogroup"] {
+  flex-wrap: wrap;
+  gap: 2px;
+  margin-top: 6px;
+  padding: 3px;
+  border-radius: 10px;
+  background-color: color-mix(in oklab, var(--ink) 6%, var(--pk-panel));
+}
+
+:is([data-radix-popper-content-wrapper] > [role="dialog"], [data-persistent-drawer-content][role="dialog"]):has([data-provider-logo]):has([role="listbox"]) [role="radiogroup"] > [role="radio"] {
+  flex: 1 1 auto;
+  height: 28px;
+  border-radius: 7px;
+  color: var(--muted-foreground);
+}
+
+:is([data-radix-popper-content-wrapper] > [role="dialog"], [data-persistent-drawer-content][role="dialog"]):has([data-provider-logo]):has([role="listbox"]) [role="radiogroup"] > [role="radio"][data-state="on"] {
+  background-color: var(--pk-card);
+  box-shadow: 0 1px 3px rgb(0 0 0 / 0.12), inset 0 0 0 1px var(--pk-hairline);
+  color: var(--foreground);
+  font-weight: 600;
+}
+
+/* Dividers as hairlines, fast-mode switch in the accent. */
+:is([data-radix-popper-content-wrapper] > [role="dialog"], [data-persistent-drawer-content][role="dialog"]):has([data-provider-logo]):has([role="listbox"]) .border-t,
+:is([data-radix-popper-content-wrapper] > [role="dialog"], [data-persistent-drawer-content][role="dialog"]):has([data-provider-logo]):has([role="listbox"]) .border-b {
+  border-color: var(--pk-hairline);
+}
+
+:is([data-radix-popper-content-wrapper] > [role="dialog"], [data-persistent-drawer-content][role="dialog"]):has([data-provider-logo]):has([role="listbox"]) button[role="switch"][data-state="checked"] {
+  background-color: var(--primary);
+}
+
+:root {
+  --pk-icon-sparkle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.7' stroke-linejoin='round'%3E%3Cpath d='M12 3c.7 5.2 3.8 8.3 9 9-5.2.7-8.3 3.8-9 9-.7-5.2-3.8-8.3-9-9 5.2-.7 8.3-3.8 9-9z'/%3E%3Cpath d='M19 2.5v3M17.5 4h3' stroke-linecap='round'/%3E%3C/svg%3E");
+  --pk-icon-sparkle-filled: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 3c.7 5.2 3.8 8.3 9 9-5.2.7-8.3 3.8-9 9-.7-5.2-3.8-8.3-9-9 5.2-.7 8.3-3.8 9-9z'/%3E%3Cpath d='M19 2.5v3M17.5 4h3' stroke='black' stroke-width='1.7' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+
 /* ── Floating surfaces: menus, popovers and dialogs ───────────────────────
    Pokecut's dropdown: a frosted card with an outline and a soft drop; rows
    become hairline pills when highlighted. Popovers are solid cards; modal
