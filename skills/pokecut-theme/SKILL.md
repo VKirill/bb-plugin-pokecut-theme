@@ -42,6 +42,27 @@ The overlay mirrors them onto `<html>`:
 
 Off-tokens are space-separated in `data-pk-off`. All default to on.
 
+## Design rules for plugin screens
+
+Plugins that want the Pokecut look (Lane Pilot does, in its `app.css`) read the
+theme's `--pk-*` tokens with a fallback to BB's palette, so they stay tidy under
+any theme. Keep one radius scale:
+
+| Element | Radius |
+| --- | --- |
+| Rows (nav, list, menu items), buttons, inputs, selects | 8px |
+| Segment inside a segmented track | 6px (track 9px) |
+| Inner white card, message bubble, code well | 12px |
+| Single card, page header strip | 14px |
+| Panel: gray well around a header and an inner card | 16px |
+| Dialogs and the app content panel | 20px |
+
+Selected row or segment: white `--pk-card` with an inset `--pk-outline` ring and
+`--pk-drop`, never a larger radius than its siblings. Primary action: the
+`--pk-accent-gradient`; secondary: white with `--pk-outline` and `--pk-drop`.
+Statuses are soft tinted pills (fully rounded). The «?» help mark is a 14px
+circle raised to the top of the title line, after its last word.
+
 ## Where the CSS lives
 
 Edit `src/theme/base.css` (palette, shell, sidebar, composer chips, phone
