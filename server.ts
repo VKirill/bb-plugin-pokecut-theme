@@ -44,5 +44,12 @@ export default async function plugin(bb: BbPluginApi) {
       }
       return { messages: Array.from(messages.values()) };
     },
+    // Where the thread's files live, so a file link can open in BB's preview.
+    threadRoot: async ({ threadId }) => {
+      const thread = await bb.sdk.threads.get({ threadId });
+      if (!thread.environmentId) return null;
+      const env = await bb.sdk.environments.get({ environmentId: thread.environmentId });
+      return env.hostId && env.path ? { environmentId: env.id, hostId: env.hostId, path: env.path } : null;
+    },
   });
 }

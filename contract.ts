@@ -29,6 +29,10 @@ export const rpcContract = defineRpcContract({
     input: z.object({ threadIds: z.array(z.string().min(1).max(200)).min(1).max(8), includeHistory: z.boolean() }).strict(),
     output: z.object({ messages: z.array(messageTimeSchema) }).strict(),
   },
+  threadRoot: {
+    input: z.object({ threadId: z.string().min(1).max(200) }).strict(),
+    output: z.object({ environmentId: z.string(), hostId: z.string(), path: z.string() }).strict().nullable(),
+  },
 });
 
 /** Realtime event published after preferences change. */

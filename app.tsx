@@ -4,7 +4,7 @@
 // section is the bilingual editor for those preferences.
 import "./app.css";
 import { useEffect } from "react";
-import { definePluginApp, useBbContext } from "@get-bb/plugin-sdk/app";
+import { definePluginApp, useBbContext, useBbNavigate } from "@get-bb/plugin-sdk/app";
 import { usePrefs } from "./prefs";
 import { useThemeActive } from "./theme-active";
 import { rootAttributes } from "./settings";
@@ -14,6 +14,7 @@ import { mountContextMeter } from "./context-meter";
 import { mountTimelineMarks } from "./timeline-marks";
 import { mountMessageTimes } from "./message-times";
 import { mountDiffPaths } from "./diff-paths";
+import { mountFilePreviewLinks } from "./file-preview-links";
 import { PokecutSettings } from "./settings-section";
 import { ThemeModeIcon, ThemeModeSwitch } from "./theme-mode";
 import { t } from "./i18n";
@@ -57,6 +58,7 @@ function PokecutChatLayer() {
 
   useEffect(() => (active ? mountDiffPaths() : undefined), [active]);
 
+
   const tooltips = active && !off.includes("actions");
   useEffect(() => (tooltips ? mountSpatialTooltips() : undefined), [tooltips]);
 
@@ -77,7 +79,28 @@ function PokecutChatLayer() {
   return null;
 }
 
+// BB accepts file-preview intents only from components rendered inside the thread
+// view, so this lives in a (render-nothing) thread header slot, not the overlay.
+function FilePreviewLinks() {
+  const { rpc } = usePrefs();
+  const { threadId } = useBbContext();
+  const active = useThemeActive();
+  const navigate = useBbNavigate();
+  useEffect(
+    () =>
+      active && threadId
+        ? mountFilePreviewLinks(
+            () => rpc.call("threadRoot", { threadId }),
+            (target) => navigate.experimental_openFilePreview({ target, location: null }),
+          )
+        : undefined,
+    [active, threadId, rpc, navigate],
+  );
+  return null;
+}
+
 export default definePluginApp((app) => {
+  app.slots.experimental_threadHeaderAction({ id: "file-preview-links", title: "Pokecut file links", component: FilePreviewLinks });
   app.slots.experimental_appOverlay({ id: "pokecut-chat-layer", component: PokecutChatLayer });
   // The heading is rendered inside the section so it follows the live language.
   app.slots.settingsSection({ id: "chat", component: PokecutSettings });
