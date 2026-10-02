@@ -37,6 +37,11 @@ removes the theme; nothing is written to BB's own files.
 | Primary (links, focus) | `#9B4D8F` | `#D88BC4` |
 | Send button | gradient `#D96D98 → #8C69C3` | same |
 
+On phones (< 768px) the left drawer stays the gray shell while the pushed
+thread turns into the raised panel; the right panel shows its content as one
+rounded card; the composer footer (project · machine · access) becomes a well
+with outlined chips.
+
 Shape rules use BB's stable markup only: `[data-sidebar="inset"]` for the
 panel (from 768px wide), `.bb-sidebar-selected-row` and the project-folders
 `.pf-thread.pf-active` for the open thread, `[data-app-composer]

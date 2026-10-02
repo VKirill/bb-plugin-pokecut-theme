@@ -227,6 +227,15 @@ body {
   background: rgb(255 255 255 / 0.14);
 }
 
+/* Without the options chevron (phones) the send button carries it alone. */
+:root:root:root:root [data-app-composer] form[data-promptbox] :not([data-promptbox-send-menu]) > [data-promptbox-submit-action]:not(:disabled) {
+  background-color: #c2649d;
+  background-image: var(--pk-accent-gradient);
+  box-shadow: var(--pk-accent-edge);
+  color: #ffffff;
+  border-color: transparent;
+}
+
 /* ── Floating surfaces: menus, popovers and dialogs ───────────────────────── */
 [data-radix-popper-content-wrapper] > [role="menu"],
 [data-radix-popper-content-wrapper] > [role="listbox"],
@@ -240,4 +249,65 @@ body {
   background-color: var(--pk-well);
   border: 1px solid var(--pk-hairline);
   border-radius: 12px;
+}
+
+/* ── Composer footer (project · machine · access): a well with chip controls ─ */
+[data-follow-up-composer-footer] {
+  background-color: var(--pk-well);
+  border-top: 1px solid var(--pk-hairline);
+}
+
+[data-follow-up-composer-footer] :is(button[aria-haspopup], span.inline-flex.h-6, [data-pf-section-chip]) {
+  height: 22px;
+  padding-inline: 8px;
+  border: 1px solid var(--pk-outline);
+  border-radius: 8px;
+  background-color: var(--pk-card);
+  box-shadow: 0 2px 6px -3px color-mix(in oklab, var(--ink) 25%, transparent);
+}
+
+/* ── Phones and narrow windows ────────────────────────────────────────────── */
+@media (max-width: 767px) {
+  /* Left drawer: the drawer is the gray shell, the pushed-aside thread
+     becomes the raised Pokecut panel. */
+  [data-sidebar="inset"][data-sidebar-shelf="open"],
+  [data-sidebar="inset"][data-panel-shelf="shelf"] {
+    border: 1px solid var(--pk-outline);
+    border-radius: 20px;
+    box-shadow: var(--pk-drop), 0 0 0 1px var(--pk-hairline);
+    overflow: hidden;
+  }
+
+  [data-sidebar="panel"][data-side="left"] [data-sidebar="sidebar"] {
+    padding-inline: 4px;
+  }
+
+  [data-sidebar="panel"][data-side="left"] .pf-thread,
+  [data-sidebar="panel"][data-side="left"] .pf-heading {
+    border-radius: 10px;
+  }
+
+  /* Right panel: gray shell with the panel content as one rounded card. */
+  [data-testid="secondary-panel-shelf"] {
+    border-left-color: transparent;
+    background-color: var(--pk-shell);
+  }
+
+  [data-testid="secondary-panel-shelf"] aside {
+    background-color: var(--pk-shell);
+  }
+
+  [data-testid="secondary-panel-shelf"] aside > :not([data-testid="thread-secondary-panel-top-chrome"]) {
+    margin: 0 8px 8px;
+    border: 1px solid var(--pk-outline);
+    border-radius: 16px;
+    background-color: var(--pk-panel);
+    box-shadow: var(--pk-drop);
+    overflow: hidden;
+  }
+
+  /* Composer sits as a card above the shell edge. */
+  :root:root:root:root [data-app-composer] form[data-promptbox] {
+    border-radius: 18px;
+  }
 }

@@ -1,6 +1,6 @@
 {
   "name": "bb-plugin-pokecut-theme",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "type": "module",
   "description": "Pokecut — a soft dashboard theme for BB: gray shell, the content area as a raised rounded panel, white cards, hairline borders and a pink-violet accent. Light and dark.",
   "engines": {
