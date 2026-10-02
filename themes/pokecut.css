@@ -595,6 +595,29 @@ section[data-root-compose-mobile-recents] li:active {
   --pk-icon-sparkle-filled: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 3c.7 5.2 3.8 8.3 9 9-5.2.7-8.3 3.8-9 9-.7-5.2-3.8-8.3-9-9 5.2-.7 8.3-3.8 9-9z'/%3E%3Cpath d='M19 2.5v3M17.5 4h3' stroke='black' stroke-width='1.7' stroke-linecap='round'/%3E%3C/svg%3E");
 }
 
+/* ── Composer tray (desktop) ───────────────────────────────────────────────
+   The context row is the gray tray the composer card rests on: it runs up
+   behind the card's bottom edge and closes with rounded corners, the same
+   reading as the phone layout. The card stays on top. */
+@media (min-width: 641px) {
+  :root:root [data-app-composer] form[data-promptbox] {
+    position: relative;
+    z-index: 1;
+  }
+
+  :root:root [data-app-composer] :is([data-follow-up-composer-footer], [data-app-composer]:not(:has([data-follow-up-composer])) > div:has(> div [data-promptbox-project-control])) {
+    position: relative;
+    z-index: 0;
+    margin-top: -18px !important;
+    padding: 26px 10px 8px !important;
+    border: 1px solid var(--pk-hairline);
+    border-top: 0;
+    border-radius: 0 0 18px 18px;
+    background-color: var(--pk-well);
+    box-shadow: var(--pk-card-drop);
+  }
+}
+
 /* ── Floating surfaces: menus, popovers and dialogs ───────────────────────
    Pokecut's dropdown: a frosted card with an outline and a soft drop; rows
    become hairline pills when highlighted. Popovers are solid cards; modal
@@ -1761,10 +1784,11 @@ ul)>li+li:before {
 :root:not([data-pk-off~="prompt"]) [data-follow-up-composer-footer][data-pk-ctx]::before {
   content: "";
   position: absolute;
-  top: -1px;
+  top: var(--pk-meter-top, -1px);
   left: 14px;
   right: 14px;
   height: 2px;
+  z-index: 2;
   border-radius: 2px;
   pointer-events: none;
   background:
@@ -1779,7 +1803,7 @@ ul)>li+li:before {
 
 :root:not([data-pk-off~="prompt"]) [data-follow-up-composer-footer][data-pk-ctx] [data-pk-ctx-ring] {
   position: absolute !important;
-  top: -7px;
+  top: calc(var(--pk-meter-top, -1px) - 6px);
   left: 14px;
   right: 14px;
   width: auto !important;
@@ -2037,6 +2061,12 @@ ul)>li+li:before {
   .pk-spatial-tip[data-open] {
     transform: translate3d(var(--x, 0), var(--y, 0), 0);
     transition: opacity 120ms ease;
+  }
+}
+
+@media (min-width: 641px) {
+  [data-follow-up-composer-footer] {
+    --pk-meter-top: 17px;
   }
 }
 
