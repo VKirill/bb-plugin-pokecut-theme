@@ -62,8 +62,14 @@ removes the theme; nothing is written to BB's own files.
 
 On phones (< 768px) the left drawer stays the gray shell while the pushed
 thread turns into the raised panel; the right panel shows its content as one
-rounded card; the composer footer (project · machine · access) becomes a well
-with outlined chips.
+rounded card; the composer footer (project · machine · branch · access) becomes
+a well with outlined chips that wraps to two lines when needed.
+
+Other pieces: a light/dark/system switch in the sidebar footer; a context meter
+line on the composer's bottom edge instead of the ring (hover for the number);
+the model picker as one card with segmented provider tabs and sparkle favorites;
+Lane Pilot's toggle as an icon; expanded work groups as one card on a single
+grid with red error chips.
 
 Shape rules use BB's stable markup only: `[data-sidebar="inset"]` for the
 panel (from 768px wide), `.bb-sidebar-selected-row` and the project-folders
@@ -81,7 +87,7 @@ is in the section). Stored in plugin storage, mirrored onto `<html>` as
 
 | Preference | Values | Default |
 | --- | --- | --- |
-| Loading animation | pixel sweep, round pixels, orbit, coins, BB's icon | pixel sweep |
+| Loading animation | gradient ring, pixel sweep, round pixels, orbit, coins, BB's icon | gradient ring |
 | Tool call rows | filled card, outline only, plain | filled card |
 | Prompt bar, minimize while generating, merged banners | on/off | on |
 | User bubbles, code chips, message actions, selection pill, streaming caret, approval cards | on/off | on |
@@ -95,6 +101,7 @@ is in the section). Stored in plugin storage, mirrored onto `<html>` as
 | `src/theme/chat.css` | Chat layer ported from Beautiful Chat, on Pokecut tokens. |
 | `scripts/build-theme.mjs` | Concatenates the two into `themes/pokecut.css` (generated; BB loads it via `bb.themes`). |
 | `app.tsx`, `prefs.ts` | App overlay: mirrors preferences onto `<html>`, mounts the spatial tooltip and the coins Paint Worklet. |
+| `context-meter.ts`, `timeline-marks.ts`, `theme-mode.tsx` | Context meter line, error marks in work groups, light/dark/system switch. |
 | `settings-section.tsx`, `app.css`, `i18n.ts` | Bilingual settings section. |
 | `server.ts`, `contract.ts`, `settings.ts` | Preferences in plugin storage over RPC; validation of untrusted values. |
 | `skills/pokecut-theme/SKILL.md` | Agent-facing description. |
