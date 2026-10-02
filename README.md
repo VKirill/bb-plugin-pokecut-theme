@@ -24,7 +24,7 @@ and a pink-violet gradient on the send button. Light and dark.
 
 </details>
 
-Screenshots use demo content; the original design is
+Screenshots (v0.4.3) use demo content; the original design is
 [Pokecut](https://pokecut.rakibulism.space).
 
 Only the visual language is reproduced. No Pokecut source, images or fonts are
