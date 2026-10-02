@@ -3,6 +3,7 @@
 // preferences live in plugin storage and this section edits them over RPC.
 import { useEffect, useState, useSyncExternalStore } from "react";
 import { usePrefs } from "./prefs";
+import { themeIsActive } from "./theme-active";
 import { detectLocale, setLocale, storedPreference, subscribeLocale, t, type I18nKey, type UiLocale } from "./i18n";
 import { CHIP_STYLES, LOADERS, type Prefs, type ToggleKey } from "./settings";
 
@@ -12,9 +13,6 @@ const GROUPS: { title: I18nKey; toggles: ToggleKey[] }[] = [
   { title: "groupWork", toggles: ["workRows", "treeLines", "shimmer", "unreadMarker"] },
 ];
 
-function themeActive(): boolean {
-  return getComputedStyle(document.documentElement).getPropertyValue("--pk-theme").trim() === "pokecut";
-}
 
 export function PokecutSettings() {
   // Re-render on language change; t() reads the current locale itself.
@@ -22,12 +20,12 @@ export function PokecutSettings() {
   const preference = useSyncExternalStore(subscribeLocale, storedPreference, () => "auto" as UiLocale);
   const { prefs, setPrefs, error, rpc } = usePrefs();
   const [saveError, setSaveError] = useState(false);
-  const [active, setActive] = useState(themeActive);
+  const [active, setActive] = useState(themeIsActive);
   const [, setTick] = useState(0);
   useEffect(() => {
     // Theme and Russifier state change outside React; re-check periodically.
     const id = window.setInterval(() => {
-      setActive(themeActive());
+      setActive(themeIsActive());
       setTick((tick) => tick + 1);
     }, 1500);
     return () => window.clearInterval(id);

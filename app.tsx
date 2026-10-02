@@ -6,6 +6,7 @@ import "./app.css";
 import { useEffect } from "react";
 import { definePluginApp, useBbContext } from "@get-bb/plugin-sdk/app";
 import { usePrefs } from "./prefs";
+import { useThemeActive } from "./theme-active";
 import { rootAttributes } from "./settings";
 import { registerCoinsWorklet } from "./coins-worklet";
 import { mountSpatialTooltips } from "./spatial-tooltip";
@@ -22,26 +23,29 @@ const ROOT_ATTRIBUTES = ["data-pk-loader", "data-pk-chips", "data-pk-off"];
 function PokecutChatLayer() {
   const { prefs, rpc } = usePrefs();
   const { threadId } = useBbContext();
+  // Everything below touches BB's DOM, so it runs only while the Pokecut theme is
+  // selected; with any other theme the plugin leaves the interface alone.
+  const active = useThemeActive();
   const { loader, chips, off } = rootAttributes(prefs ?? {});
   const offList = off.join(" ");
 
   useEffect(() => {
     // Until prefs arrive the CSS defaults apply, which match the preference defaults.
-    if (!prefs) return;
+    if (!prefs || !active) return;
     const root = document.documentElement;
     root.setAttribute("data-pk-loader", loader);
     root.setAttribute("data-pk-chips", chips);
     root.setAttribute("data-pk-off", offList);
     return () => ROOT_ATTRIBUTES.forEach((name) => root.removeAttribute(name));
-  }, [prefs, loader, chips, offList]);
+  }, [prefs, active, loader, chips, offList]);
 
-  const meter = !off.includes("prompt");
+  const meter = active && !off.includes("prompt");
   useEffect(() => (meter ? mountContextMeter() : undefined), [meter]);
 
-  const rows = !off.includes("rows");
+  const rows = active && !off.includes("rows");
   useEffect(() => (rows ? mountTimelineMarks() : undefined), [rows]);
 
-  const times = !off.includes("times") && !!threadId;
+  const times = active && !off.includes("times") && !!threadId;
   useEffect(
     () =>
       times && threadId
@@ -51,14 +55,14 @@ function PokecutChatLayer() {
     [times, threadId, rpc],
   );
 
-  useEffect(() => mountDiffPaths(), []);
+  useEffect(() => (active ? mountDiffPaths() : undefined), [active]);
 
-  const tooltips = !off.includes("actions");
+  const tooltips = active && !off.includes("actions");
   useEffect(() => (tooltips ? mountSpatialTooltips() : undefined), [tooltips]);
 
   // The coins loader paints through a CSS Paint Worklet; until it is registered (or if
   // it can't be) the CSS keeps showing the drive loader instead of a blank icon.
-  const coins = loader === "coins";
+  const coins = active && loader === "coins";
   useEffect(() => {
     if (!coins) return;
     let current = true;
