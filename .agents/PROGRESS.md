@@ -8,7 +8,7 @@
 - none
 
 ## Next
-- [ ] Review the 0.5.5 shell layout in live BB in light and dark modes, with the sidebar expanded and collapsed.
+- [ ] Review the 0.5.6 shell layout in live BB in light and dark modes, with the sidebar expanded and collapsed.
 
 ## Last verify
 - command: `node scripts/build-theme.mjs --check`; `npm run typecheck`; `node --experimental-strip-types --test theme.test.ts` (Lane Pilot receipt)
@@ -17,5 +17,5 @@
 
 ## Pointers
 - Open todos: none (no `.agents/todos/INDEX.md`).
-- Plans: `.agents/plans/items/shell-grid-sidebar-tuck/PLAN.md` (no status metadata or task checklist).
+- Plans: `.agents/plans/items/shell-grid-fix-live/PLAN.md` (done); `.agents/plans/items/shell-grid-sidebar-tuck/PLAN.md` (done).
 - Changelog: `.agents/CHANGELOG.md`.
