@@ -46,23 +46,39 @@ test("desktop shell grid tokens live in both palettes and drive the inset", () =
     assert.match(block, /--pk-radius-card: 12px;/);
     assert.match(block, /--pk-radius-row: 10px;/);
   }
-  assert.match(base, /\[data-sidebar="inset"\][\s\S]*margin: var\(--pk-gap\) var\(--pk-gap\) var\(--pk-gap\) 0/);
+  assert.match(base, /\[data-sidebar="inset"\][\s\S]*margin: 0 var\(--pk-gap\) var\(--pk-gap\) 0/);
   assert.match(base, /\[data-sidebar="inset"\][\s\S]*border-radius: var\(--pk-radius-panel\)/);
   assert.match(base, /\[data-collapsible="offcanvas"\] ~ \[data-sidebar="inset"\][\s\S]*margin-left: var\(--pk-gap\)/);
 });
 
-test("desktop sidebar tucks under the content panel; collapsed drops the fill", () => {
-  const desktop = base.slice(base.indexOf("@media (min-width: 768px)"), base.indexOf("@media (max-width: 767px)"));
-  assert.match(desktop, /\[data-sidebar="panel"\]\[data-side="left"\][\s\S]*z-index: 0/);
-  assert.match(desktop, /\[data-sidebar="inset"\][\s\S]*z-index: 1/);
+test("desktop sidebar targets the real group markup; inset height fits the parent", () => {
+  const desktopBlocks = [...base.matchAll(/@media \(min-width: 768px\) \{[\s\S]*?\n\}/g)]
+    .map((m) => m[0])
+    .join("\n");
+  assert.doesNotMatch(desktopBlocks, /\[data-sidebar="panel"\]\[data-side="left"\]/);
+  assert.match(desktopBlocks, /\[data-side="left"\] > \[data-sidebar="panel"\][\s\S]*z-index: 0/);
+  assert.match(desktopBlocks, /\[data-sidebar="inset"\][\s\S]*z-index: 1/);
   assert.match(
-    desktop,
-    /\[data-sidebar="panel"\]\[data-side="left"\] \[data-sidebar="sidebar"\][\s\S]*box-shadow: var\(--pk-radius-panel\) 0 0 0 var\(--pk-panel\)/,
+    desktopBlocks,
+    /\[data-variant="sidebar"\]\[data-side="left"\] \[data-sidebar="sidebar"\][\s\S]*box-shadow: var\(--pk-radius-panel\) 0 0 0 var\(--pk-panel\)/,
   );
   assert.match(
-    desktop,
-    /\[data-collapsible="offcanvas"\] \[data-sidebar="panel"\]\[data-side="left"\] \[data-sidebar="sidebar"\][\s\S]*box-shadow: none/,
+    desktopBlocks,
+    /\[data-collapsible="offcanvas"\]\[data-side="left"\] \[data-sidebar="sidebar"\][\s\S]*box-shadow: none/,
   );
+  assert.match(
+    desktopBlocks,
+    /\[data-sidebar="inset"\]\s*\{[^}]*height: calc\(100% - var\(--pk-gap\)\)/,
+  );
+  assert.doesNotMatch(
+    desktopBlocks,
+    /\[data-sidebar="inset"\]\s*\{[^}]*--bb-shell-height/,
+  );
+});
+
+test("plugin version is 0.5.6", () => {
+  const pkg = JSON.parse(readFileSync(join(root, "package.json"), "utf8"));
+  assert.equal(pkg.version, "0.5.6");
 });
 
 test("phone shell rules keep literal radii", () => {

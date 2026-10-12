@@ -183,27 +183,31 @@ body {
 }
 
 @media (min-width: 768px) {
-  /* Sidebar surface tucks under the content panel: same top/bottom gutter and
-     outer radius, then a one-radius fill to the right. The inset sits above
-     with its drop, the same stacking as the composer over its footer tray. */
-  [data-sidebar="panel"][data-side="left"] {
+  /* BB puts data-side on the outer group, not on the panel (phone drawers do).
+     The panel is position:fixed; z-index:10, so drop it under the inset. The
+     lighter sidebar tucks under with a one-radius fill; the inset sits above
+     with its drop, same stacking as the composer over its footer tray. Tops
+     align on the chrome row — no extra --pk-gap above that. */
+  [data-side="left"] > [data-sidebar="panel"] {
     z-index: 0;
-    padding: var(--pk-gap) 0 var(--pk-gap) var(--pk-gap);
+    padding: 0 0 0 var(--pk-gap);
     background-color: var(--pk-shell);
     overflow: visible;
   }
 
-  [data-sidebar="panel"][data-side="left"] [data-sidebar="sidebar"] {
+  [data-variant="sidebar"][data-side="left"] [data-sidebar="sidebar"] {
     background-color: var(--pk-panel);
     border-radius: var(--pk-radius-panel) 0 0 var(--pk-radius-panel);
     box-shadow: var(--pk-radius-panel) 0 0 0 var(--pk-panel);
+    overflow: visible;
   }
 
   [data-sidebar="inset"] {
     position: relative;
     z-index: 1;
-    margin: var(--pk-gap) var(--pk-gap) var(--pk-gap) 0;
-    height: calc(var(--bb-shell-height, 100%) - (2 * var(--pk-gap)));
+    height: calc(100% - var(--pk-gap));
+    align-self: stretch;
+    margin: 0 var(--pk-gap) var(--pk-gap) 0;
     border: 1px solid var(--pk-outline);
     border-radius: var(--pk-radius-panel);
     background-color: var(--pk-panel);
@@ -217,7 +221,7 @@ body {
     margin-left: var(--pk-gap);
   }
 
-  [data-collapsible="offcanvas"] [data-sidebar="panel"][data-side="left"] [data-sidebar="sidebar"] {
+  [data-collapsible="offcanvas"][data-side="left"] [data-sidebar="sidebar"] {
     box-shadow: none;
   }
 }
