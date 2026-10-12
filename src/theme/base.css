@@ -481,11 +481,35 @@ body {
   [data-collapsible="rail"] ~ [data-sidebar="inset"] {
     margin-left: calc(var(--pk-gap) + var(--pk-gap) - 1px);
   }
+
+  /* macOS app (data-framed): BB draws its own window frame — a recessed
+     wrapper with a 12px lip right and bottom, and the sidebar body as a gray
+     rounded card with seams. The theme already supplies the gutters and the
+     surfaces, so the frame would double the bottom/right gap, end the inset
+     12px above the sidebar (its tuck shows below the panel) and leave a gray
+     sidebar body next to the light tuck at the panel's corners. Keep only the
+     chrome row on top, in the shell color. */
+  [data-framed]:not([data-framed="false"]) {
+    padding-right: 0;
+    padding-bottom: 0;
+    background-color: var(--pk-shell);
+    background-image: none;
+  }
+
+  [data-framed]:not([data-framed="false"]) [data-testid="nav-rail-sidebar-body"] {
+    border-width: 0;
+    border-radius: 0;
+    background-color: transparent;
+    clip-path: inset(0 -6px 0 0);
+  }
 }
 
 /* ── Page header (desktop): Pokecut's header strip, a card inside the panel ─ */
 @media (min-width: 768px) {
+  /* BB pads the header strip with px-4; the card's own 8px margin is the
+     gutter, so drop it (otherwise the card sits 24px in from the panel). */
   [data-sidebar="inset"] :has(> [data-testid="app-page-header-content-row"]) {
+    padding-inline: 0;
     border-bottom-color: transparent;
   }
 

@@ -226,9 +226,9 @@ test("desktop top row pins a compact New project button after New thread", () =>
   );
 });
 
-test("plugin version is 0.5.21", () => {
+test("plugin version is 0.5.22", () => {
   const pkg = JSON.parse(readFileSync(join(root, "package.json"), "utf8"));
-  assert.equal(pkg.version, "0.5.21");
+  assert.equal(pkg.version, "0.5.22");
 });
 
 function nestedHasSnippets(source: string): string[] {
@@ -355,6 +355,22 @@ test("desktop top row, surface wrappers, and resize handle hide overlap artifact
   assert.doesNotMatch(
     mobile,
     /\[data-testid="app-sidebar-top-reserve-row"\]:has\(/,
+  );
+});
+
+test("macOS framed window drops BB's own frame lip and gray sidebar card", () => {
+  const desktop = base.slice(0, base.indexOf("/* ── Page header"));
+  assert.match(
+    desktop,
+    /\[data-framed\]:not\(\[data-framed="false"\]\) \{[^}]*padding-bottom: 0;[^}]*background-image: none;/,
+  );
+  assert.match(
+    desktop,
+    /\[data-testid="nav-rail-sidebar-body"\] \{[^}]*background-color: transparent;/,
+  );
+  assert.match(
+    base,
+    /:has\(> \[data-testid="app-page-header-content-row"\]\) \{[^}]*padding-inline: 0;/,
   );
 });
 
