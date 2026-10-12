@@ -183,9 +183,36 @@ test("desktop top reserve row matches the card inset", () => {
   );
 });
 
-test("plugin version is 0.5.15", () => {
+test("desktop top row pins a compact New project button after New thread", () => {
+  const desktopBlocks = [...base.matchAll(/@media \(min-width: 768px\) \{[\s\S]*?\n\}/g)]
+    .map((m) => m[0])
+    .join("\n");
+  const mobile = base.slice(base.lastIndexOf("@media (max-width: 767px)"));
+  assert.match(
+    desktopBlocks,
+    /\.pf-tree > button:first-child\s*\{[^}]*position: absolute/,
+  );
+  assert.match(
+    desktopBlocks,
+    /\.pf-tree > button:first-child::after\s*\{[^}]*content: "Project"/,
+  );
+  assert.match(
+    desktopBlocks,
+    /content: "Проект"/,
+  );
+  assert.match(
+    desktopBlocks,
+    /\[data-sidebar-navigation-item="__bb__\/new-thread"\] > button[\s\S]*width: auto/,
+  );
+  assert.doesNotMatch(
+    mobile,
+    /\.pf-tree > button:first-child\s*\{[^}]*position: absolute/,
+  );
+});
+
+test("plugin version is 0.5.16", () => {
   const pkg = JSON.parse(readFileSync(join(root, "package.json"), "utf8"));
-  assert.equal(pkg.version, "0.5.15");
+  assert.equal(pkg.version, "0.5.16");
 });
 
 test("phone shell rules keep literal radii", () => {
