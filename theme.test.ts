@@ -103,9 +103,27 @@ test("desktop sidebar tucks with real geometry, shared bottom, no shadow copy", 
   );
 });
 
-test("plugin version is 0.5.8", () => {
+test("desktop sidebar is one light surface with even inner inset", () => {
+  const desktopBlocks = [...base.matchAll(/@media \(min-width: 768px\) \{[\s\S]*?\n\}/g)]
+    .map((m) => m[0])
+    .join("\n");
+  assert.match(
+    desktopBlocks,
+    /\[data-variant="sidebar"\]\[data-side="left"\] \[data-sidebar="content"\][\s\S]*?background-color: transparent/,
+  );
+  assert.match(
+    desktopBlocks,
+    /\[data-variant="sidebar"\]\[data-side="left"\] \[data-sidebar="header"\],\s*\[data-variant="sidebar"\]\[data-side="left"\] \[data-sidebar="content"\]\s*\{[^}]*padding-inline: var\(--pk-gap-card\)/,
+  );
+  assert.match(
+    desktopBlocks,
+    /\[data-variant="sidebar"\]\[data-side="left"\] \[data-sidebar="footer"\]\s*\{[^}]*padding: var\(--pk-gap-card\)/,
+  );
+});
+
+test("plugin version is 0.5.9", () => {
   const pkg = JSON.parse(readFileSync(join(root, "package.json"), "utf8"));
-  assert.equal(pkg.version, "0.5.8");
+  assert.equal(pkg.version, "0.5.9");
 });
 
 test("phone shell rules keep literal radii", () => {

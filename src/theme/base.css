@@ -190,6 +190,7 @@ body {
     bottom: 0;
     height: auto;
     padding: 0 0 0 var(--pk-gap);
+    border-right-width: 0;
     background-color: var(--pk-shell);
     overflow: visible;
   }
@@ -206,13 +207,28 @@ body {
     overflow: hidden;
   }
 
+  [data-variant="sidebar"][data-side="left"] [data-sidebar="sidebar"] > * {
+    background-color: transparent;
+  }
+
   [data-variant="sidebar"][data-side="left"] [data-sidebar="header"],
+  [data-variant="sidebar"][data-side="left"] [data-sidebar="content"],
   [data-variant="sidebar"][data-side="left"] [data-sidebar="footer"] {
     background-color: transparent;
   }
 
+  [data-variant="sidebar"][data-side="left"] [data-sidebar="header"],
+  [data-variant="sidebar"][data-side="left"] [data-sidebar="content"] {
+    padding-inline: var(--pk-gap-card);
+  }
+
   [data-variant="sidebar"][data-side="left"] [data-sidebar="footer"] {
     padding: var(--pk-gap-card);
+  }
+
+  [data-variant="sidebar"][data-side="left"] [data-sidebar="sidebar"] .pf-tree > button:first-child {
+    width: 100%;
+    margin-inline: 0;
   }
 
   [data-sidebar="inset"] {
