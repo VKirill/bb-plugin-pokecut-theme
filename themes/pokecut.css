@@ -228,6 +228,10 @@ body {
     padding: var(--pk-gap-card);
   }
 
+  [data-variant="sidebar"][data-side="left"] [data-sidebar="sidebar"] .pf-tree {
+    padding-inline: 0;
+  }
+
   [data-variant="sidebar"][data-side="left"] [data-sidebar="sidebar"] .pf-tree > button:first-child {
     width: 100%;
     margin-inline: 0;
