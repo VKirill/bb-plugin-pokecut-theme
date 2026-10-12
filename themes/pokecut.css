@@ -185,21 +185,37 @@ body {
 @media (min-width: 768px) {
   /* BB puts data-side on the outer group, not on the panel (phone drawers do).
      The panel is position:fixed; z-index:10, so drop it under the inset. The
-     lighter sidebar tucks under with a one-radius fill; the inset sits above
-     with its drop, same stacking as the composer over its footer tray. Tops
-     align on the chrome row — no extra --pk-gap above that. */
+     sidebar surface shares the inset's top and bottom, then extends one
+     radius under it as real width (same --pk-panel, no shadow copy). */
   [data-side="left"] > [data-sidebar="panel"] {
     z-index: 0;
+    top: 0;
+    height: 100%;
+    bottom: auto;
     padding: 0 0 0 var(--pk-gap);
     background-color: var(--pk-shell);
     overflow: visible;
   }
 
   [data-variant="sidebar"][data-side="left"] [data-sidebar="sidebar"] {
+    box-sizing: border-box;
+    height: calc(100% - var(--pk-gap));
+    margin-bottom: var(--pk-gap);
+    width: calc(100% + var(--pk-radius-panel));
+    margin-right: calc(-1 * var(--pk-radius-panel));
+    padding-right: var(--pk-radius-panel);
     background-color: var(--pk-panel);
     border-radius: var(--pk-radius-panel) 0 0 var(--pk-radius-panel);
-    box-shadow: var(--pk-radius-panel) 0 0 0 var(--pk-panel);
-    overflow: visible;
+    overflow: hidden;
+  }
+
+  [data-variant="sidebar"][data-side="left"] [data-sidebar="header"],
+  [data-variant="sidebar"][data-side="left"] [data-sidebar="footer"] {
+    background-color: transparent;
+  }
+
+  [data-variant="sidebar"][data-side="left"] [data-sidebar="footer"] {
+    padding: var(--pk-gap-card);
   }
 
   [data-sidebar="inset"] {
@@ -216,13 +232,19 @@ body {
   }
 
   /* With the sidebar collapsed the panel gets a left gutter too; drop the
-     tucked fill so nothing peeks from off-canvas. */
+     width tuck so nothing peeks from off-canvas. */
   [data-collapsible="offcanvas"] ~ [data-sidebar="inset"] {
     margin-left: var(--pk-gap);
   }
 
+  [data-collapsible="offcanvas"][data-side="left"] > [data-sidebar="panel"] {
+    overflow: hidden;
+  }
+
   [data-collapsible="offcanvas"][data-side="left"] [data-sidebar="sidebar"] {
-    box-shadow: none;
+    width: 100%;
+    margin-right: 0;
+    padding-right: 0;
   }
 }
 
