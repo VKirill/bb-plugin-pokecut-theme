@@ -88,6 +88,15 @@
     radial-gradient(80% 130% at 27% 16%, rgb(240 168 192 / 0.8) 0%, rgb(240 168 192 / 0) 58%),
     linear-gradient(101deg, #d96d98 0%, #d27aa2 38%, #aa79bf 71%, #8c69c3 100%);
   --pk-accent-edge: inset 0 -4.5px 1px -4px rgb(255 255 255 / 0.3);
+
+  /* Desktop shell grid: one gutter, nested radii (panel > card > row). */
+  --pk-gap: 12px;
+  --pk-gap-card: 8px;
+  --pk-radius-panel: 20px;
+  --pk-radius-window: 16px;
+  --pk-radius-header: 14px;
+  --pk-radius-card: 12px;
+  --pk-radius-row: 10px;
 }
 
 .dark {
@@ -154,6 +163,14 @@
   --pk-hairline: #282d35;
   --pk-drop: 0 8px 16px -4px rgb(0 0 0 / 0.5);
   --pk-card-drop: 0 18px 20px -24px rgb(0 0 0 / 0.55);
+
+  --pk-gap: 12px;
+  --pk-gap-card: 8px;
+  --pk-radius-panel: 20px;
+  --pk-radius-window: 16px;
+  --pk-radius-header: 14px;
+  --pk-radius-card: 12px;
+  --pk-radius-row: 10px;
 }
 
 /* ── Shell: gray frame, content as one raised rounded panel (desktop) ──────── */
@@ -166,19 +183,42 @@ body {
 }
 
 @media (min-width: 768px) {
+  /* Sidebar surface tucks under the content panel: same top/bottom gutter and
+     outer radius, then a one-radius fill to the right. The inset sits above
+     with its drop, the same stacking as the composer over its footer tray. */
+  [data-sidebar="panel"][data-side="left"] {
+    z-index: 0;
+    padding: var(--pk-gap) 0 var(--pk-gap) var(--pk-gap);
+    background-color: var(--pk-shell);
+    overflow: visible;
+  }
+
+  [data-sidebar="panel"][data-side="left"] [data-sidebar="sidebar"] {
+    background-color: var(--pk-panel);
+    border-radius: var(--pk-radius-panel) 0 0 var(--pk-radius-panel);
+    box-shadow: var(--pk-radius-panel) 0 0 0 var(--pk-panel);
+  }
+
   [data-sidebar="inset"] {
-    margin: 12px 12px 12px 0;
-    height: calc(var(--bb-shell-height, 100%) - 24px);
+    position: relative;
+    z-index: 1;
+    margin: var(--pk-gap) var(--pk-gap) var(--pk-gap) 0;
+    height: calc(var(--bb-shell-height, 100%) - (2 * var(--pk-gap)));
     border: 1px solid var(--pk-outline);
-    border-radius: 20px;
+    border-radius: var(--pk-radius-panel);
     background-color: var(--pk-panel);
     box-shadow: var(--pk-drop);
     overflow: hidden;
   }
 
-  /* With the sidebar collapsed the panel gets a left gutter too. */
+  /* With the sidebar collapsed the panel gets a left gutter too; drop the
+     tucked fill so nothing peeks from off-canvas. */
   [data-collapsible="offcanvas"] ~ [data-sidebar="inset"] {
-    margin-left: 12px;
+    margin-left: var(--pk-gap);
+  }
+
+  [data-collapsible="offcanvas"] [data-sidebar="panel"][data-side="left"] [data-sidebar="sidebar"] {
+    box-shadow: none;
   }
 }
 
@@ -189,10 +229,10 @@ body {
   }
 
   [data-sidebar="inset"] [data-testid="app-page-header-content-row"] {
-    margin: 8px 8px 0;
-    padding-inline: 8px;
+    margin: var(--pk-gap-card) var(--pk-gap-card) 0;
+    padding-inline: var(--pk-gap-card);
     border: 1px solid var(--pk-hairline);
-    border-radius: 14px;
+    border-radius: var(--pk-radius-header);
     background-color: var(--pk-card);
     box-shadow: var(--pk-card-drop);
   }
@@ -222,6 +262,7 @@ section[data-root-compose-mobile-recents] li:active {
 /* ── Right panel (desktop): gray well, the panel body as one raised card ───── */
 @media (min-width: 768px) {
   #thread-detail-secondary-panel > aside {
+    padding: var(--pk-gap) var(--pk-gap) var(--pk-gap) 0;
     background-color: var(--pk-shell);
   }
 
@@ -231,9 +272,9 @@ section[data-root-compose-mobile-recents] li:active {
   }
 
   #thread-detail-secondary-panel > aside > div > div:last-child {
-    margin: 0 10px 10px;
+    margin: 0;
     border: 1px solid var(--pk-outline);
-    border-radius: 16px;
+    border-radius: var(--pk-radius-window);
     background-color: var(--pk-panel);
     box-shadow: var(--pk-drop);
     overflow: hidden;
@@ -249,7 +290,7 @@ section[data-root-compose-mobile-recents] li:active {
   box-shadow:
     inset 0 0 0 1px var(--pk-outline),
     var(--pk-drop);
-  border-radius: calc(var(--radius) - 2px);
+  border-radius: var(--pk-radius-row);
 }
 
 /* ── Sidebar as a Pokecut menu ─────────────────────────────────────────────
@@ -258,7 +299,7 @@ section[data-root-compose-mobile-recents] li:active {
    card; "New project" reads like Pokecut's outlined search field; the footer
    tool strip is a card like Pokecut's profile block. */
 [data-testid="plugin-nav-sidebar-items"] [data-sidebar-navigation-item] > button {
-  border-radius: 12px;
+  border-radius: var(--pk-radius-card);
   color: var(--muted-foreground);
   transition: background-color 150ms ease, box-shadow 150ms ease, color 150ms ease;
 }
@@ -289,16 +330,16 @@ section[data-root-compose-mobile-recents] li:active {
   margin-inline: 2px;
   justify-content: flex-start;
   border: 1px solid var(--pk-outline);
-  border-radius: 12px;
+  border-radius: var(--pk-radius-card);
   background-color: var(--pk-panel);
   color: var(--muted-foreground);
 }
 
 [data-sidebar="sidebar"] .pf-project {
-  margin-bottom: 8px;
+  margin-bottom: var(--pk-gap-card);
   padding: 4px;
   border: 1px solid var(--pk-hairline);
-  border-radius: 16px;
+  border-radius: var(--pk-radius-window);
   background-color: color-mix(in oklab, var(--pk-panel) 70%, var(--pk-shell));
   box-shadow: var(--pk-card-drop);
 }
@@ -309,7 +350,7 @@ section[data-root-compose-mobile-recents] li:active {
 
 [data-sidebar="sidebar"] .pf-heading,
 [data-sidebar="sidebar"] .pf-thread {
-  border-radius: 12px;
+  border-radius: var(--pk-radius-card);
 }
 
 [data-sidebar="sidebar"] .pf-thread:not(.pf-active):hover,
@@ -320,7 +361,7 @@ section[data-root-compose-mobile-recents] li:active {
 [data-sidebar="footer"] > ul[data-sidebar="menu"] {
   padding: 2px;
   border: 1px solid var(--pk-outline);
-  border-radius: 14px;
+  border-radius: var(--pk-radius-header);
   background-color: var(--pk-panel);
   box-shadow: var(--pk-drop);
 }
@@ -346,7 +387,7 @@ section[data-root-compose-mobile-recents] li:active {
 }
 
 [data-sidebar="sidebar"] input {
-  border-radius: calc(var(--radius) - 2px);
+  border-radius: var(--pk-radius-row);
 }
 
 /* ── Composer: white card with an outline, focus firms the hairline ───────── */

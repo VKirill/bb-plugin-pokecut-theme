@@ -33,3 +33,42 @@ test("phone context row: chips for project/machine/access, plain icon controls",
   assert.match(base, /\[data-option-display\][\s\S]*button\[data-promptbox-shrinkable-control\]/);
   assert.doesNotMatch(base, /\[data-follow-up-composer-footer\] :is\(button\[aria-haspopup\]/);
 });
+
+test("desktop shell grid tokens live in both palettes and drive the inset", () => {
+  const light = base.slice(base.indexOf(":root"), base.indexOf("\n.dark"));
+  const dark = base.slice(base.indexOf("\n.dark"), base.indexOf("/* ── Shell"));
+  for (const block of [light, dark]) {
+    assert.match(block, /--pk-gap: 12px;/);
+    assert.match(block, /--pk-gap-card: 8px;/);
+    assert.match(block, /--pk-radius-panel: 20px;/);
+    assert.match(block, /--pk-radius-window: 16px;/);
+    assert.match(block, /--pk-radius-header: 14px;/);
+    assert.match(block, /--pk-radius-card: 12px;/);
+    assert.match(block, /--pk-radius-row: 10px;/);
+  }
+  assert.match(base, /\[data-sidebar="inset"\][\s\S]*margin: var\(--pk-gap\) var\(--pk-gap\) var\(--pk-gap\) 0/);
+  assert.match(base, /\[data-sidebar="inset"\][\s\S]*border-radius: var\(--pk-radius-panel\)/);
+  assert.match(base, /\[data-collapsible="offcanvas"\] ~ \[data-sidebar="inset"\][\s\S]*margin-left: var\(--pk-gap\)/);
+});
+
+test("desktop sidebar tucks under the content panel; collapsed drops the fill", () => {
+  const desktop = base.slice(base.indexOf("@media (min-width: 768px)"), base.indexOf("@media (max-width: 767px)"));
+  assert.match(desktop, /\[data-sidebar="panel"\]\[data-side="left"\][\s\S]*z-index: 0/);
+  assert.match(desktop, /\[data-sidebar="inset"\][\s\S]*z-index: 1/);
+  assert.match(
+    desktop,
+    /\[data-sidebar="panel"\]\[data-side="left"\] \[data-sidebar="sidebar"\][\s\S]*box-shadow: var\(--pk-radius-panel\) 0 0 0 var\(--pk-panel\)/,
+  );
+  assert.match(
+    desktop,
+    /\[data-collapsible="offcanvas"\] \[data-sidebar="panel"\]\[data-side="left"\] \[data-sidebar="sidebar"\][\s\S]*box-shadow: none/,
+  );
+});
+
+test("phone shell rules keep literal radii", () => {
+  const mobile = base.slice(base.lastIndexOf("@media (max-width: 767px)"));
+  assert.match(mobile, /border-radius: 20px;/);
+  assert.match(mobile, /border-radius: 10px;/);
+  assert.match(mobile, /border-radius: 16px;/);
+  assert.match(mobile, /border-radius: 18px;/);
+});
