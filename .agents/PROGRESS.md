@@ -17,5 +17,5 @@
 
 ## Pointers
 - Open todos: none (`.agents/todos/INDEX.md` is absent).
-- Active plans: none (all sixteen shell plans are complete; `.agents/plans/ROADMAP.md` is absent).
+- Active plans: none (all seventeen shell plans are complete; `.agents/plans/ROADMAP.md` is absent).
 - Changelog: `.agents/CHANGELOG.md`.
