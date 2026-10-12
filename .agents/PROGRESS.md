@@ -8,7 +8,7 @@
 - none
 
 ## Next
-- [ ] Review the 0.5.9 shell layout in live BB in light and dark modes, with the sidebar expanded and collapsed.
+- [ ] Review the 0.5.10 shell layout in live BB in light and dark modes, with the sidebar expanded and collapsed.
 
 ## Last verify
 - command: `node scripts/build-theme.mjs --check`; `npm run typecheck`; `node --experimental-strip-types --test theme.test.ts` (Lane Pilot receipt)
@@ -17,5 +17,5 @@
 
 ## Pointers
 - Open todos: none (`.agents/todos/INDEX.md` is absent).
-- Active plans: none (all five shell plans are complete).
+- Active plans: none (all six shell plans are complete).
 - Changelog: `.agents/CHANGELOG.md`.
