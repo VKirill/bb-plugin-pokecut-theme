@@ -175,7 +175,7 @@ test("desktop top reserve row matches the card inset", () => {
     .join("\n");
   assert.match(
     desktopBlocks,
-    /:has\(\[data-testid="app-nav-rail"\]\)\s*\[data-testid="app-sidebar-top-reserve-row"\]\s*\{[^}]*padding-left: calc\(anchor-size\(--pk-project width\) \+ var\(--pk-gap-card\)\)/,
+    /:has\(\[data-testid="app-nav-rail"\]\)\s*\[data-testid="app-sidebar-top-reserve-row"\]\s*\{[^}]*padding-left: calc\(104px \+ var\(--pk-gap-card\)\)/,
   );
   assert.match(
     desktopBlocks,
@@ -226,9 +226,50 @@ test("desktop top row pins a compact New project button after New thread", () =>
   );
 });
 
-test("plugin version is 0.5.20", () => {
+test("plugin version is 0.5.21", () => {
   const pkg = JSON.parse(readFileSync(join(root, "package.json"), "utf8"));
-  assert.equal(pkg.version, "0.5.20");
+  assert.equal(pkg.version, "0.5.21");
+});
+
+function nestedHasSnippets(source: string): string[] {
+  const stripped = source.replace(/\/\*[\s\S]*?\*\//g, "");
+  const hits: string[] = [];
+  let from = 0;
+  while (from < stripped.length) {
+    const start = stripped.indexOf(":has(", from);
+    if (start === -1) break;
+    let depth = 1;
+    let i = start + 5;
+    while (i < stripped.length && depth > 0) {
+      if (stripped.startsWith(":has(", i)) {
+        hits.push(stripped.slice(start, i + 5).replace(/\s+/g, " "));
+        break;
+      }
+      if (stripped[i] === "(") depth += 1;
+      else if (stripped[i] === ")") depth -= 1;
+      i += 1;
+    }
+    from = start + 5;
+  }
+  return hits;
+}
+
+test("theme CSS does not nest :has() inside :has()", () => {
+  assert.deepEqual(nestedHasSnippets(css), []);
+  assert.deepEqual(nestedHasSnippets(base), []);
+  assert.deepEqual(nestedHasSnippets(chat), []);
+  assert.deepEqual(nestedHasSnippets(integrations), []);
+});
+
+test("icon-only Проект uses a flat :has() for Back/Forward in the top row", () => {
+  const desktopBlocks = [...base.matchAll(/@media \(min-width: 768px\) \{[\s\S]*?\n\}/g)]
+    .map((m) => m[0])
+    .join("\n");
+  assert.doesNotMatch(base, /anchor-size\(/);
+  assert.match(
+    desktopBlocks,
+    /\[data-side="left"\]:has\(\s*\[data-testid="app-sidebar-top-reserve-row"\] button\[aria-label\^="Back"\],\s*\[data-testid="app-sidebar-top-reserve-row"\] button\[aria-label\^="Forward"\],\s*\[data-testid="app-sidebar-top-reserve-row"\] button\[aria-label\^="Назад"\],\s*\[data-testid="app-sidebar-top-reserve-row"\] button\[aria-label\^="Вперёд"\]\s*\)/,
+  );
 });
 
 test("desktop right panel tab row aligns with the page header card", () => {

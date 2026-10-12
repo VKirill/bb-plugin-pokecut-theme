@@ -294,7 +294,6 @@ body {
   [data-variant="sidebar"][data-side="left"] [data-sidebar="sidebar"]:has([data-testid="app-nav-rail"])
     [data-testid="app-sidebar-top-reserve-row"] {
     padding-left: calc(104px + var(--pk-gap-card));
-    padding-left: calc(anchor-size(--pk-project width) + var(--pk-gap-card));
     padding-right: var(--pk-gap-card);
   }
 
@@ -388,12 +387,10 @@ body {
   }
 
   [data-variant="sidebar"][data-side="left"]:has(
-      [data-testid="app-sidebar-top-reserve-row"]:has(
-        button[aria-label^="Back"],
-        button[aria-label^="Forward"],
-        button[aria-label^="Назад"],
-        button[aria-label^="Вперёд"]
-      )
+      [data-testid="app-sidebar-top-reserve-row"] button[aria-label^="Back"],
+      [data-testid="app-sidebar-top-reserve-row"] button[aria-label^="Forward"],
+      [data-testid="app-sidebar-top-reserve-row"] button[aria-label^="Назад"],
+      [data-testid="app-sidebar-top-reserve-row"] button[aria-label^="Вперёд"]
     )
     [data-sidebar="sidebar"]
     .pf-tree
@@ -407,12 +404,10 @@ body {
   }
 
   [data-variant="sidebar"][data-side="left"]:has(
-      [data-testid="app-sidebar-top-reserve-row"]:has(
-        button[aria-label^="Back"],
-        button[aria-label^="Forward"],
-        button[aria-label^="Назад"],
-        button[aria-label^="Вперёд"]
-      )
+      [data-testid="app-sidebar-top-reserve-row"] button[aria-label^="Back"],
+      [data-testid="app-sidebar-top-reserve-row"] button[aria-label^="Forward"],
+      [data-testid="app-sidebar-top-reserve-row"] button[aria-label^="Назад"],
+      [data-testid="app-sidebar-top-reserve-row"] button[aria-label^="Вперёд"]
     )
     [data-sidebar="sidebar"]
     .pf-tree
