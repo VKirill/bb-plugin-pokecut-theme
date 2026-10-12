@@ -119,11 +119,15 @@ test("desktop sidebar is one light surface with even inner inset", () => {
     desktopBlocks,
     /\[data-variant="sidebar"\]\[data-side="left"\] \[data-sidebar="footer"\]\s*\{[^}]*padding: var\(--pk-gap-card\)/,
   );
+  assert.match(
+    desktopBlocks,
+    /\[data-variant="sidebar"\]\[data-side="left"\] \[data-sidebar="sidebar"\] \.pf-tree\s*\{[^}]*padding-inline: 0/,
+  );
 });
 
-test("plugin version is 0.5.9", () => {
+test("plugin version is 0.5.10", () => {
   const pkg = JSON.parse(readFileSync(join(root, "package.json"), "utf8"));
-  assert.equal(pkg.version, "0.5.9");
+  assert.equal(pkg.version, "0.5.10");
 });
 
 test("phone shell rules keep literal radii", () => {
