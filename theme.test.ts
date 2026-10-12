@@ -89,11 +89,23 @@ test("desktop sidebar tucks with real geometry, shared bottom, no shadow copy", 
     desktopBlocks,
     /\[data-collapsible="offcanvas"\]\[data-side="left"\] \[data-sidebar="sidebar"\]\s*\{[^}]*width: 100%/,
   );
+  assert.match(
+    desktopBlocks,
+    /\[data-side="left"\] > \[data-sidebar="panel"\]\s*\{[^}]*bottom: 0/,
+  );
+  assert.match(
+    desktopBlocks,
+    /\[data-side="left"\] > \[data-sidebar="panel"\]\s*\{[^}]*height: auto/,
+  );
+  assert.doesNotMatch(
+    desktopBlocks,
+    /\[data-side="left"\] > \[data-sidebar="panel"\]\s*\{[^}]*top:\s*0/,
+  );
 });
 
-test("plugin version is 0.5.7", () => {
+test("plugin version is 0.5.8", () => {
   const pkg = JSON.parse(readFileSync(join(root, "package.json"), "utf8"));
-  assert.equal(pkg.version, "0.5.7");
+  assert.equal(pkg.version, "0.5.8");
 });
 
 test("phone shell rules keep literal radii", () => {

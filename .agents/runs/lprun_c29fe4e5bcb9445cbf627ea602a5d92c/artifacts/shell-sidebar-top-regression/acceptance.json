@@ -1,0 +1,15 @@
+{
+  "schema_version": 2,
+  "task_id": "shell-sidebar-top-regression",
+  "task_sha256": "a015c80af75f4b5dafd87963bebc75bbcbc66e7a48afdbbf1a225142d9d74e38",
+  "attempt": 1,
+  "provider_exit": 0,
+  "report": "complete",
+  "report_sha256": "6159ed0ba5be7faade5e2a229c4b1ddd15f67438ba84dd770cb0f4cadcc41c31",
+  "owns_check": "passed",
+  "verification": "passed",
+  "review": "not_required",
+  "accepted": true,
+  "accepted_at": "2026-10-12T15:04:26.266Z",
+  "model": "grok-4.6"
+}
