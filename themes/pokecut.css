@@ -210,7 +210,12 @@ body {
     overflow: hidden;
   }
 
-  [data-variant="sidebar"][data-side="left"] [data-sidebar="sidebar"] > * {
+  [data-variant="sidebar"][data-side="left"] [data-sidebar="sidebar"] > *:not([data-testid="app-nav-rail"]) {
+    background-color: transparent;
+  }
+
+  [data-variant="sidebar"][data-side="left"] [data-testid="app-sidebar-top-reserve-row"],
+  [data-variant="sidebar"][data-side="left"] [data-testid="app-sidebar-body"] {
     background-color: transparent;
   }
 
@@ -218,6 +223,16 @@ body {
   [data-variant="sidebar"][data-side="left"] [data-sidebar="content"],
   [data-variant="sidebar"][data-side="left"] [data-sidebar="footer"] {
     background-color: transparent;
+  }
+
+  [data-variant="sidebar"][data-side="left"] [data-sidebar="rail"] {
+    top: 0;
+    bottom: var(--pk-gap);
+    background: transparent;
+  }
+
+  [data-variant="sidebar"][data-side="left"] [data-sidebar="gap"] {
+    background: transparent;
   }
 
   [data-variant="sidebar"][data-side="left"] [data-sidebar="header"],
@@ -276,11 +291,23 @@ body {
   }
 
   /* BB's px-2 on the chrome row must not stack on the rail inset; keep
-     New thread on the same x as the body cards and end 8px before the inset. */
+     New thread on the same x as the body cards and end 8px before the inset.
+     Reserve Проект's width + 8 so it never covers New thread. */
   [data-variant="sidebar"][data-side="left"] [data-sidebar="sidebar"]:has([data-testid="app-nav-rail"])
     [data-testid="app-sidebar-top-reserve-row"] {
-    padding-left: 0;
+    padding-left: calc(104px + var(--pk-gap-card));
+    padding-left: calc(anchor-size(--pk-project width) + var(--pk-gap-card));
     padding-right: var(--pk-gap-card);
+  }
+
+  [data-variant="sidebar"][data-side="left"] [data-sidebar="sidebar"]:has([data-testid="app-nav-rail"])
+    [data-testid="app-sidebar-top-reserve-row"]:has(
+      button[aria-label^="Back"],
+      button[aria-label^="Forward"],
+      button[aria-label^="Назад"],
+      button[aria-label^="Вперёд"]
+    ) {
+    padding-left: calc(32px + var(--pk-gap-card));
   }
 
   [data-variant="sidebar"][data-side="left"] [data-testid="app-nav-rail"] {
@@ -321,6 +348,7 @@ body {
   [data-variant="sidebar"][data-side="left"] [data-sidebar="sidebar"] .pf-tree > button:first-child {
     position: absolute;
     position-anchor: --pk-rail;
+    anchor-name: --pk-project;
     z-index: 2;
     top: anchor(--pk-new-thread center);
     left: calc(anchor(right) + var(--pk-gap-card));
@@ -358,6 +386,40 @@ body {
   :root:lang(ru) [data-variant="sidebar"][data-side="left"] [data-sidebar="sidebar"] .pf-tree > button:first-child::after,
   html[lang^="ru"] [data-variant="sidebar"][data-side="left"] [data-sidebar="sidebar"] .pf-tree > button:first-child::after {
     content: "Проект";
+  }
+
+  [data-variant="sidebar"][data-side="left"]:has(
+      [data-testid="app-sidebar-top-reserve-row"]:has(
+        button[aria-label^="Back"],
+        button[aria-label^="Forward"],
+        button[aria-label^="Назад"],
+        button[aria-label^="Вперёд"]
+      )
+    )
+    [data-sidebar="sidebar"]
+    .pf-tree
+    > button:first-child {
+    width: 32px;
+    min-width: 32px;
+    max-width: 32px;
+    padding: 0;
+    justify-content: center;
+    gap: 0;
+  }
+
+  [data-variant="sidebar"][data-side="left"]:has(
+      [data-testid="app-sidebar-top-reserve-row"]:has(
+        button[aria-label^="Back"],
+        button[aria-label^="Forward"],
+        button[aria-label^="Назад"],
+        button[aria-label^="Вперёд"]
+      )
+    )
+    [data-sidebar="sidebar"]
+    .pf-tree
+    > button:first-child::after {
+    content: none;
+    display: none;
   }
 
   [data-variant="sidebar"][data-side="left"] [data-sidebar="sidebar"] .pf-project {
