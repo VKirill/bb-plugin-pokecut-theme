@@ -528,7 +528,7 @@ section[data-root-compose-mobile-recents] li:active {
 /* ── Right panel (desktop): gray well, the panel body as one raised card ───── */
 @media (min-width: 768px) {
   #thread-detail-secondary-panel > aside {
-    padding: var(--pk-gap) var(--pk-gap) var(--pk-gap) 0;
+    padding: 0 var(--pk-gap) var(--pk-gap) 0;
     background-color: var(--pk-shell);
   }
 
@@ -537,8 +537,16 @@ section[data-root-compose-mobile-recents] li:active {
     background-color: transparent;
   }
 
+  /* Same top offset and height as the page header card (inset top + 8). */
+  #thread-detail-secondary-panel > aside > div > div:first-child {
+    box-sizing: border-box;
+    height: calc(var(--bb-app-chrome-row-height, 48px) - var(--pk-gap-card));
+    min-height: calc(var(--bb-app-chrome-row-height, 48px) - var(--pk-gap-card));
+    margin: var(--pk-gap-card) 0 0;
+  }
+
   #thread-detail-secondary-panel > aside > div > div:last-child {
-    margin: 0;
+    margin: var(--pk-gap-card) 0 0;
     border: 1px solid var(--pk-outline);
     border-radius: var(--pk-radius-window);
     background-color: var(--pk-panel);

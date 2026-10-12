@@ -226,9 +226,44 @@ test("desktop top row pins a compact New project button after New thread", () =>
   );
 });
 
-test("plugin version is 0.5.19", () => {
+test("plugin version is 0.5.20", () => {
   const pkg = JSON.parse(readFileSync(join(root, "package.json"), "utf8"));
-  assert.equal(pkg.version, "0.5.19");
+  assert.equal(pkg.version, "0.5.20");
+});
+
+test("desktop right panel tab row aligns with the page header card", () => {
+  const desktopBlocks = [...base.matchAll(/@media \(min-width: 768px\) \{[\s\S]*?\n\}/g)]
+    .map((m) => m[0])
+    .join("\n");
+  const mobile = base.slice(base.lastIndexOf("@media (max-width: 767px)"));
+  assert.match(
+    desktopBlocks,
+    /#thread-detail-secondary-panel > aside\s*\{[^}]*padding: 0 var\(--pk-gap\) var\(--pk-gap\) 0/,
+  );
+  assert.doesNotMatch(
+    desktopBlocks,
+    /#thread-detail-secondary-panel > aside\s*\{[^}]*padding: var\(--pk-gap\) var\(--pk-gap\) var\(--pk-gap\) 0/,
+  );
+  assert.match(
+    desktopBlocks,
+    /#thread-detail-secondary-panel > aside > div > div:first-child\s*\{[^}]*margin: var\(--pk-gap-card\) 0 0/,
+  );
+  assert.match(
+    desktopBlocks,
+    /#thread-detail-secondary-panel > aside > div > div:first-child\s*\{[^}]*height: calc\(var\(--bb-app-chrome-row-height, 48px\) - var\(--pk-gap-card\)\)/,
+  );
+  assert.match(
+    desktopBlocks,
+    /#thread-detail-secondary-panel > aside > div > div:last-child\s*\{[^}]*margin: var\(--pk-gap-card\) 0 0/,
+  );
+  assert.doesNotMatch(
+    mobile,
+    /#thread-detail-secondary-panel > aside\s*\{[^}]*padding: 0 var\(--pk-gap\) var\(--pk-gap\) 0/,
+  );
+  assert.match(
+    mobile,
+    /\[data-testid="secondary-panel-shelf"\] aside > :not\(\[data-testid="thread-secondary-panel-top-chrome"\]\)\s*\{[^}]*margin: 0 8px 8px/,
+  );
 });
 
 test("desktop top row, surface wrappers, and resize handle hide overlap artifacts", () => {
