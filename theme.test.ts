@@ -194,6 +194,14 @@ test("desktop top row pins a compact New project button after New thread", () =>
   );
   assert.match(
     desktopBlocks,
+    /\.pf-tree > button:first-child\s*\{[^}]*position-anchor: --pk-rail/,
+  );
+  assert.match(
+    desktopBlocks,
+    /\[data-testid="app-nav-rail"\]\s*\{[^}]*anchor-name: --pk-rail/,
+  );
+  assert.match(
+    desktopBlocks,
     /\.pf-tree > button:first-child::after\s*\{[^}]*content: "Project"/,
   );
   assert.match(
@@ -204,15 +212,23 @@ test("desktop top row pins a compact New project button after New thread", () =>
     desktopBlocks,
     /\[data-sidebar-navigation-item="__bb__\/new-thread"\] > button[\s\S]*width: auto/,
   );
+  assert.match(
+    desktopBlocks,
+    /\[data-sidebar-navigation-item="__bb__\/new-thread"\] > button[\s\S]*margin-left: auto/,
+  );
+  assert.doesNotMatch(
+    desktopBlocks,
+    /\[data-sidebar="content"\][^\{]*\{[^}]*overflow:\s*visible/,
+  );
   assert.doesNotMatch(
     mobile,
     /\.pf-tree > button:first-child\s*\{[^}]*position: absolute/,
   );
 });
 
-test("plugin version is 0.5.16", () => {
+test("plugin version is 0.5.17", () => {
   const pkg = JSON.parse(readFileSync(join(root, "package.json"), "utf8"));
-  assert.equal(pkg.version, "0.5.16");
+  assert.equal(pkg.version, "0.5.17");
 });
 
 test("phone shell rules keep literal radii", () => {

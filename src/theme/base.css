@@ -281,6 +281,19 @@ body {
     padding-right: var(--pk-gap-card);
   }
 
+  [data-variant="sidebar"][data-side="left"] [data-testid="app-nav-rail"] {
+    anchor-name: --pk-rail;
+  }
+
+  [data-variant="sidebar"][data-side="left"]
+    [data-testid="app-sidebar-top-reserve-row"]
+    [data-testid="plugin-nav-sidebar-items"],
+  [data-variant="sidebar"][data-side="left"]
+    [data-testid="app-sidebar-top-reserve-row"]
+    [data-sidebar-navigation-item="__bb__/new-thread"] {
+    margin-left: auto;
+  }
+
   [data-variant="sidebar"][data-side="left"]
     [data-testid="plugin-nav-sidebar-items"]
     [data-sidebar-navigation-item="__bb__/new-thread"] > button,
@@ -293,12 +306,8 @@ body {
     width: auto;
     flex: none;
     min-width: max-content;
+    margin-left: auto;
     anchor-name: --pk-new-thread;
-  }
-
-  [data-variant="sidebar"][data-side="left"] [data-sidebar="content"],
-  [data-variant="sidebar"][data-side="left"] [data-sidebar="sidebar"] .pf-tree {
-    overflow: visible;
   }
 
   [data-variant="sidebar"][data-side="left"] [data-sidebar="sidebar"] .pf-tree {
@@ -306,12 +315,12 @@ body {
     padding-top: var(--pk-gap-card);
   }
 
-  /* Pin New project to the top row, just after New thread, out of the list flow. */
+  /* Pin New project to the top row at the rail, out of the list flow. */
   [data-variant="sidebar"][data-side="left"] [data-sidebar="sidebar"] .pf-tree > button:first-child {
     position: absolute;
-    position-anchor: --pk-new-thread;
+    position-anchor: --pk-rail;
     z-index: 2;
-    top: anchor(center);
+    top: anchor(--pk-new-thread center);
     left: calc(anchor(right) + var(--pk-gap-card));
     translate: 0 -50%;
     width: auto;
