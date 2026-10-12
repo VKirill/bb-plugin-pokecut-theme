@@ -198,6 +198,7 @@ body {
   }
 
   [data-variant="sidebar"][data-side="left"] [data-sidebar="sidebar"] {
+    position: relative;
     box-sizing: border-box;
     height: calc(100% - var(--pk-gap));
     margin-bottom: var(--pk-gap);
@@ -282,13 +283,72 @@ body {
     padding-right: var(--pk-gap-card);
   }
 
-  [data-variant="sidebar"][data-side="left"] [data-sidebar="sidebar"] .pf-tree {
-    padding-inline: 0;
+  [data-variant="sidebar"][data-side="left"]
+    [data-testid="plugin-nav-sidebar-items"]
+    [data-sidebar-navigation-item="__bb__/new-thread"] > button,
+  [data-variant="sidebar"][data-side="left"]
+    [data-testid="app-sidebar-top-reserve-row"]
+    button[aria-label^="New thread"],
+  [data-variant="sidebar"][data-side="left"]
+    [data-testid="app-sidebar-top-reserve-row"]
+    button[aria-label^="Новый тред"] {
+    width: auto;
+    flex: none;
+    min-width: max-content;
+    anchor-name: --pk-new-thread;
   }
 
+  [data-variant="sidebar"][data-side="left"] [data-sidebar="content"],
+  [data-variant="sidebar"][data-side="left"] [data-sidebar="sidebar"] .pf-tree {
+    overflow: visible;
+  }
+
+  [data-variant="sidebar"][data-side="left"] [data-sidebar="sidebar"] .pf-tree {
+    padding-inline: 0;
+    padding-top: var(--pk-gap-card);
+  }
+
+  /* Pin New project to the top row, just after New thread, out of the list flow. */
   [data-variant="sidebar"][data-side="left"] [data-sidebar="sidebar"] .pf-tree > button:first-child {
-    width: 100%;
-    margin-inline: 0;
+    position: absolute;
+    position-anchor: --pk-new-thread;
+    z-index: 2;
+    top: anchor(center);
+    left: calc(anchor(right) + var(--pk-gap-card));
+    translate: 0 -50%;
+    width: auto;
+    height: 32px;
+    margin: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0 10px 0 8px;
+    font-size: 0;
+    line-height: 0;
+    border: 1px solid var(--pk-outline);
+    border-radius: var(--pk-radius-card);
+    background-color: var(--pk-panel);
+    color: var(--muted-foreground);
+    white-space: nowrap;
+  }
+
+  [data-variant="sidebar"][data-side="left"] [data-sidebar="sidebar"] .pf-tree > button:first-child svg {
+    width: 16px;
+    height: 16px;
+    flex: none;
+  }
+
+  [data-variant="sidebar"][data-side="left"] [data-sidebar="sidebar"] .pf-tree > button:first-child::after {
+    content: "Project";
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1;
+    color: var(--muted-foreground);
+  }
+
+  :root:lang(ru) [data-variant="sidebar"][data-side="left"] [data-sidebar="sidebar"] .pf-tree > button:first-child::after,
+  html[lang^="ru"] [data-variant="sidebar"][data-side="left"] [data-sidebar="sidebar"] .pf-tree > button:first-child::after {
+    content: "Проект";
   }
 
   [data-variant="sidebar"][data-side="left"] [data-sidebar="sidebar"] .pf-project {
