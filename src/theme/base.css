@@ -272,6 +272,14 @@ body {
     padding-left: 0;
   }
 
+  /* BB's px-2 on the chrome row must not stack on the rail inset; keep
+     New thread on the same x as the body cards and end 8px before the inset. */
+  [data-variant="sidebar"][data-side="left"] [data-sidebar="sidebar"]:has([data-testid="app-nav-rail"])
+    [data-testid="app-sidebar-top-reserve-row"] {
+    padding-left: 0;
+    padding-right: var(--pk-gap-card);
+  }
+
   [data-variant="sidebar"][data-side="left"] [data-sidebar="sidebar"] .pf-tree {
     padding-inline: 0;
   }

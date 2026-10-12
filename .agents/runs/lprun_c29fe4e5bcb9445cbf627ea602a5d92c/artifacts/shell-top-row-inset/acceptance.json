@@ -1,0 +1,15 @@
+{
+  "schema_version": 2,
+  "task_id": "shell-top-row-inset",
+  "task_sha256": "3ea93fb070098476fbd5d465a62483c7fe34de87deb801a461a9e569b4d76146",
+  "attempt": 1,
+  "provider_exit": 0,
+  "report": "complete",
+  "report_sha256": "5f6e978e25c3730b3b1f94ab53de4a6f5ff0cbb27d0c3826deae617d5c6eb341",
+  "owns_check": "passed",
+  "verification": "passed",
+  "review": "not_required",
+  "accepted": true,
+  "accepted_at": "2026-10-12T16:04:07.440Z",
+  "model": "grok-4.6"
+}

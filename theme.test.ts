@@ -169,9 +169,23 @@ test("desktop content column insets from the app-nav-rail", () => {
   );
 });
 
-test("plugin version is 0.5.14", () => {
+test("desktop top reserve row matches the card inset", () => {
+  const desktopBlocks = [...base.matchAll(/@media \(min-width: 768px\) \{[\s\S]*?\n\}/g)]
+    .map((m) => m[0])
+    .join("\n");
+  assert.match(
+    desktopBlocks,
+    /:has\(\[data-testid="app-nav-rail"\]\)\s*\[data-testid="app-sidebar-top-reserve-row"\]\s*\{[^}]*padding-left: 0/,
+  );
+  assert.match(
+    desktopBlocks,
+    /:has\(\[data-testid="app-nav-rail"\]\)\s*\[data-testid="app-sidebar-top-reserve-row"\]\s*\{[^}]*padding-right: var\(--pk-gap-card\)/,
+  );
+});
+
+test("plugin version is 0.5.15", () => {
   const pkg = JSON.parse(readFileSync(join(root, "package.json"), "utf8"));
-  assert.equal(pkg.version, "0.5.14");
+  assert.equal(pkg.version, "0.5.15");
 });
 
 test("phone shell rules keep literal radii", () => {
