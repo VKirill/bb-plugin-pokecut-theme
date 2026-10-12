@@ -182,14 +182,13 @@ body {
 
 @media (min-width: 768px) {
   /* BB puts data-side on the outer group, not on the panel (phone drawers do).
-     The panel is position:fixed; z-index:10, so drop it under the inset. The
-     sidebar surface shares the inset's top and bottom, then extends one
+     Keep BB's own top (below the macOS chrome row). Stretch to the window
+     bottom so the surface can share the inset's edges, then extend one
      radius under it as real width (same --pk-panel, no shadow copy). */
   [data-side="left"] > [data-sidebar="panel"] {
     z-index: 0;
-    top: 0;
-    height: 100%;
-    bottom: auto;
+    bottom: 0;
+    height: auto;
     padding: 0 0 0 var(--pk-gap);
     background-color: var(--pk-shell);
     overflow: visible;
