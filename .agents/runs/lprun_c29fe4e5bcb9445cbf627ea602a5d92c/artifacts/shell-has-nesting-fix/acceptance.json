@@ -1,0 +1,15 @@
+{
+  "schema_version": 2,
+  "task_id": "shell-has-nesting-fix",
+  "task_sha256": "ed0a72ef30c8b4f18b07d2aff9bf58fa43e651220adc581382105f10e6078425",
+  "attempt": 1,
+  "provider_exit": 0,
+  "report": "complete",
+  "report_sha256": "aeb1ecd7b653fa863a808cab7b9333973ce615f0725a1c2fa91db2fb8e37903d",
+  "owns_check": "passed",
+  "verification": "passed",
+  "review": "not_required",
+  "accepted": true,
+  "accepted_at": "2026-10-12T16:37:48.721Z",
+  "model": "grok-4.6"
+}
