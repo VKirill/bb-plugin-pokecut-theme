@@ -60,14 +60,6 @@ test("desktop sidebar targets the real group markup; inset height fits the paren
   assert.match(desktopBlocks, /\[data-sidebar="inset"\][\s\S]*z-index: 1/);
   assert.match(
     desktopBlocks,
-    /\[data-variant="sidebar"\]\[data-side="left"\] \[data-sidebar="sidebar"\][\s\S]*box-shadow: var\(--pk-radius-panel\) 0 0 0 var\(--pk-panel\)/,
-  );
-  assert.match(
-    desktopBlocks,
-    /\[data-collapsible="offcanvas"\]\[data-side="left"\] \[data-sidebar="sidebar"\][\s\S]*box-shadow: none/,
-  );
-  assert.match(
-    desktopBlocks,
     /\[data-sidebar="inset"\]\s*\{[^}]*height: calc\(100% - var\(--pk-gap\)\)/,
   );
   assert.doesNotMatch(
@@ -76,9 +68,32 @@ test("desktop sidebar targets the real group markup; inset height fits the paren
   );
 });
 
-test("plugin version is 0.5.6", () => {
+test("desktop sidebar tucks with real geometry, shared bottom, no shadow copy", () => {
+  const desktopBlocks = [...base.matchAll(/@media \(min-width: 768px\) \{[\s\S]*?\n\}/g)]
+    .map((m) => m[0])
+    .join("\n");
+  assert.doesNotMatch(base, /box-shadow:\s*var\(--pk-radius-panel\)\s+0\s+0\s+0/);
+  assert.match(
+    desktopBlocks,
+    /\[data-variant="sidebar"\]\[data-side="left"\] \[data-sidebar="sidebar"\]\s*\{[^}]*margin-bottom: var\(--pk-gap\)/,
+  );
+  assert.match(
+    desktopBlocks,
+    /\[data-variant="sidebar"\]\[data-side="left"\] \[data-sidebar="sidebar"\]\s*\{[^}]*width: calc\(100% \+ var\(--pk-radius-panel\)\)/,
+  );
+  assert.match(
+    desktopBlocks,
+    /\[data-variant="sidebar"\]\[data-side="left"\] \[data-sidebar="footer"\]\s*\{[^}]*padding: var\(--pk-gap-card\)/,
+  );
+  assert.match(
+    desktopBlocks,
+    /\[data-collapsible="offcanvas"\]\[data-side="left"\] \[data-sidebar="sidebar"\]\s*\{[^}]*width: 100%/,
+  );
+});
+
+test("plugin version is 0.5.7", () => {
   const pkg = JSON.parse(readFileSync(join(root, "package.json"), "utf8"));
-  assert.equal(pkg.version, "0.5.6");
+  assert.equal(pkg.version, "0.5.7");
 });
 
 test("phone shell rules keep literal radii", () => {
