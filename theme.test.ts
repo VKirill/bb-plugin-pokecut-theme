@@ -175,7 +175,7 @@ test("desktop top reserve row matches the card inset", () => {
     .join("\n");
   assert.match(
     desktopBlocks,
-    /:has\(\[data-testid="app-nav-rail"\]\)\s*\[data-testid="app-sidebar-top-reserve-row"\]\s*\{[^}]*padding-left: 0/,
+    /:has\(\[data-testid="app-nav-rail"\]\)\s*\[data-testid="app-sidebar-top-reserve-row"\]\s*\{[^}]*padding-left: calc\(anchor-size\(--pk-project width\) \+ var\(--pk-gap-card\)\)/,
   );
   assert.match(
     desktopBlocks,
@@ -226,9 +226,60 @@ test("desktop top row pins a compact New project button after New thread", () =>
   );
 });
 
-test("plugin version is 0.5.17", () => {
+test("plugin version is 0.5.18", () => {
   const pkg = JSON.parse(readFileSync(join(root, "package.json"), "utf8"));
-  assert.equal(pkg.version, "0.5.17");
+  assert.equal(pkg.version, "0.5.18");
+});
+
+test("desktop top row, surface wrappers, and resize handle hide overlap artifacts", () => {
+  const desktopBlocks = [...base.matchAll(/@media \(min-width: 768px\) \{[\s\S]*?\n\}/g)]
+    .map((m) => m[0])
+    .join("\n");
+  const mobile = base.slice(base.lastIndexOf("@media (max-width: 767px)"));
+  assert.match(
+    desktopBlocks,
+    /\[data-testid="app-sidebar-top-reserve-row"\],\s*\[data-variant="sidebar"\]\[data-side="left"\] \[data-testid="app-sidebar-body"\]\s*\{[^}]*background-color: transparent/,
+  );
+  assert.match(
+    desktopBlocks,
+    /\[data-sidebar="sidebar"\] > \*:not\(\[data-testid="app-nav-rail"\]\)\s*\{[^}]*background-color: transparent/,
+  );
+  assert.match(
+    desktopBlocks,
+    /\[data-sidebar="rail"\]\s*\{[^}]*bottom: var\(--pk-gap\)/,
+  );
+  assert.match(
+    desktopBlocks,
+    /\[data-sidebar="rail"\]\s*\{[^}]*background: transparent/,
+  );
+  assert.match(
+    desktopBlocks,
+    /\[data-sidebar="gap"\]\s*\{[^}]*background: transparent/,
+  );
+  assert.match(
+    desktopBlocks,
+    /\[data-testid="app-sidebar-top-reserve-row"\]:has\(\s*button\[aria-label\^="Back"\],\s*button\[aria-label\^="Forward"\],\s*button\[aria-label\^="Назад"\],\s*button\[aria-label\^="Вперёд"\]\s*\)/,
+  );
+  assert.match(
+    desktopBlocks,
+    /button:first-child\s*\{[^}]*width: 32px/,
+  );
+  assert.match(
+    desktopBlocks,
+    /button:first-child::after\s*\{[^}]*content: none/,
+  );
+  assert.match(
+    desktopBlocks,
+    /padding-left: calc\(32px \+ var\(--pk-gap-card\)\)/,
+  );
+  assert.doesNotMatch(
+    desktopBlocks,
+    /\[data-sidebar="content"\][^\{]*\{[^}]*overflow:/,
+  );
+  assert.doesNotMatch(
+    mobile,
+    /\[data-testid="app-sidebar-top-reserve-row"\]:has\(/,
+  );
 });
 
 test("phone shell rules keep literal radii", () => {
