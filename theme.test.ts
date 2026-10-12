@@ -206,7 +206,7 @@ test("desktop top row pins a compact New project button after New thread", () =>
   );
   assert.match(
     desktopBlocks,
-    /content: "Проект"/,
+    /html\[data-pk-lang="ru"\][\s\S]*?content: "Проект"/,
   );
   assert.match(
     desktopBlocks,
@@ -226,9 +226,9 @@ test("desktop top row pins a compact New project button after New thread", () =>
   );
 });
 
-test("plugin version is 0.5.18", () => {
+test("plugin version is 0.5.19", () => {
   const pkg = JSON.parse(readFileSync(join(root, "package.json"), "utf8"));
-  assert.equal(pkg.version, "0.5.18");
+  assert.equal(pkg.version, "0.5.19");
 });
 
 test("desktop top row, surface wrappers, and resize handle hide overlap artifacts", () => {

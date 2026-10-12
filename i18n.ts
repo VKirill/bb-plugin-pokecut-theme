@@ -198,6 +198,52 @@ export function subscribeLocale(listener: () => void): () => void {
   };
 }
 
+const LANG_ATTR = "data-pk-lang";
+const RUSSIFIER_RETRY_MS = [500, 2000, 5000];
+
+/** Writes detectLocale() onto <html> so theme CSS can follow BB's UI language,
+    including the Russifier (which leaves <html lang> as en). */
+export function mountDocumentLocale(): () => void {
+  const root = document.documentElement;
+  const apply = (): Locale => {
+    const locale = detectLocale();
+    root.setAttribute(LANG_ATTR, locale);
+    return locale;
+  };
+
+  apply();
+  const unsub = subscribeLocale(apply);
+
+  const timers: ReturnType<typeof setTimeout>[] = [];
+  let observer: MutationObserver | undefined;
+
+  const stopRussifierWatch = () => {
+    observer?.disconnect();
+    observer = undefined;
+    for (const id of timers) clearTimeout(id);
+    timers.length = 0;
+  };
+
+  const retry = () => {
+    if (apply() === "ru") stopRussifierWatch();
+  };
+
+  if (detectLocale() !== "ru") {
+    for (const ms of RUSSIFIER_RETRY_MS) timers.push(setTimeout(retry, ms));
+    const sidebar = document.querySelector('[data-sidebar="sidebar"]');
+    if (typeof MutationObserver !== "undefined" && sidebar) {
+      observer = new MutationObserver(retry);
+      observer.observe(sidebar, { subtree: true, attributes: true, attributeFilter: ["aria-label"] });
+    }
+  }
+
+  return () => {
+    stopRussifierWatch();
+    unsub();
+    root.removeAttribute(LANG_ATTR);
+  };
+}
+
 export function t(key: I18nKey, locale: Locale = detectLocale()): string {
   return (locale === "ru" ? ru : en)[key];
 }
