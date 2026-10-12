@@ -138,14 +138,36 @@ test("desktop footer card sizes the usage tracker by content", () => {
     /li\.usage-tracker-sidebar\s*\{[^}]*width: auto/,
   );
   assert.match(
+    desktopBlocks,
+    /li\.usage-tracker-sidebar\s*\{[^}]*container-type: normal/,
+  );
+  assert.match(
     base,
     /@media \(max-width: 767px\) \{[\s\S]*?li\.usage-tracker-sidebar \{[^}]*flex-shrink: 1/,
   );
 });
 
-test("plugin version is 0.5.12", () => {
+test("desktop content column insets from the app-nav-rail", () => {
+  const desktopBlocks = [...base.matchAll(/@media \(min-width: 768px\) \{[\s\S]*?\n\}/g)]
+    .map((m) => m[0])
+    .join("\n");
+  assert.match(
+    desktopBlocks,
+    /:has\(\[data-testid="app-nav-rail"\]\)[\s\S]*padding-left: calc\(var\(--pk-gap\) \+ var\(--pk-gap-card\) - 1px\)/,
+  );
+  assert.match(
+    desktopBlocks,
+    /\[data-collapsible="rail"\] ~ \[data-sidebar="inset"\][\s\S]*margin-left: var\(--pk-gap\)/,
+  );
+  assert.match(
+    desktopBlocks,
+    /\[data-sidebar="sidebar"\] \.pf-project\s*\{[^}]*padding: 4px var\(--pk-gap-card\)/,
+  );
+});
+
+test("plugin version is 0.5.13", () => {
   const pkg = JSON.parse(readFileSync(join(root, "package.json"), "utf8"));
-  assert.equal(pkg.version, "0.5.12");
+  assert.equal(pkg.version, "0.5.13");
 });
 
 test("phone shell rules keep literal radii", () => {
