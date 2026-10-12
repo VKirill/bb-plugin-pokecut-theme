@@ -153,11 +153,15 @@ test("desktop content column insets from the app-nav-rail", () => {
     .join("\n");
   assert.match(
     desktopBlocks,
-    /:has\(\[data-testid="app-nav-rail"\]\)[\s\S]*padding-left: calc\(var\(--pk-gap\) \+ var\(--pk-gap-card\) - 1px\)/,
+    /:has\(\[data-testid="app-nav-rail"\]\)[\s\S]*:not\(\[data-testid="app-sidebar-body"\] \*\)[\s\S]*padding-left: calc\(var\(--pk-gap\) \+ var\(--pk-gap-card\) - 1px\)/,
   );
   assert.match(
     desktopBlocks,
-    /\[data-collapsible="rail"\] ~ \[data-sidebar="inset"\][\s\S]*margin-left: var\(--pk-gap\)/,
+    /\[data-collapsible="rail"\] ~ \[data-sidebar="inset"\][\s\S]*margin-left: calc\(var\(--pk-gap\) \+ var\(--pk-gap\) - 1px\)/,
+  );
+  assert.match(
+    desktopBlocks,
+    /\[data-sidebar="sidebar"\] \.pf-tree \.pf-folder > \.pf-children\s*\{[^}]*padding-left: calc\(var\(--pf-indent, 8px\) - 1px\)/,
   );
   assert.match(
     desktopBlocks,
@@ -165,9 +169,9 @@ test("desktop content column insets from the app-nav-rail", () => {
   );
 });
 
-test("plugin version is 0.5.13", () => {
+test("plugin version is 0.5.14", () => {
   const pkg = JSON.parse(readFileSync(join(root, "package.json"), "utf8"));
-  assert.equal(pkg.version, "0.5.13");
+  assert.equal(pkg.version, "0.5.14");
 });
 
 test("phone shell rules keep literal radii", () => {

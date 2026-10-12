@@ -1,0 +1,15 @@
+{
+  "schema_version": 2,
+  "task_id": "shell-rail-inset-fix",
+  "task_sha256": "7b851f684cb3fd8cabaa0e727b06fe03bf85b2cba825387b147ea37be5956df2",
+  "attempt": 1,
+  "provider_exit": 0,
+  "report": "complete",
+  "report_sha256": "f4d08971761e874ab94645529da306b73ac78b427fdac93c22c804ede33e41f7",
+  "owns_check": "passed",
+  "verification": "passed",
+  "review": "not_required",
+  "accepted": true,
+  "accepted_at": "2026-10-12T15:56:05.562Z",
+  "model": "grok-4.6"
+}

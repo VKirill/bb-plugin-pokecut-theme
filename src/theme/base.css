@@ -250,8 +250,8 @@ body {
     container-type: normal;
   }
 
-  /* Icon rail is wider than BB's reserved column; keep the content column
-     --pk-gap-card past the rail and --pk-gap-card before the inset. */
+  /* Icon rail is wider than BB's reserved column; apply the 19px once, on
+     the outermost wrappers (not again on header/content/footer inside the body). */
   [data-variant="sidebar"][data-side="left"] [data-sidebar="sidebar"]:has([data-testid="app-nav-rail"])
     :is(
       [data-testid="app-sidebar-top-reserve-row"],
@@ -259,8 +259,17 @@ body {
       [data-sidebar="header"],
       [data-sidebar="content"],
       [data-sidebar="footer"]
-    ) {
+    ):not([data-testid="app-sidebar-body"] *) {
     padding-left: calc(var(--pk-gap) + var(--pk-gap-card) - 1px);
+  }
+
+  [data-variant="sidebar"][data-side="left"] [data-sidebar="sidebar"]:has([data-testid="app-nav-rail"])
+    [data-testid="app-sidebar-body"] :is(
+      [data-sidebar="header"],
+      [data-sidebar="content"],
+      [data-sidebar="footer"]
+    ) {
+    padding-left: 0;
   }
 
   [data-variant="sidebar"][data-side="left"] [data-sidebar="sidebar"] .pf-tree {
@@ -278,12 +287,16 @@ body {
 
   [data-variant="sidebar"][data-side="left"] [data-sidebar="sidebar"] .pf-project .pf-heading,
   [data-variant="sidebar"][data-side="left"] [data-sidebar="sidebar"] .pf-project .pf-thread {
-    padding-inline: 4px;
+    padding-inline: 4px 1px;
   }
 
   [data-variant="sidebar"][data-side="left"] [data-sidebar="sidebar"] .pf-tree .pf-children {
     margin-left: var(--pf-indent, 8px);
     padding-left: var(--pf-indent, 8px);
+  }
+
+  [data-variant="sidebar"][data-side="left"] [data-sidebar="sidebar"] .pf-tree .pf-folder > .pf-children {
+    padding-left: calc(var(--pf-indent, 8px) - 1px);
   }
 
   [data-sidebar="inset"] {
@@ -328,8 +341,10 @@ body {
     padding-right: 0;
   }
 
+  /* Flow start is BB's gap column (x 53); rail ends at padding-left + rail
+     width (x 64). Add the leftover plus --pk-gap so inset is rail + 12. */
   [data-collapsible="rail"] ~ [data-sidebar="inset"] {
-    margin-left: var(--pk-gap);
+    margin-left: calc(var(--pk-gap) + var(--pk-gap) - 1px);
   }
 }
 
