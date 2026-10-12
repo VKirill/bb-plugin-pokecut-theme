@@ -384,7 +384,8 @@ body {
   }
 
   :root:lang(ru) [data-variant="sidebar"][data-side="left"] [data-sidebar="sidebar"] .pf-tree > button:first-child::after,
-  html[lang^="ru"] [data-variant="sidebar"][data-side="left"] [data-sidebar="sidebar"] .pf-tree > button:first-child::after {
+  html[lang^="ru"] [data-variant="sidebar"][data-side="left"] [data-sidebar="sidebar"] .pf-tree > button:first-child::after,
+  html[data-pk-lang="ru"] [data-variant="sidebar"][data-side="left"] [data-sidebar="sidebar"] .pf-tree > button:first-child::after {
     content: "Проект";
   }
 

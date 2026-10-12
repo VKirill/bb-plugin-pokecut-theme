@@ -17,7 +17,7 @@ import { mountDiffPaths } from "./diff-paths";
 import { mountFilePreviewLinks } from "./file-preview-links";
 import { PokecutSettings } from "./settings-section";
 import { ThemeModeIcon, ThemeModeSwitch } from "./theme-mode";
-import { t } from "./i18n";
+import { mountDocumentLocale, t } from "./i18n";
 
 const ROOT_ATTRIBUTES = ["data-pk-loader", "data-pk-chips", "data-pk-off"];
 
@@ -39,6 +39,8 @@ function PokecutChatLayer() {
     root.setAttribute("data-pk-off", offList);
     return () => ROOT_ATTRIBUTES.forEach((name) => root.removeAttribute(name));
   }, [prefs, active, loader, chips, offList]);
+
+  useEffect(() => (active ? mountDocumentLocale() : undefined), [active]);
 
   const meter = active && !off.includes("prompt");
   useEffect(() => (meter ? mountContextMeter() : undefined), [meter]);

@@ -1,0 +1,154 @@
+{
+  "schemaVersion": 1,
+  "status": "accepted",
+  "lanePilotRunId": "lprun_c29fe4e5bcb9445cbf627ea602a5d92c",
+  "lanePilotTaskId": "shell-project-label-locale",
+  "attemptId": "lpattempt_c8b57d342c0c4e1596c08f01d6cdc860",
+  "pmThreadId": "thr_zh5pvz36p7",
+  "writerThreadId": "thr_f2xmp9g8qr",
+  "ownsPaths": [
+    "app.tsx",
+    "i18n.ts",
+    "src/theme/base.css",
+    "themes/pokecut.css",
+    "theme.test.ts",
+    "settings.test.ts",
+    "package.json",
+    "package-lock.json"
+  ],
+  "readFirst": [
+    {
+      "path": "i18n.ts",
+      "windows": []
+    },
+    {
+      "path": "app.tsx",
+      "windows": []
+    },
+    {
+      "path": "src/theme/base.css",
+      "windows": []
+    },
+    {
+      "path": "theme.test.ts",
+      "windows": []
+    }
+  ],
+  "output": "The compact New project button now follows BB’s real UI language, including the Russifier. While the Pokecut theme is active, `html[data-pk-lang]` is set from `detectLocale()`, refreshed on locale events and shortly after mount (Russifier retries + sidebar `aria-label` observer), and removed on cleanup.\n\nCSS: `html[data-pk-lang=\"ru\"]` shows «Проект»; otherwise «Project» (`:lang(ru)` remains as a fallback). Version **0.5.19**.\n\nVerification: `build-theme.mjs --check`, `typecheck`, and `theme.test.ts` + `settings.test.ts` all exit 0.\n\nChanged paths:\n- `app.tsx`\n- `i18n.ts`\n- `src/theme/base.css`\n- `themes/pokecut.css`\n- `theme.test.ts`\n- `settings.test.ts`\n- `package.json`",
+  "verification": [
+    {
+      "command": "node scripts/build-theme.mjs --check",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "",
+      "sandboxBackend": "macos-seatbelt",
+      "policySha256": "c2c843ab5e67f79fe2cead5f967f4c8807628636576aa554dc3f67e7eab1d8d9",
+      "workspacePath": "/Users/vechkasov/.lane-pilot/worktrees/lpattempt_78e8bdef32824f43b354d39a26b0d491/bb-plugin-pokecut-theme"
+    },
+    {
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "stdout": "\r\n> bb-plugin-pokecut-theme@0.5.19 typecheck\r\n> tsc --noEmit\r\n\r\n\\\u001b[1G\u001b[0K\u001b[1mnpm\u001b[22m \u001b[96mnotice\u001b[39m\r\n\u001b[1mnpm\u001b[22m \u001b[96mnotice\u001b[39m New \u001b[31mmajor\u001b[39m version of npm available! \u001b[31m11.16.0\u001b[39m -> \u001b[34m12.2.0\u001b[39m\r\n\u001b[1mnpm\u001b[22m \u001b[96mnotice\u001b[39m Changelog: \u001b[34mhttps://github.com/npm/cli/releases/tag/v12.2.0\u001b[39m\r\n\u001b[1mnpm\u001b[22m \u001b[96mnotice\u001b[39m To update run: \u001b[4mnpm install -g npm@12.2.0\u001b[24m\r\n\u001b[1mnpm\u001b[22m \u001b[96mnotice\u001b[39m\r\n\\\u001b[1G\u001b[0K",
+      "stderr": "",
+      "sandboxBackend": "macos-seatbelt",
+      "policySha256": "e1b30a1649622661c780fec35b2b88ed457c2bc62cdfea9cfaaacf76c35db838",
+      "workspacePath": "/Users/vechkasov/.lane-pilot/worktrees/lpattempt_78e8bdef32824f43b354d39a26b0d491/bb-plugin-pokecut-theme"
+    },
+    {
+      "command": "node --experimental-strip-types --test theme.test.ts settings.test.ts",
+      "exitCode": 0,
+      "stdout": "(node:51723) ExperimentalWarning: localStorage is not available because --localstorage-file was not provided.\r\n(Use `node --trace-warnings ...` to show where the warning was created)\r\n✔ defaults: pokecut loader, surface chips, nothing turned off (1.593667ms)\r\n✔ turned-off toggles become CSS tokens; unknown values fall back (0.090166ms)\r\n✔ normalizePrefs keeps only known keys with valid values (0.077458ms)\r\n✔ mountDocumentLocale writes data-pk-lang from detectLocale and clears it (0.667709ms)\r\n✔ generated theme is base + chat and fits BB's theme limit (0.828125ms)\r\n✔ palette blocks stay first so BB tooling reads them (0.313833ms)\r\n✔ no Beautiful Chat names leak, so both plugins can run side by side (0.1485ms)\r\n✔ phone context row: chips for project/machine/access, plain icon controls (0.10575ms)\r\n✔ desktop shell grid tokens live in both palettes and drive the inset (0.258333ms)\r\n✔ desktop sidebar targets the real group markup; inset height fits the parent (0.261833ms)\r\n✔ desktop sidebar tucks with real geometry, shared bottom, no shadow copy (1.68275ms)\r\n✔ desktop sidebar is one light surface with even inner inset (0.619416ms)\r\n✔ desktop footer card sizes the usage tracker by content (0.2745ms)\r\n✔ desktop content column insets from the app-nav-rail (0.332583ms)\r\n✔ desktop top reserve row matches the card inset (0.227709ms)\r\n✔ desktop top row pins a compact New project button after New thread (0.34275ms)\r\n✔ plugin version is 0.5.19 (0.167333ms)\r\n✔ desktop top row, surface wrappers, and resize handle hide overlap artifacts (0.491916ms)\r\n✔ phone shell rules keep literal radii (0.038917ms)\r\nℹ tests 19\r\nℹ suites 0\r\nℹ pass 19\r\nℹ fail 0\r\nℹ cancelled 0\r\nℹ skipped 0\r\nℹ todo 0\r\nℹ duration_ms 255.546083\r\n",
+      "stderr": "",
+      "sandboxBackend": "macos-seatbelt",
+      "policySha256": "ffec216ae706a2045901a584dedd8a79489ed1b9e9b9669ab719297fad983738",
+      "workspacePath": "/Users/vechkasov/.lane-pilot/worktrees/lpattempt_78e8bdef32824f43b354d39a26b0d491/bb-plugin-pokecut-theme"
+    }
+  ],
+  "runV2": {
+    "schemaVersion": 1,
+    "pools": {
+      "provider": 15,
+      "verification": 2
+    },
+    "score": 2,
+    "risk": "low",
+    "sourceRisk": "low",
+    "scoreAdapter": "task-risk-v1"
+  },
+  "reasoning": [
+    {
+      "planSha256": "fb2c5b0fa93d53a9fdd5acb9e21aa6dfcf6b719cbd9104a5a752a53ee0b884e8",
+      "sentPlanSha256": "fb2c5b0fa93d53a9fdd5acb9e21aa6dfcf6b719cbd9104a5a752a53ee0b884e8",
+      "sourceLength": 4043,
+      "sentLength": 4043,
+      "jevStatus": "ok",
+      "jevDecision": "medium",
+      "requestedReasoningLevel": "medium",
+      "effectiveReasoningLevel": "medium",
+      "fallbackReason": null,
+      "retryEffort": {
+        "enabled": true,
+        "retryIndex": 0,
+        "before": "medium",
+        "after": "medium",
+        "changed": false
+      },
+      "providerId": "acp-cursor",
+      "model": "grok-4.6",
+      "serviceTier": "default",
+      "requestedServiceTier": "default",
+      "runId": "lprun_c29fe4e5bcb9445cbf627ea602a5d92c",
+      "attemptId": "lpattempt_c8b57d342c0c4e1596c08f01d6cdc860",
+      "threadId": "thr_f2xmp9g8qr",
+      "effortMode": "automatic",
+      "selectionSource": {
+        "providerId": "acp-cursor",
+        "model": "grok-4.6",
+        "reasoningLevel": "medium",
+        "serviceTier": "default",
+        "reasoningLevelSource": "client-preference"
+      },
+      "dispatchContext": {
+        "memoryText": "Area «feature:shell»: earlier accepted tasks, newest first. Their decisions are in main; keep them unless this task changes them.\n- 2026-10-12T16:18 shell-top-row-swap-scroll-fix: Restore tree scrolling; Project button left, New thread right. The sidebar project list scrolls again, and the top row shows the compact «Проект» button on the left (rail right + 8) and the full «Новый тред» button on the right of the same row.\n- 2026-10-12T16:09 shell-top-row-new-project: New thread and a compact «Проект» button on one top row. On desktop the sidebar's top row shows the full «Новый тред» button on the left and, on the same row, a compact «[icon] Проект» button (the project-folders New project button repositioned by CSS); the project tree starts right below that row on the same left line.\n- 2026-10-12T16:04 shell-top-row-inset: Top sidebar row (New thread) on the same 8px inset as the cards. The sidebar's top row (New thread, back/forward) starts at the same x as the project cards (rail right + 8) and ends 8px before the content panel.\n- 2026-10-12T15:56 shell-rail-inset-fix: Fix doubled rail inset, collapsed rail gutter and tree indent step. In the live BB sidebar with the icon rail, sidebar content starts 8px right of the rail (not 27px), the collapsed rail keeps a 12px gutter to the content panel, and the project tree steps the same amount per level with symmetric icon insets.\n- 2026-10-12T15:48 shell-rail-tree-tracker: New BB sidebar: rail-aware insets, tree spacing, visible usage tracker. In the current BB sidebar with the icon rail, the content column sits 8px from the rail and 8px from the content panel, the collapsed rail mode keeps a 12px gutter, project tree rows have equal left/right insets and a consistent indent step inside their cards, and the usage tracker is visible inside the footer card.\n- 2026-10-12T15:32 shell-footer-tracker-basis: Usage tracker in the sidebar footer sized by content, visible again. On desktop the usage tracker item in the sidebar footer card takes its content width (not the usage-tracker plugin's 180px basis), sits at the card's right end and its reading and count are fully visible inside the card.\n- 2026-10-12T15:25 shell-footer-card-fit: Sidebar footer card: usage tracker fits inside the card on desktop. On desktop the sidebar footer tool card keeps every item, including the usage tracker reading and count, inside its rounded edge on one row; the icon buttons compact instead of the tracker being squeezed.\n- 2026-10-12T15:20 shell-sidebar-list-inset: Project list on the same inset as nav rows and footer card. On desktop the project-folders list (.pf-tree: New project button and .pf-project cards) uses the same left and right inset as the nav rows and the footer card (8px from the sidebar surface edge and from the content panel edge).\n- 2026-10-12T15:14 shell-sidebar-one-surface: Sidebar as one light surface with even inner spacing. On desktop the whole sidebar is one light rounded surface (no gray band from [data-sidebar=content]) and its nav rows, list and footer card sit on one even inner inset, with the footer card's visible left, right and bottom spacing equal.\n- 2026-10-12T15:04 shell-sidebar-top-regression: Fix 0.5.7 regression: sidebar panel under the macOS chrome row. The desktop sidebar panel again starts right below the macOS chrome row (BB's own top) and ends at the window bottom, so the sidebar surface shares the content panel's top and bottom edges and its extension under the content panel is not visible above or below it.\n- 2026-10-12T15:01 shell-sidebar-seams: Sidebar tuck without seams: shared top/bottom line with the content panel. On BB's desktop app the sidebar surface tucks under the content panel with real geometry (no box-shadow copy): one color with no seam at the top-left join, the same top and bottom edges as the content panel, and the sidebar footer card and left column ending on the same bottom line.\n- 2026-10-12T14:50 shell-grid-fix-live: Shell grid fix: real desktop selectors, inset fits the window, no square corner. On BB's macOS desktop app the sidebar/content join has no square corner, the content panel's top aligns with the sidebar surface below the chrome row, and the content panel fits inside the window so the composer and its chip row are fully visible with an equal bottom gutter.\nFiles of this area: package.json, src/theme/base.css, theme.test.ts, themes/pokecut.css\n\n- `src/theme/base.css`: the sidebar footer card sits `--pk-gap-card` above the sidebar surface's bottom edge, matching its side padding. Header and footer blend into the surface color, so no band hangs below the content inset.\n- `src/theme/base.css`, desktop sidebar footer: `li.usage-tracker-sidebar` is `flex-shrink: 0` with `margin-left: auto`, so the usage tracker keeps its content width and is not squeezed. The footer's tool icon buttons are 28px squares with `padding-inline: 0` and absorb the width pressure. The footer card uses `overflow: hidden` so nothing paints past its rounded edge. The `--pk-gap-card` 8px insets are unchanged.\n- `src/theme/base.css`: the desktop sidebar nav rows, the list and the footer card all sit on the same `--pk-gap-card` inner inset. The panel's 1px right border is removed, so the footer card's visible left, right and bottom spacing are equal, each `--pk-gap-card`, measured to the surface edge and to the inset's left edge.",
+        "memoryPicked": [
+          "5af5d43c978482de5f8e9e4cd393217fa0d2aee3f0e67d59f1f0978e2cc80474",
+          "88927fc541ec09f1a7be6bf8da3a3d2b3f199424a6dd617791877ee782ae85f2",
+          "653d0ccea5c5edc4242b3c07384bcebb1bcc40f7316deb9cbcaa02862bc6c7d9"
+        ],
+        "rulesText": "- Перед ответом по задаче Lane Pilot сверяй каждый путь, который собираешься изменить из-за ошибки проверки, с owns_paths; если пути там нет, не меняй файл и сообщи об ошибке диспетчеру.\n- In the Pokecut theme never override the desktop sidebar panel's top (BB places it below the macOS chrome row); stretch it with bottom: 0; height: auto. Desktop sidebar markup has data-side on the outer group div, so target [data-side=\"left\"] > [data-sidebar=\"panel\"], not [data-sidebar=\"panel\"][data-side=\"left\"] (phone-only).",
+        "rulesPicked": {
+          "total": 19,
+          "picked": [
+            "rule_572535fb78e20b9d",
+            "rule_ee601b9a83575e96"
+          ]
+        },
+        "executionPacket": "Read these before editing; they are the context for this task:\n- src/theme/base.css L1-L1067 (sha256 27b11a17)",
+        "executionPacketSha256": "c8156ed6945f3e62f8e83a0f7e5ecf3351c4380db66c9c40caca949e7dd8882c",
+        "pmReadContext": "{\"summary\":\"The excerpt is the first ~1067 lines of src/theme/base.css, a Pokecut theme for BB (a desktop/phone app shell). It defines palette tokens in two blocks (:root/.light and .dark), theme-private --pk-* tokens (including --pk-gap: 12px, --pk-gap-card: 8px, radii such as --pk-radius-panel: 20px and --pk-radius-card: 12px), and shape rules scoped by BB's stable markup (data-sidebar, data-variant, data-side, data-testid). Desktop (min-width 768px) rules cover: the gray shell body background; the left sidebar panel, which takes --pk-shell as background and has a transparent right border; the inner sidebar surface ([data-variant=sidebar][data-side=left] [data-sidebar=sidebar]), which uses --pk-panel, a raised corner radius on the left side, a height of calc(100% - gap), and overflow hidden; transparent header, content, and footer; and an icon rail (app-nav-rail) that adds left padding of gap+gap-card-1px. Layout of the top row: 'New thread' button (aria-label New thread / Новый тред) gets margin-left auto and is anchored as --pk-new-thread. The 'Project' button (.pf-tree > button:first-child) is absolutely positioned against the rail anchor, with top at the new-thread center and left at anchor(right)+gap-card, height 32px, and its text is set via ::after as 'Project' or 'Проект' under :lang(ru). The desktop content inset ([data-sidebar=inset]) is a raised panel with a 1px border, radius 20px, and a drop shadow. Mobile (max-width 767px) only changes the footer menu rules. Other sections style the page header card, the right secondary panel, the sidebar selected-row pill, the navigation rows, the composer, and the Lane Pilot composer button. The excerpt ends mid-selector in the model picker section (around line 1067).\",\"keyFacts\":[\"src/theme/base.css declares --pk-gap: 12px and --pk-gap-card: 8px in the :root/.light block, and the same values in .dark.\",\"src/theme/base.css (desktop, min-width 768px) sets [data-variant=\\\"sidebar\\\"][data-side=\\\"left\\\"] [data-sidebar=\\\"sidebar\\\"] to background-color var(--pk-panel), border-radius var(--pk-radius-panel) 0 0 var(--pk-radius-panel), overflow: hidden, and height calc(100% - var(--pk-gap)).\",\"src/theme/base.css sets [data-sidebar=\\\"panel\\\"] border-right-color transparent globally, and on desktop the left sidebar panel gets background-color var(--pk-shell), padding 0 0 0 var(--pk-gap), and overflow visible.\",\"On desktop, the rules [data-variant=sidebar][data-side=left] [data-sidebar=sidebar] > * and the header/content/footer children set background-color transparent, so the sidebar children do not paint their own surface.\",\"The icon rail rule adds padding-left calc(var(--pk-gap) + var(--pk-gap-card) - 1px) to the top-reserve-row, app-sidebar-body, header, content, and footer when the sidebar contains [data-testid=app-nav-rail]; the body's children then reset to padding-left 0.\",\"The new-thread button (aria-label starting with New thread or Новый тред) inside the top reserve row gets margin-left auto, flex none, min-width max-content, and anchor-name --pk-new-thread.\",\"The top-reserve-row on desktop gets padding-left 0 and padding-right var(--pk-gap-card) in the rail case.\",\"The Project button (.pf-tree > button:first-child) is position absolute with top anchor(--pk-new-thread center), left calc(anchor(right) + var(--pk-gap-card)), translate 0 -50%, height 32px, and width auto; font-size 0 hides the default text.\",\"The Project button label is supplied by ::after content 'Project' (13px, weight 500), and 'Проект' under :root:lang(ru) or html[lang^=ru].\",\"The Project button's ::after label is always rendered (no media query hides it in the excerpt), so the 'icon-only 32px pill when Back/Forward share the row' behavior named in the task contract is not visible in this excerpt.\",\"The desktop [data-sidebar=inset] is position relative, z-index 1, height calc(100% - gap), margin 0 gap gap 0, 1px border var(--pk-outline), radius var(--pk-radius-panel), background var(--pk-panel), box-shadow var(--pk-drop), overflow hidden.\",\"The mobile-only (max-width 767px) block in this excerpt changes only the [data-sidebar=footer] menu (gap 0, nowrap, and 32px menu buttons); no other mobile rule appears in the excerpt.\",\"Several selectors use :root:root:root:root to outrank third-party chat plugins (Beautiful Chat) for the composer form and send button; the Lane Pilot button uses [data-plugin-composer-action-plugin=lane-pilot] with a mask icon from --pk-icon-agents.\",\"The excerpt defines no rule setting overflow on [data-sidebar=content], and no rule setting top on the desktop sidebar panel, so the invariants are not contradicted in this excerpt.\",\"The excerpt contains no rule about a resize handle or gap element, and no rule covering the bottom gutter paint; the acceptance criterion about the resize handle is not addressed here.\",\"The excerpt contains no reference to version 0.5.18, package.json, theme.test.ts, themes/pokecut.css, or the build script; those are outside the supplied excerpts.\"],\"openQuestions\":[\"The excerpt ends at roughly line 1067 inside the model-picker section, so it does not show the rest of base.css (the remaining model-picker rules and any later sections).\",\"The excerpt does not show what element is the 'resize handle / gap element' that paints below the sidebar surface, or which rule causes that paint, so the bottom-gutter artifact cannot be located from these lines.\",\"The excerpt does not show how the Project button becomes icon-only (32px pill, no label) when Back/Forward share the top row; the ::after label is unconditional here, so the trigger for that state (a class or attribute, or a BB markup change) is unknown.\",\"The excerpt does not show whether app-sidebar-top-reserve-row and app-sidebar-body have an explicit background on desktop beyond the generic [data-sidebar=sidebar] > * transparent rule; the specific data-testid rules for them are absent here.\",\"The required New thread vs Project gap (>= 8px) and the no-truncation rule for the New thread label are not directly enforced by any excerpted rule; the geometry depends on BB's markup and the anchor positioning, which the excerpt cannot confirm.\",\"The excerpt does not show the test file theme.test.ts, the build script scripts/build-theme.mjs, themes/pokecut.css, or package.json, so whether the current version is 0.5.18 and whether the generated theme matches base.css cannot be checked.\",\"Whether the 'one color up to the top-left corner' requirement holds depends on the sidebar panel and inset backgrounds (--pk-shell vs --pk-panel) and the radius, which the excerpt sets but does not verify against BB's own rendering.\",\"Whether the mobile (<768px) rules are unchanged by the planned edits is unknown beyond the excerpted footer block, since the rest of the mobile rules may appear after line 1067.\"]}",
+        "agent": "Lane Pilot writer",
+        "promptChars": 14460,
+        "helperMode": "roles",
+        "helperRequired": false,
+        "skillPick": {
+          "enabled": true,
+          "skills": [
+            "pokecut-theme"
+          ],
+          "picked": [],
+          "projectFolder": [
+            "pokecut-theme"
+          ],
+          "hints": [],
+          "sources": {
+            "pokecut-theme": "/Users/vechkasov/.bb/plugins/cache/git/github.com/VKirill/bb-plugin-pokecut-theme/3b55acab9edf14a4a8773c411f926dab6c792e23/skills/pokecut-theme"
+          },
+          "reason": null,
+          "materialized": []
+        }
+      }
+    }
+  ],
+  "emergencyFallback": null,
+  "turns": 1
+}
