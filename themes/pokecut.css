@@ -335,6 +335,9 @@ body {
     flex: none;
     min-width: max-content;
     margin-left: auto;
+    /* BB ships pr-0 for a full-width row; at content width the hover pill
+       would end on the last letter. */
+    padding-right: 10px;
     anchor-name: --pk-new-thread;
   }
 
