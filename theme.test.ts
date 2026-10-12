@@ -226,9 +226,9 @@ test("desktop top row pins a compact New project button after New thread", () =>
   );
 });
 
-test("plugin version is 0.5.22", () => {
+test("plugin version is 0.5.23", () => {
   const pkg = JSON.parse(readFileSync(join(root, "package.json"), "utf8"));
-  assert.equal(pkg.version, "0.5.22");
+  assert.equal(pkg.version, "0.5.23");
 });
 
 function nestedHasSnippets(source: string): string[] {
@@ -371,6 +371,13 @@ test("macOS framed window drops BB's own frame lip and gray sidebar card", () =>
   assert.match(
     base,
     /:has\(> \[data-testid="app-page-header-content-row"\]\) \{[^}]*padding-inline: 0;/,
+  );
+});
+
+test("collapsed icon rail is a fully rounded card", () => {
+  assert.match(
+    base,
+    /\[data-collapsible="rail"\]\[data-side="left"\] \[data-sidebar="sidebar"\] \{[^}]*border-radius: var\(--pk-radius-panel\);/,
   );
 });
 

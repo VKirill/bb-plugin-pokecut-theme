@@ -470,10 +470,13 @@ body {
     min-width: calc(var(--pk-gap) + var(--sidebar-width-icon, 52px));
   }
 
+  /* Nothing tucks under the inset here, so the rail is a card of its own:
+     round all four corners instead of leaving a square right edge. */
   [data-collapsible="rail"][data-side="left"] [data-sidebar="sidebar"] {
     width: 100%;
     margin-right: 0;
     padding-right: 0;
+    border-radius: var(--pk-radius-panel);
   }
 
   /* Flow start is BB's gap column (x 53); rail ends at padding-left + rail
