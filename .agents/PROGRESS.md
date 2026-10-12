@@ -17,5 +17,5 @@
 
 ## Pointers
 - Open todos: none (`.agents/todos/INDEX.md` is absent).
-- Active plans: none (all twelve shell plans are complete).
+- Active plans: none (all thirteen shell plans are complete).
 - Changelog: `.agents/CHANGELOG.md`.
