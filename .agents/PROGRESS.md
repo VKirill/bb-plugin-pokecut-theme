@@ -1,5 +1,5 @@
 ## Now
-- Applies the Pokecut light/dark visual theme across the shell, with a token-based desktop grid, a single light sidebar surface tucked under the content panel below the macOS chrome row, even inner spacing, aligned panel edges, and responsive drawers.
+- Applies the Pokecut light/dark visual theme across the shell, with a token-based desktop grid, a single light sidebar surface tucked under the content panel below the macOS chrome row, even inner spacing, aligned panel edges, footer tools that keep the usage tracker inside its card, and responsive drawers.
 - Restyles BB's native chat, including the composer, messages, work rows, loaders, approval cards, and banners.
 - Lets users configure chat appearance features in bilingual plugin settings, with preferences stored by the plugin.
 - Adds theme mode controls, a context meter, Git History styling, and BB diff path styling.
@@ -17,5 +17,5 @@
 
 ## Pointers
 - Open todos: none (`.agents/todos/INDEX.md` is absent).
-- Active plans: none (all six shell plans are complete).
+- Active plans: none (all seven shell plans are complete).
 - Changelog: `.agents/CHANGELOG.md`.
