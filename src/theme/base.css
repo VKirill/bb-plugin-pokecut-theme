@@ -226,6 +226,26 @@ body {
     padding: var(--pk-gap-card);
   }
 
+  [data-variant="sidebar"][data-side="left"] [data-sidebar="footer"] > ul[data-sidebar="menu"] {
+    gap: 2px;
+    flex-wrap: nowrap;
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  [data-variant="sidebar"][data-side="left"] [data-sidebar="footer"] > ul[data-sidebar="menu"] > li > [data-sidebar="menu-button"] {
+    width: 28px;
+    min-width: 0;
+    padding-inline: 0;
+    justify-content: center;
+    flex-shrink: 1;
+  }
+
+  [data-variant="sidebar"][data-side="left"] [data-sidebar="footer"] > ul[data-sidebar="menu"] > li.usage-tracker-sidebar {
+    flex-shrink: 0;
+    margin-left: auto;
+  }
+
   [data-variant="sidebar"][data-side="left"] [data-sidebar="sidebar"] .pf-tree {
     padding-inline: 0;
   }

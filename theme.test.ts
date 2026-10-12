@@ -125,9 +125,23 @@ test("desktop sidebar is one light surface with even inner inset", () => {
   );
 });
 
-test("plugin version is 0.5.10", () => {
+test("desktop footer card keeps the usage tracker from shrinking", () => {
+  const desktopBlocks = [...base.matchAll(/@media \(min-width: 768px\) \{[\s\S]*?\n\}/g)]
+    .map((m) => m[0])
+    .join("\n");
+  assert.match(
+    desktopBlocks,
+    /li\.usage-tracker-sidebar\s*\{[^}]*flex-shrink: 0/,
+  );
+  assert.match(
+    base,
+    /@media \(max-width: 767px\) \{[\s\S]*?li\.usage-tracker-sidebar \{[^}]*flex-shrink: 1/,
+  );
+});
+
+test("plugin version is 0.5.11", () => {
   const pkg = JSON.parse(readFileSync(join(root, "package.json"), "utf8"));
-  assert.equal(pkg.version, "0.5.10");
+  assert.equal(pkg.version, "0.5.11");
 });
 
 test("phone shell rules keep literal radii", () => {
