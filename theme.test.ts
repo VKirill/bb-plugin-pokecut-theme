@@ -125,13 +125,17 @@ test("desktop sidebar is one light surface with even inner inset", () => {
   );
 });
 
-test("desktop footer card keeps the usage tracker from shrinking", () => {
+test("desktop footer card sizes the usage tracker by content", () => {
   const desktopBlocks = [...base.matchAll(/@media \(min-width: 768px\) \{[\s\S]*?\n\}/g)]
     .map((m) => m[0])
     .join("\n");
   assert.match(
     desktopBlocks,
-    /li\.usage-tracker-sidebar\s*\{[^}]*flex-shrink: 0/,
+    /li\.usage-tracker-sidebar\s*\{[^}]*flex: 0 0 auto/,
+  );
+  assert.match(
+    desktopBlocks,
+    /li\.usage-tracker-sidebar\s*\{[^}]*width: auto/,
   );
   assert.match(
     base,
@@ -139,9 +143,9 @@ test("desktop footer card keeps the usage tracker from shrinking", () => {
   );
 });
 
-test("plugin version is 0.5.11", () => {
+test("plugin version is 0.5.12", () => {
   const pkg = JSON.parse(readFileSync(join(root, "package.json"), "utf8"));
-  assert.equal(pkg.version, "0.5.11");
+  assert.equal(pkg.version, "0.5.12");
 });
 
 test("phone shell rules keep literal radii", () => {
