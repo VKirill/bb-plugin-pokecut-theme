@@ -249,6 +249,20 @@ body {
     min-width: max-content;
     max-width: none;
     margin-left: auto;
+    container-type: normal;
+  }
+
+  /* Icon rail is wider than BB's reserved column; keep the content column
+     --pk-gap-card past the rail and --pk-gap-card before the inset. */
+  [data-variant="sidebar"][data-side="left"] [data-sidebar="sidebar"]:has([data-testid="app-nav-rail"])
+    :is(
+      [data-testid="app-sidebar-top-reserve-row"],
+      [data-testid="app-sidebar-body"],
+      [data-sidebar="header"],
+      [data-sidebar="content"],
+      [data-sidebar="footer"]
+    ) {
+    padding-left: calc(var(--pk-gap) + var(--pk-gap-card) - 1px);
   }
 
   [data-variant="sidebar"][data-side="left"] [data-sidebar="sidebar"] .pf-tree {
@@ -258,6 +272,20 @@ body {
   [data-variant="sidebar"][data-side="left"] [data-sidebar="sidebar"] .pf-tree > button:first-child {
     width: 100%;
     margin-inline: 0;
+  }
+
+  [data-variant="sidebar"][data-side="left"] [data-sidebar="sidebar"] .pf-project {
+    padding: 4px var(--pk-gap-card);
+  }
+
+  [data-variant="sidebar"][data-side="left"] [data-sidebar="sidebar"] .pf-project .pf-heading,
+  [data-variant="sidebar"][data-side="left"] [data-sidebar="sidebar"] .pf-project .pf-thread {
+    padding-inline: 4px;
+  }
+
+  [data-variant="sidebar"][data-side="left"] [data-sidebar="sidebar"] .pf-tree .pf-children {
+    margin-left: var(--pf-indent, 8px);
+    padding-left: var(--pf-indent, 8px);
   }
 
   [data-sidebar="inset"] {
@@ -287,6 +315,23 @@ body {
     width: 100%;
     margin-right: 0;
     padding-right: 0;
+  }
+
+  /* Collapsed icon rail: show the full rail, 12px gutter to the inset,
+     and clip the footer card that slides off-screen. */
+  [data-collapsible="rail"][data-side="left"] > [data-sidebar="panel"] {
+    overflow: hidden;
+    min-width: calc(var(--pk-gap) + var(--sidebar-width-icon, 52px));
+  }
+
+  [data-collapsible="rail"][data-side="left"] [data-sidebar="sidebar"] {
+    width: 100%;
+    margin-right: 0;
+    padding-right: 0;
+  }
+
+  [data-collapsible="rail"] ~ [data-sidebar="inset"] {
+    margin-left: var(--pk-gap);
   }
 }
 
