@@ -60,7 +60,15 @@ test("desktop sidebar targets the real group markup; inset height fits the paren
   assert.match(desktopBlocks, /\[data-sidebar="inset"\][\s\S]*z-index: 1/);
   assert.match(
     desktopBlocks,
-    /\[data-sidebar="inset"\]\s*\{[^}]*height: calc\(100% - var\(--pk-gap\)\)/,
+    /\[data-variant="sidebar"\]\[data-side="left"\] \[data-sidebar="footer"\]\s*\{[^}]*padding: var\(--pk-gap-card\)/,
+  );
+  assert.match(
+    desktopBlocks,
+    /\[data-sidebar="footer"\]::before[\s\S]*linear-gradient\(to bottom, transparent, var\(--pk-panel\)\)/,
+  );
+  assert.match(
+    desktopBlocks,
+    /\[data-testid="app-nav-rail"\] > :last-child[\s\S]*position-anchor: --pk-footer/,
   );
   assert.doesNotMatch(
     desktopBlocks,
