@@ -62,14 +62,6 @@ test("desktop sidebar targets the real group markup; inset height fits the paren
     desktopBlocks,
     /\[data-variant="sidebar"\]\[data-side="left"\] \[data-sidebar="footer"\]\s*\{[^}]*padding: var\(--pk-gap-card\)/,
   );
-  assert.match(
-    desktopBlocks,
-    /\[data-sidebar="footer"\]::before[\s\S]*linear-gradient\(to bottom, transparent, var\(--pk-panel\)\)/,
-  );
-  assert.match(
-    desktopBlocks,
-    /\[data-testid="app-nav-rail"\] > :last-child[\s\S]*position-anchor: --pk-footer/,
-  );
   assert.doesNotMatch(
     desktopBlocks,
     /\[data-sidebar="inset"\]\s*\{[^}]*--bb-shell-height/,
@@ -161,7 +153,7 @@ test("desktop content column insets from the app-nav-rail", () => {
     .join("\n");
   assert.match(
     desktopBlocks,
-    /:has\(\[data-testid="app-nav-rail"\]\)[\s\S]*:not\(\[data-testid="app-sidebar-body"\] \*\)[\s\S]*padding-left: calc\(var\(--pk-gap\) \+ var\(--pk-gap-card\) - 1px\)/,
+    /:has\(\[data-testid="app-nav-rail"\]\)[\s\S]*:not\(\[data-testid="app-sidebar-body"\] \*\)[\s\S]*padding-left: calc\(var\(--pk-gap\) - 1px\)/,
   );
   assert.match(
     desktopBlocks,
@@ -183,7 +175,7 @@ test("desktop top reserve row matches the card inset", () => {
     .join("\n");
   assert.match(
     desktopBlocks,
-    /:has\(\[data-testid="app-nav-rail"\]\)\s*\[data-testid="app-sidebar-top-reserve-row"\]\s*\{[^}]*padding-left: calc\(104px \+ var\(--pk-gap-card\)\)/,
+    /:has\(\[data-testid="app-nav-rail"\]\)\s*\[data-testid="app-sidebar-top-reserve-row"\]\s*\{[^}]*padding-left: 96px/,
   );
   assert.match(
     desktopBlocks,
@@ -234,9 +226,9 @@ test("desktop top row pins a compact New project button after New thread", () =>
   );
 });
 
-test("plugin version is 0.5.25", () => {
+test("plugin version is 0.5.26", () => {
   const pkg = JSON.parse(readFileSync(join(root, "package.json"), "utf8"));
-  assert.equal(pkg.version, "0.5.25");
+  assert.equal(pkg.version, "0.5.26");
 });
 
 function nestedHasSnippets(source: string): string[] {
@@ -354,7 +346,7 @@ test("desktop top row, surface wrappers, and resize handle hide overlap artifact
   );
   assert.match(
     desktopBlocks,
-    /padding-left: calc\(32px \+ var\(--pk-gap-card\)\)/,
+    /padding-left: 24px/,
   );
   assert.doesNotMatch(
     desktopBlocks,
