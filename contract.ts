@@ -35,5 +35,4 @@ export const rpcContract = defineRpcContract({
   },
 });
 
-/** Realtime event published after preferences change. */
-export const PREFS_CHANGED = "prefs-changed";
+export { PREFS_CHANGED } from "./events";

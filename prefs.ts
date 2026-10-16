@@ -1,7 +1,8 @@
 // Shared hook: the chat-layer preferences from the plugin server.
 import { useCallback, useEffect, useState } from "react";
 import { useRealtime, useRealtimeConnectionState, useRpc } from "@get-bb/plugin-sdk/app";
-import { PREFS_CHANGED, rpcContract } from "./contract";
+import type { rpcContract } from "./contract";
+import { PREFS_CHANGED } from "./events";
 import type { Prefs } from "./settings";
 
 /** Current preferences, refreshed on reconnect and whenever the server publishes a change. */
