@@ -15,6 +15,7 @@ import { mountTimelineMarks } from "./timeline-marks";
 import { mountMessageTimes } from "./message-times";
 import { mountDiffPaths } from "./diff-paths";
 import { mountFilePreviewLinks } from "./file-preview-links";
+import { mountTypeaheadTapGuard } from "./typeahead-tap-guard";
 import { PokecutSettings } from "./settings-section";
 import { ThemeModeIcon, ThemeModeSwitch } from "./theme-mode";
 import { mountDocumentLocale, t } from "./i18n";
@@ -59,6 +60,8 @@ function PokecutChatLayer() {
   );
 
   useEffect(() => (active ? mountDiffPaths() : undefined), [active]);
+
+  useEffect(() => (active ? mountTypeaheadTapGuard() : undefined), [active]);
 
 
   const tooltips = active && !off.includes("actions");
