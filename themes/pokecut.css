@@ -291,6 +291,22 @@ body {
     padding-left: 0;
   }
 
+  /* The footer row sits outside the body, so the inset above shifted its card
+     11px right of the project cards and 3px under the panel's edge. Line it up
+     with the cards (same left, same right). */
+  [data-variant="sidebar"][data-side="left"] [data-sidebar="sidebar"]:has([data-testid="app-nav-rail"])
+    [data-testid="sidebar-footer-row"] [data-sidebar="footer"] {
+    padding-left: 0;
+    padding-right: calc(var(--pk-gap) + var(--pk-gap-card) - 1px);
+  }
+
+  [data-variant="sidebar"][data-side="left"] [data-sidebar="sidebar"]:has([data-testid="app-nav-rail"])
+    [data-testid="sidebar-footer-row"] [data-sidebar="footer"] .usage-tracker-sidebar__details {
+    left: 0;
+    right: calc(var(--pk-gap) + var(--pk-gap-card) - 1px);
+    max-width: none;
+  }
+
   /* BB's px-2 on the chrome row must not stack on the rail inset; keep
      New thread on the same x as the body cards and end 8px before the inset.
      Reserve Проект's width + 8 so it never covers New thread. */
@@ -686,6 +702,22 @@ section[data-root-compose-mobile-recents] li:active {
     min-width: 0;
     margin-left: auto;
   }
+}
+
+/* Usage tracker: BB clips the footer row's body ([clip-path:inset(0_-6px_0_0)]
+   for the rail slide), which cut the usage card that opens above the footer
+   down to the footer's height, so it never showed. Lift the clip while it is
+   open; give the strip room from its neighbours and the card's round edge. */
+[data-testid="sidebar-footer-row"] > [data-sidebar="collapsible-body"]:has(.usage-tracker-sidebar__details) {
+  clip-path: none;
+}
+
+[data-sidebar="footer"] > ul[data-sidebar="menu"] > li.usage-tracker-sidebar {
+  padding-right: 4px;
+}
+
+[data-sidebar="footer"] .usage-tracker-sidebar__strip {
+  gap: 6px;
 }
 
 [data-sidebar="sidebar"] input {
