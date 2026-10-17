@@ -291,18 +291,17 @@ body {
     padding-left: 0;
   }
 
-  /* The footer row sits outside the body, so the inset above shifted its card
-     11px right of the project cards and 3px under the panel's edge. Line it up
-     with the cards (same left, same right). */
+  /* The footer row sits outside the body: its card keeps the 11px gap from the
+     rail, but its right edge ran 3px under the panel. End it where the project
+     cards end; the usage card that opens above it spans the same width. */
   [data-variant="sidebar"][data-side="left"] [data-sidebar="sidebar"]:has([data-testid="app-nav-rail"])
     [data-testid="sidebar-footer-row"] [data-sidebar="footer"] {
-    padding-left: 0;
     padding-right: calc(var(--pk-gap) + var(--pk-gap-card) - 1px);
   }
 
   [data-variant="sidebar"][data-side="left"] [data-sidebar="sidebar"]:has([data-testid="app-nav-rail"])
     [data-testid="sidebar-footer-row"] [data-sidebar="footer"] .usage-tracker-sidebar__details {
-    left: 0;
+    left: calc(var(--pk-gap) - 1px);
     right: calc(var(--pk-gap) + var(--pk-gap-card) - 1px);
     max-width: none;
   }

@@ -226,9 +226,9 @@ test("desktop top row pins a compact New project button after New thread", () =>
   );
 });
 
-test("plugin version is 0.5.29", () => {
+test("plugin version is 0.5.30", () => {
   const pkg = JSON.parse(readFileSync(join(root, "package.json"), "utf8"));
-  assert.equal(pkg.version, "0.5.29");
+  assert.equal(pkg.version, "0.5.30");
 });
 
 function nestedHasSnippets(source: string): string[] {
