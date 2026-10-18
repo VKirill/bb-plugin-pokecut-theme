@@ -2,9 +2,9 @@
 title: Theme appearance
 type: component
 created: 2026-10-14
-updated: 2026-10-14
+updated: 2026-10-18
 status: active
-confidence: high
+confidence: medium
 tags: [theme, css, appearance]
 sources:
   - package.json
@@ -41,7 +41,7 @@ The theme provides a gray shell, a raised content panel, card-based surfaces, an
 | Mode or surface | Difference | Source |
 |---|---|---|
 | Light | Uses `:root, .light` palette variables | `src/theme/base.css:1-25` |
-| Dark | Uses `.dark` palette variables | `src/theme/base.css:27-48` |
+| Dark | Uses `.dark` palette variables | `src/theme/base.css:100-172` |
 | System | Stored as `system`; BB resolves appearance using its own theme mechanism | `theme-mode.tsx:9-25` |
 | Desktop shell | Shell rules are gated by desktop media queries and BB sidebar markup | `src/theme/base.css:190-220` |
 | Phone shell | Phone drawer and composer rules are gated by narrow-width media queries | `src/theme/base.css:670-700`, `src/theme/base.css:1072-1090` |

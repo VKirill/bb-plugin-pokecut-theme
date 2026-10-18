@@ -2,12 +2,13 @@
 title: Chat and timeline enhancements
 type: component
 created: 2026-10-14
-updated: 2026-10-14
+updated: 2026-10-18
 status: active
 confidence: high
 tags: [chat, timeline, dom]
 sources:
   - app.tsx
+  - typeahead-tap-guard.ts
   - contract.ts
   - settings.ts
   - theme-active.ts
@@ -21,6 +22,7 @@ sources:
   - spatial-tooltip.ts
   - coins-worklet.ts
   - i18n.ts
+  - typeahead-tap-guard.test.ts
 ---
 
 # Chat and timeline enhancements
@@ -29,7 +31,7 @@ TL;DR: While Pokecut is selected, the plugin observes BB's rendered DOM and adds
 
 ## Purpose
 
-The app overlay mounts DOM helpers only when Pokecut is active; feature toggles gate the context meter, timeline marks, timestamps, and tooltip enhancement (`app.tsx:27-65`). File preview links run from the thread header slot because BB accepts the preview intent from a component in the thread view (`app.tsx:84-105`).
+The app overlay mounts DOM helpers only when Pokecut is active; feature toggles gate the context meter, timeline marks, timestamps, and tooltip enhancement (`app.tsx:27-30`, `app.tsx:46-50`, `app.tsx:52-59`, `app.tsx:67-68`). File preview links run from the thread header slot because BB accepts the preview intent from a component in the thread view (`app.tsx:87-105`).
 
 ## How it works
 
@@ -40,7 +42,8 @@ The app overlay mounts DOM helpers only when Pokecut is active; feature toggles 
 5. If `messageTimes` is enabled and a thread is open, the app asks the server for message times; the server pages BB timeline rows and recursively collects user and assistant conversation rows (`app.tsx:51-59`, `server.ts:28-45`, `message-times-collect.ts:16-36`).
 6. The timestamp helper decorates matching rows, refreshes every 15 seconds, and reruns decoration when the DOM changes (`message-times.ts:54-70`, `message-times.ts:73-107`).
 7. The file-preview helper extracts a path from a timeline row, resolves it against the thread root, and invokes BB's experimental file-preview navigation (`app.tsx:84-100`, `file-preview-links.ts:21-62`).
-8. If `loader` is `coins`, the app attempts to register a CSS Paint Worklet; only a successful registration sets the readiness attribute (`app.tsx:67-80`, `coins-worklet.ts:41-54`).
+8. The typeahead guard records a mousedown inside BB's typeahead menu and suppresses the following click outside that menu within 800 ms (`app.tsx:64`, `typeahead-tap-guard.ts:5-30`).
+9. If `loader` is `coins`, the app attempts to register a CSS Paint Worklet; only a successful registration sets the readiness attribute (`app.tsx:70-83`, `coins-worklet.ts:41-54`).
 
 ### Modes, states, and limits
 
@@ -50,7 +53,8 @@ The app overlay mounts DOM helpers only when Pokecut is active; feature toggles 
 | Message history | First request includes history; server requests at most 12 pages | Returns collected timestamps (`message-times.ts:73-85`, `server.ts:10`, `server.ts:33-43`) |
 | File target | Relative paths and paths inside thread root become workspace targets; outside paths become host targets | BB preview target (`file-preview-links.ts:31-39`) |
 | File click | Plain left click opens preview; modifier clicks keep BB's default action | Preview navigation or Alt-click fallback (`file-preview-links.ts:46-59`) |
-| Coins loader | Worklet registration success sets readiness; CSS fallback remains when unavailable | Animated worklet or fallback loader (`app.tsx:67-80`) |
+| Coins loader | Worklet registration success sets readiness; CSS fallback remains when unavailable | Animated worklet or fallback loader (`app.tsx:70-83`) |
+| Typeahead selection | A click outside the menu within 800 ms of a menu mousedown is suppressed; clicks inside, late clicks, and clicks without a pick pass through | Prevents the click following a typeahead selection from activating an underlying control (`typeahead-tap-guard.ts:5-24`, `typeahead-tap-guard.test.ts:5-12`) |
 | Locale | Explicit `en`/`ru` preference, BB document language, then Russifier detection | `data-pk-lang` on document root (`i18n.ts:172-178`, `i18n.ts:206-245`) |
 
 ### Failures

@@ -2,7 +2,7 @@
 title: Chat appearance settings
 type: component
 created: 2026-10-14
-updated: 2026-10-14
+updated: 2026-10-18
 status: active
 confidence: high
 tags: [chat, settings, preferences]
@@ -81,12 +81,12 @@ The context meter marks usage below 60% as low, 60% through below 85% as mid, an
 | `DEFAULT_PREFS`, `normalizePrefs`, `rootAttributes`, preference types | `settings.ts:29-59` | Define defaults, sanitize input, and derive DOM attributes |
 | `usePrefs` | `prefs.ts:8-26` | Read and subscribe to server preferences |
 | `PokecutSettings` | `settings-section.tsx:17-112` | Render and update the settings UI |
-| `prefsSchema`, `rpcContract`, `PREFS_CHANGED` | `contract.ts:10-39` | Validate RPC shapes and name the update event |
+| `prefsSchema`, `rpcContract`, `PREFS_CHANGED` | `contract.ts:10-38` | Validate RPC shapes and name the update event |
 
 ## Gotchas
 
 - Browser locale preference and plugin chat preferences use different stores: local storage for locale, plugin KV for chat settings (`i18n.ts:145-152`, `server.ts:13-19`).
-- `messageActions` also controls mounting the spatial tooltip helper (`app.tsx:64-65`).
+- `messageActions` controls mounting the spatial tooltip helper (`app.tsx:67-68`).
 - The theme's base chat CSS can be selected without the app attributes; the app waits for RPC preferences before writing those attributes (`app.tsx:33-41`).
 
 <!-- lane-pilot:backlinks -->

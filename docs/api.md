@@ -2,9 +2,9 @@
 title: Plugin API
 type: component
 created: 2026-10-14
-updated: 2026-10-14
+updated: 2026-10-18
 status: active
-confidence: medium
+confidence: high
 tags: [api, rpc, bb-plugin]
 sources:
   - contract.ts
@@ -17,6 +17,7 @@ sources:
   - message-times-collect.ts
   - message-times.ts
   - package.json
+  - events.ts
 ---
 
 # Plugin API
@@ -46,7 +47,7 @@ The server registers handlers against `rpcContract` (`server.ts:21-54`). The con
 
 ## Business rules
 
-- `setPrefs` merges a patch with current stored values, then normalizes the merged object (`server.ts:13-17`).
+- `setPrefs` reads the current preferences, merges the submitted patch, normalizes the result, and writes the complete object (`server.ts:14-18`, `server.ts:23`).
 - Preference writes publish `prefs-changed` with `{ global: true }` after storage succeeds (`server.ts:15-19`).
 - `messageTimes` deduplicates repeated thread IDs and fetches one page unless history is requested; history stops when no older cursor exists or the page cap is reached (`server.ts:28-45`).
 - Timestamp output includes only user and assistant conversation rows with IDs and numeric creation times (`message-times-collect.ts:20-35`).
@@ -57,7 +58,7 @@ The server registers handlers against `rpcContract` (`server.ts:21-54`). The con
 | Contract export | File | Purpose |
 |---|---|---|
 | `rpcContract` | `contract.ts:24-36` | Five RPC method contracts |
-| `PREFS_CHANGED` | `contract.ts:38-39` | Realtime event name |
+| `PREFS_CHANGED` | `contract.ts:38`, `events.ts:2` | Realtime event name |
 | `prefsSchema`, `messageTimeSchema`, `MessageTime` | `contract.ts:10-22` | Validation and timestamp result type |
 
 ## Failure behavior
