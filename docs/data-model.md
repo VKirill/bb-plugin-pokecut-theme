@@ -2,7 +2,7 @@
 title: Data model
 type: data-model
 created: 2026-10-14
-updated: 2026-10-14
+updated: 2026-10-18
 status: active
 confidence: medium
 tags: [data-model, preferences, storage]
@@ -15,6 +15,7 @@ sources:
   - settings-section.tsx
   - prefs.ts
   - app.tsx
+  - src/theme/chat.css
 ---
 
 # Data model
@@ -69,8 +70,8 @@ The plugin KV record is read and written by the server; the complete shape and d
 | `toolChips` | Tool-call row surface treatment | `surface`, `outline`, `plain`; defaults to `surface` (`settings.ts:8-9`, `settings.ts:36-40`) |
 | `promptBar` | Enables prompt/composer styling helpers | Boolean; defaults `true` (`settings.ts:12-14`, `settings.ts:36-40`) |
 | `userBubbles` | Enables user-message bubble styling | Boolean; defaults `true` (`settings.ts:14-15`, `settings.ts:36-40`) |
-| `codeChips` | Enables code chip styling | Boolean; defaults `true` (`settings.ts:15-16`, `settings.ts:36-40`) |
-| `messageActions` | Enables message-action styling and tooltip helper | Boolean; defaults `true` (`settings.ts:16-17`, `app.tsx:64-65`) |
+| `codeChips` | Enables inline code chips and code-block card styling | Boolean; defaults `true` (`settings.ts:15`, `settings.ts:36-40`, `src/theme/chat.css:113-122`) |
+| `messageActions` | Enables message-action styling and spatial tooltip helper | Boolean; defaults `true` (`settings.ts:16`, `settings.ts:36-40`, `app.tsx:67-68`) |
 | `workRows` | Enables timeline work-row styling and error marks | Boolean; defaults `true` (`settings.ts:17-18`, `app.tsx:48-49`) |
 | `shimmer` | Enables label shimmer styling | Boolean; defaults `true` (`settings.ts:18-19`, `settings.ts:36-40`) |
 | `streamingCaret` | Enables streaming caret styling | Boolean; defaults `true` (`settings.ts:19-20`, `settings.ts:36-40`) |

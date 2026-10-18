@@ -2,7 +2,7 @@
 title: Pokecut Theme for BB overview
 type: overview
 created: 2026-10-14
-updated: 2026-10-14
+updated: 2026-10-18
 status: active
 confidence: medium
 tags: [bb-plugin, theme, overview]
@@ -59,7 +59,7 @@ The build steps and prerequisites are in [deployment](deployment.md).
 
 - **Theme CSS:** palette, shell, chat components, and supported integrations; see [theme appearance](features/theme-appearance.md) (`src/theme/base.css:1-35`, `src/theme/chat.css:1-30`).
 - **Chat preferences:** validated loader, tool-row style, and feature toggles; see [chat appearance](features/chat-appearance.md) (`settings.ts:4-27`, `contract.ts:10-14`).
-- **Chat enhancements:** context meter, error marks, message timestamps, diff paths, file previews, locale, and tooltips; see [chat enhancements](features/chat-enhancements.md) (`app.tsx:43-80`).
+- **Chat enhancements:** context meter, error marks, message timestamps, diff paths, file previews, locale, tooltips, and typeahead tap protection; see [chat enhancements](features/chat-enhancements.md) (`app.tsx:43-83`).
 - **RPC server:** preference storage and BB SDK timeline/environment lookups; see [API](api.md) (`server.ts:13-54`).
 
 ## Where to look next

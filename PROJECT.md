@@ -1,10 +1,11 @@
 ---
 title: Pokecut Theme for BB
-updated: 2026-10-14
+updated: 2026-10-18
 sources:
   - package.json
   - server.ts
   - app.tsx
+  - typeahead-tap-guard.ts
   - settings.ts
   - docs/architecture.md
   - docs/gotchas.md
@@ -30,7 +31,7 @@ sources:
 
 - The generated theme stylesheet is composed from `src/theme/base.css`, `src/theme/chat.css`, and `src/theme/integrations.css`; edit sources and regenerate (`scripts/build-theme.mjs:4-25`). See [theme appearance](docs/features/theme-appearance.md).
 - Preference input is normalized to known loader, chip, and boolean values before use (`settings.ts:42-49`); field meanings are in [data model](docs/data-model.md).
-- DOM enhancements are gated on Pokecut being the active theme (`app.tsx:27-30`, `theme-active.ts:6-9`).
+- DOM enhancements, including the typeahead tap guard, are gated on Pokecut being the active theme (`app.tsx:27-30`, `app.tsx:64`, `theme-active.ts:6-9`). See [chat enhancements](docs/features/chat-enhancements.md).
 
 ## Conventions
 
@@ -41,7 +42,7 @@ sources:
 ## Common gotchas
 
 - A second chat restyler can compete for the same BB markup; see [gotchas](docs/gotchas.md#high).
-- The coins loader needs CSS Paint Worklet support and falls back if registration fails (`app.tsx:67-80`).
+- The coins loader needs CSS Paint Worklet support and falls back if registration fails (`app.tsx:70-83`).
 - File-preview behavior depends on a thread environment root and BB's experimental preview API (`app.tsx:84-100`).
 
 ## Useful commands
