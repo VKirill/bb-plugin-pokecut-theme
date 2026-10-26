@@ -556,6 +556,19 @@ body {
     -webkit-app-region: no-drag;
   }
 
+  /* BB 0.47 title-bar header: the header is fixed at the title-bar height
+     (box-content), so the card's top margin spilled it over the content
+     below; and the last toggle carries a negative right margin to reach the
+     window edge, which pushed it out past the card's right border. */
+  [data-framed]:not([data-framed="false"]) [data-sidebar="inset"] header:has(> [data-testid="app-page-header-content-row"]) {
+    height: auto;
+    padding-bottom: 0;
+  }
+
+  [data-sidebar="inset"] [data-testid="app-page-header-content-row"] [class*="-mr-[calc(var(--bb-panel-chrome-padding)"] {
+    margin-right: 0;
+  }
+
   [data-sidebar="inset"] [data-testid="app-page-header-content-row"] {
     margin: var(--pk-gap-card) var(--pk-gap-card) 0;
     padding-inline: var(--pk-gap-card);
