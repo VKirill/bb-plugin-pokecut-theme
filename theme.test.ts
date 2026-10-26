@@ -226,9 +226,9 @@ test("desktop top row pins a compact New project button after New thread", () =>
   );
 });
 
-test("plugin version is 0.5.33", () => {
+test("plugin version is 0.5.34", () => {
   const pkg = JSON.parse(readFileSync(join(root, "package.json"), "utf8"));
-  assert.equal(pkg.version, "0.5.33");
+  assert.equal(pkg.version, "0.5.34");
 });
 
 function nestedHasSnippets(source: string): string[] {
@@ -400,3 +400,10 @@ test("usage card escapes the footer clip on BB 0.47+ markup (sidebar-footer-body
   );
 });
 
+
+test("page header takes clicks in the macOS app (BB 0.47 title-bar drag region)", () => {
+  assert.match(
+    css,
+    /\[data-framed\]:not\(\[data-framed="false"\]\) header:has\(> \[data-testid="app-page-header-content-row"\]\) \* \{\s*app-region: no-drag;\s*-webkit-app-region: no-drag;/,
+  );
+});

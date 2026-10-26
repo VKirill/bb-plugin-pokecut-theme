@@ -541,6 +541,19 @@ body {
     border-bottom-color: transparent;
   }
 
+  /* BB 0.47 (macOS app) puts the page header in the window title bar: a fixed
+     full-width drag strip (window-title-bar-drag-region) and the header itself
+     are window-drag regions, and only BB's trailing actions opt out. The theme
+     moves the header into the panel as a card, so in the app every click on it
+     (title, "…", folder, Commit, panel toggles) dragged the window instead.
+     The header is a card inside the panel here, not title-bar chrome: let the
+     whole header take clicks; the gray band above and the sidebar still drag. */
+  [data-framed]:not([data-framed="false"]) header:has(> [data-testid="app-page-header-content-row"]),
+  [data-framed]:not([data-framed="false"]) header:has(> [data-testid="app-page-header-content-row"]) * {
+    app-region: no-drag;
+    -webkit-app-region: no-drag;
+  }
+
   [data-sidebar="inset"] [data-testid="app-page-header-content-row"] {
     margin: var(--pk-gap-card) var(--pk-gap-card) 0;
     padding-inline: var(--pk-gap-card);
