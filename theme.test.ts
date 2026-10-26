@@ -226,9 +226,9 @@ test("desktop top row pins a compact New project button after New thread", () =>
   );
 });
 
-test("plugin version is 0.5.36", () => {
+test("plugin version is 0.5.37", () => {
   const pkg = JSON.parse(readFileSync(join(root, "package.json"), "utf8"));
-  assert.equal(pkg.version, "0.5.36");
+  assert.equal(pkg.version, "0.5.37");
 });
 
 function nestedHasSnippets(source: string): string[] {
@@ -418,4 +418,9 @@ test("macOS app (BB 0.47): header sits in the title bar, panel card drawn below 
     css,
     /\[class\*="-mr-\[calc\(var\(--bb-panel-chrome-padding\)"\] \{\s*margin-right: 0;/,
   );
+});
+
+test("pending-label shimmer stays on the compositor (no background-position loop)", () => {
+  assert.doesNotMatch(css, /pk-shimmer-text/);
+  assert.match(css, /\.animate-shine \{[^}]*animation: pk-shimmer-pulse[^}]*will-change: opacity;/);
 });

@@ -1297,7 +1297,6 @@ section[data-root-compose-mobile-recents] li:active {
 
 @keyframes pk-fade-in { from { opacity: 0; } }
 @keyframes pk-fade-up { from { opacity: 0; transform: translateY(8px); } }
-@keyframes pk-shimmer-text { from { background-position: 150% 0; } to { background-position: -50% 0; } }
 
 /* ── Prompt bar (promptBar): raised field, 28px controls, filled send ─────────── */
 :root:not([data-pk-off~="prompt"]) [data-app-composer] form[data-promptbox] {
@@ -1513,6 +1512,7 @@ section[data-root-compose-mobile-recents] li:active {
   -webkit-mask: radial-gradient(circle, transparent 4.2px, #000 4.7px);
   mask: radial-gradient(circle, transparent 4.2px, #000 4.7px);
   animation: pk-spin 900ms linear infinite;
+  will-change: transform;
 }
 /* Dots: the same sweep with round pixels. */
 :root[data-pk-loader="dots"] [data-timeline-row-list] .group\/timeline-row > button > span > span:has(> span > .animate-shine:first-child)::before {
@@ -1566,17 +1566,21 @@ section[data-root-compose-mobile-recents] li:active {
   animation: pk-coin-t 10.472s linear infinite;
 }
 
-/* ── Shimmer (shimmer): brighter, faster band on pending labels ─────────────── */
+/* ── Shimmer (shimmer): pending labels breathe ──────────────────────────────── */
+/* A band sliding through clipped text (background-position) only runs on the
+   main thread: with a run live it restyled and repainted every frame (~120
+   style recalcs a second), and on slower machines typing and scrolling lagged.
+   Opacity runs on the compositor, so the label pulses at no main-thread cost. */
+@keyframes pk-shimmer-pulse { 50% { opacity: 0.45; } }
 @media (prefers-reduced-motion: no-preference) {
   :root:not([data-pk-off~="shimmer"]) #thread-detail-timeline-panel .animate-shine {
-    background-image: linear-gradient(90deg, var(--pk-ink-3) 35%, var(--pk-ink) 50%, var(--pk-ink-3) 65%);
-    background-size: 200% 100%;
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
+    background-image: none;
+    color: var(--pk-ink);
+    -webkit-text-fill-color: currentColor;
     -webkit-mask-image: none;
     mask-image: none;
-    animation: pk-shimmer-text 1.4s linear infinite;
+    animation: pk-shimmer-pulse 1.4s ease-in-out infinite;
+    will-change: opacity;
   }
 }
 
