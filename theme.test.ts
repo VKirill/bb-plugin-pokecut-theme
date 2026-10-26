@@ -226,9 +226,9 @@ test("desktop top row pins a compact New project button after New thread", () =>
   );
 });
 
-test("plugin version is 0.5.37", () => {
+test("plugin version is 0.5.38", () => {
   const pkg = JSON.parse(readFileSync(join(root, "package.json"), "utf8"));
-  assert.equal(pkg.version, "0.5.37");
+  assert.equal(pkg.version, "0.5.38");
 });
 
 function nestedHasSnippets(source: string): string[] {
@@ -401,14 +401,14 @@ test("usage card escapes the footer clip on BB 0.47+ markup (sidebar-footer-body
 });
 
 
-test("macOS app (BB 0.47): header sits in the title bar, panel card drawn below it", () => {
+test("macOS app (BB 0.47): panel reaches the window top, header stays the theme card", () => {
   assert.match(
     css,
     /\[data-framed\]:not\(\[data-framed="false"\]\) \[data-sidebar="inset"\] \{\s*margin-top: calc\(-1 \* var\(--bb-window-title-bar-height, 0px\)\);/,
   );
   assert.match(
     css,
-    /\[data-sidebar="inset"\]::before \{\s*top: var\(--bb-window-title-bar-height, 0px\);[^}]*background-color: var\(--pk-panel\);/,
+    /\[data-sidebar="inset"\]::before \{\s*top: 4px;[^}]*background-color: var\(--pk-panel\);/,
   );
   assert.match(
     css,

@@ -543,13 +543,13 @@ body {
     border-bottom-color: transparent;
   }
 
-  /* BB 0.47 macOS app: the page header lives in the window title bar, on the
-     row of the traffic lights and back/forward, and the content card starts
-     below it (BB lifts the inset by the title-bar height and draws the card
-     with ::before from there). Follow that layout instead of drawing the header
-     as a card inside the panel: the theme's panel becomes BB's ::before card,
-     the header row sits bare in the band. The 1px ::after seam is BB's own
-     frame detail and doubles the panel edge here. */
+  /* BB 0.47 macOS app: the page header moved into the window title bar and BB
+     lifts the inset by the title-bar height, drawing its content card with
+     ::before below the band. The theme keeps its own look instead: the panel
+     (that ::before) reaches up to the window top and the header stays the
+     Pokecut card inside it, level with the traffic lights. No clip-path on the
+     inset: rounding it clipped the panel's antialiased border at the corners.
+     The 1px ::after seam is BB's own frame detail and doubles the panel edge. */
   [data-framed]:not([data-framed="false"]) [data-sidebar="inset"] {
     margin-top: calc(-1 * var(--bb-window-title-bar-height, 0px));
     height: calc(100% + var(--bb-window-title-bar-height, 0px) - var(--pk-gap));
@@ -558,11 +558,11 @@ body {
     background-color: transparent;
     box-shadow: none;
     mask-image: none;
-    clip-path: inset(0 round 0 0 var(--pk-radius-panel) var(--pk-radius-panel));
+    clip-path: none;
   }
 
   [data-framed]:not([data-framed="false"]) [data-sidebar="inset"]::before {
-    top: var(--bb-window-title-bar-height, 0px);
+    top: 4px;
     border: 1px solid var(--pk-outline);
     border-radius: var(--pk-radius-panel);
     background-color: var(--pk-panel);
@@ -574,18 +574,22 @@ body {
   }
 
   [data-framed]:not([data-framed="false"]) [data-sidebar="inset"] header:has(> [data-testid="app-page-header-content-row"]) {
-    padding-inline: 16px;
+    height: auto;
+    padding-inline: 0;
+    padding-bottom: 0;
   }
 
-  /* revert-layer hands the padding back to BB, which reserves room for the
-     traffic lights and sidebar toggle when the sidebar is collapsed. */
   [data-framed]:not([data-framed="false"]) [data-sidebar="inset"] [data-testid="app-page-header-content-row"] {
-    margin: 0;
-    padding-inline: revert-layer;
-    border: 0;
-    border-radius: 0;
-    background-color: transparent;
-    box-shadow: none;
+    box-sizing: border-box;
+    height: calc(var(--bb-window-title-bar-height, 46px) - 6px);
+    margin: 10px var(--pk-gap-card) 0;
+    padding-inline: var(--pk-gap-card);
+  }
+
+  /* Sidebar collapsed: BB pads the row past the traffic lights and the sidebar
+     toggle, which now sit over the panel's top-left; start the card there. */
+  [data-framed]:not([data-framed="false"]) [data-sidebar="inset"] [data-testid="app-page-header-content-row"][class*="--bb-window-title-bar-controls-end"] {
+    margin-left: calc(var(--bb-window-title-bar-controls-end) + 12px - var(--bb-window-card-collapsed-left, 0px));
   }
 
   /* The header and a full-width strip above it are window-drag regions; keep
