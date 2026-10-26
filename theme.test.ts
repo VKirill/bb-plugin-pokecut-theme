@@ -226,9 +226,9 @@ test("desktop top row pins a compact New project button after New thread", () =>
   );
 });
 
-test("plugin version is 0.5.32", () => {
+test("plugin version is 0.5.33", () => {
   const pkg = JSON.parse(readFileSync(join(root, "package.json"), "utf8"));
-  assert.equal(pkg.version, "0.5.32");
+  assert.equal(pkg.version, "0.5.33");
 });
 
 function nestedHasSnippets(source: string): string[] {
@@ -366,7 +366,7 @@ test("macOS framed window drops BB's own frame lip and gray sidebar card", () =>
   );
   assert.match(
     desktop,
-    /\[data-testid="nav-rail-sidebar-body"\] \{[^}]*background-color: transparent;/,
+    /\[data-testid="nav-rail-sidebar-body"\],\s*\[data-testid="sidebar-footer-body"\]\s*\)\s*\{[^}]*background-color: transparent;/,
   );
   assert.match(
     base,
@@ -392,10 +392,11 @@ test("phone shell rules keep literal radii", () => {
 test("usage card escapes the footer clip on BB 0.47+ markup (sidebar-footer-body)", () => {
   assert.match(
     css,
-    /\[data-testid="sidebar-footer-body"\]:has\(\.usage-tracker-sidebar__details\)\s*\{\s*clip-path:\s*none/,
+    /:root \[data-sidebar="sidebar"\] \[data-testid="sidebar-footer-body"\]:has\(\.usage-tracker-sidebar__details\)\s*\{\s*clip-path:\s*none/,
   );
   assert.match(
     css,
     /:is\(\[data-testid="sidebar-footer-row"\], \[data-testid="sidebar-footer-body"\]\) \[data-sidebar="footer"\] \{/,
   );
 });
+

@@ -521,7 +521,12 @@ body {
     background-image: none;
   }
 
-  [data-framed]:not([data-framed="false"]) [data-testid="nav-rail-sidebar-body"] {
+  /* BB 0.47 framed the footer as its own card too (sidebar-footer-body): its
+     gray fill and border ran 6px past the panel edge and left a light strip. */
+  [data-framed]:not([data-framed="false"]) :is(
+    [data-testid="nav-rail-sidebar-body"],
+    [data-testid="sidebar-footer-body"]
+  ) {
     border-width: 0;
     border-radius: 0;
     background-color: transparent;
@@ -707,9 +712,10 @@ section[data-root-compose-mobile-recents] li:active {
    for the rail slide), which cut the usage card that opens above the footer
    down to the footer's height, so it never showed. Lift the clip while it is
    open; give the strip room from its neighbours and the card's round edge.
-   BB 0.47 dropped the row wrapper: the footer body itself carries the testid. */
+   BB 0.47 dropped the row wrapper: the footer body itself carries the testid,
+   and the framed-card rule above sets its clip, so this one must outrank it. */
 [data-testid="sidebar-footer-row"] > [data-sidebar="collapsible-body"]:has(.usage-tracker-sidebar__details),
-[data-testid="sidebar-footer-body"]:has(.usage-tracker-sidebar__details) {
+:root [data-sidebar="sidebar"] [data-testid="sidebar-footer-body"]:has(.usage-tracker-sidebar__details) {
   clip-path: none;
 }
 
