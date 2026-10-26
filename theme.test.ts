@@ -226,9 +226,9 @@ test("desktop top row pins a compact New project button after New thread", () =>
   );
 });
 
-test("plugin version is 0.5.31", () => {
+test("plugin version is 0.5.32", () => {
   const pkg = JSON.parse(readFileSync(join(root, "package.json"), "utf8"));
-  assert.equal(pkg.version, "0.5.31");
+  assert.equal(pkg.version, "0.5.32");
 });
 
 function nestedHasSnippets(source: string): string[] {
@@ -387,4 +387,15 @@ test("phone shell rules keep literal radii", () => {
   assert.match(mobile, /border-radius: 10px;/);
   assert.match(mobile, /border-radius: 16px;/);
   assert.match(mobile, /border-radius: 18px;/);
+});
+
+test("usage card escapes the footer clip on BB 0.47+ markup (sidebar-footer-body)", () => {
+  assert.match(
+    css,
+    /\[data-testid="sidebar-footer-body"\]:has\(\.usage-tracker-sidebar__details\)\s*\{\s*clip-path:\s*none/,
+  );
+  assert.match(
+    css,
+    /:is\(\[data-testid="sidebar-footer-row"\], \[data-testid="sidebar-footer-body"\]\) \[data-sidebar="footer"\] \{/,
+  );
 });

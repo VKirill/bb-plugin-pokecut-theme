@@ -293,12 +293,12 @@ body {
      rail, but its right edge ran 3px under the panel. End it where the project
      cards end; the usage card that opens above it spans the same width. */
   [data-variant="sidebar"][data-side="left"] [data-sidebar="sidebar"]:has([data-testid="app-nav-rail"])
-    [data-testid="sidebar-footer-row"] [data-sidebar="footer"] {
+    :is([data-testid="sidebar-footer-row"], [data-testid="sidebar-footer-body"]) [data-sidebar="footer"] {
     padding-right: calc(var(--pk-gap) + var(--pk-gap-card) - 1px);
   }
 
   [data-variant="sidebar"][data-side="left"] [data-sidebar="sidebar"]:has([data-testid="app-nav-rail"])
-    [data-testid="sidebar-footer-row"] [data-sidebar="footer"] .usage-tracker-sidebar__details {
+    :is([data-testid="sidebar-footer-row"], [data-testid="sidebar-footer-body"]) [data-sidebar="footer"] .usage-tracker-sidebar__details {
     left: calc(var(--pk-gap) - 1px);
     right: calc(var(--pk-gap) + var(--pk-gap-card) - 1px);
     max-width: none;
@@ -704,8 +704,10 @@ section[data-root-compose-mobile-recents] li:active {
 /* Usage tracker: BB clips the footer row's body ([clip-path:inset(0_-6px_0_0)]
    for the rail slide), which cut the usage card that opens above the footer
    down to the footer's height, so it never showed. Lift the clip while it is
-   open; give the strip room from its neighbours and the card's round edge. */
-[data-testid="sidebar-footer-row"] > [data-sidebar="collapsible-body"]:has(.usage-tracker-sidebar__details) {
+   open; give the strip room from its neighbours and the card's round edge.
+   BB 0.47 dropped the row wrapper: the footer body itself carries the testid. */
+[data-testid="sidebar-footer-row"] > [data-sidebar="collapsible-body"]:has(.usage-tracker-sidebar__details),
+[data-testid="sidebar-footer-body"]:has(.usage-tracker-sidebar__details) {
   clip-path: none;
 }
 
