@@ -226,9 +226,9 @@ test("desktop top row pins a compact New project button after New thread", () =>
   );
 });
 
-test("plugin version is 0.5.35", () => {
+test("plugin version is 0.5.36", () => {
   const pkg = JSON.parse(readFileSync(join(root, "package.json"), "utf8"));
-  assert.equal(pkg.version, "0.5.35");
+  assert.equal(pkg.version, "0.5.36");
 });
 
 function nestedHasSnippets(source: string): string[] {
@@ -401,15 +401,19 @@ test("usage card escapes the footer clip on BB 0.47+ markup (sidebar-footer-body
 });
 
 
-test("page header takes clicks in the macOS app (BB 0.47 title-bar drag region)", () => {
+test("macOS app (BB 0.47): header sits in the title bar, panel card drawn below it", () => {
   assert.match(
     css,
-    /\[data-framed\]:not\(\[data-framed="false"\]\) header:has\(> \[data-testid="app-page-header-content-row"\]\) \* \{\s*app-region: no-drag;\s*-webkit-app-region: no-drag;/,
+    /\[data-framed\]:not\(\[data-framed="false"\]\) \[data-sidebar="inset"\] \{\s*margin-top: calc\(-1 \* var\(--bb-window-title-bar-height, 0px\)\);/,
   );
-});
-
-test("title-bar header (BB 0.47) fits the card: auto height, trailing toggle kept inside", () => {
-  assert.match(css, /header:has\(> \[data-testid="app-page-header-content-row"\]\) \{\s*height: auto;/);
+  assert.match(
+    css,
+    /\[data-sidebar="inset"\]::before \{\s*top: var\(--bb-window-title-bar-height, 0px\);[^}]*background-color: var\(--pk-panel\);/,
+  );
+  assert.match(
+    css,
+    /:where\(button, a, input, select, textarea, \[role="button"\], \[role="link"\], \[tabindex\]\) \{\s*app-region: no-drag;/,
+  );
   assert.match(
     css,
     /\[class\*="-mr-\[calc\(var\(--bb-panel-chrome-padding\)"\] \{\s*margin-right: 0;/,

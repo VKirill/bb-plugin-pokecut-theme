@@ -543,27 +543,61 @@ body {
     border-bottom-color: transparent;
   }
 
-  /* BB 0.47 (macOS app) puts the page header in the window title bar: a fixed
-     full-width drag strip (window-title-bar-drag-region) and the header itself
-     are window-drag regions, and only BB's trailing actions opt out. The theme
-     moves the header into the panel as a card, so in the app every click on it
-     (title, "…", folder, Commit, panel toggles) dragged the window instead.
-     The header is a card inside the panel here, not title-bar chrome: let the
-     whole header take clicks; the gray band above and the sidebar still drag. */
-  [data-framed]:not([data-framed="false"]) header:has(> [data-testid="app-page-header-content-row"]),
-  [data-framed]:not([data-framed="false"]) header:has(> [data-testid="app-page-header-content-row"]) * {
+  /* BB 0.47 macOS app: the page header lives in the window title bar, on the
+     row of the traffic lights and back/forward, and the content card starts
+     below it (BB lifts the inset by the title-bar height and draws the card
+     with ::before from there). Follow that layout instead of drawing the header
+     as a card inside the panel: the theme's panel becomes BB's ::before card,
+     the header row sits bare in the band. The 1px ::after seam is BB's own
+     frame detail and doubles the panel edge here. */
+  [data-framed]:not([data-framed="false"]) [data-sidebar="inset"] {
+    margin-top: calc(-1 * var(--bb-window-title-bar-height, 0px));
+    height: calc(100% + var(--bb-window-title-bar-height, 0px) - var(--pk-gap));
+    border-color: transparent;
+    border-radius: 0;
+    background-color: transparent;
+    box-shadow: none;
+    mask-image: none;
+    clip-path: inset(0 round 0 0 var(--pk-radius-panel) var(--pk-radius-panel));
+  }
+
+  [data-framed]:not([data-framed="false"]) [data-sidebar="inset"]::before {
+    top: var(--bb-window-title-bar-height, 0px);
+    border: 1px solid var(--pk-outline);
+    border-radius: var(--pk-radius-panel);
+    background-color: var(--pk-panel);
+    box-shadow: var(--pk-drop);
+  }
+
+  [data-framed]:not([data-framed="false"]) [data-sidebar="inset"]::after {
+    display: none;
+  }
+
+  [data-framed]:not([data-framed="false"]) [data-sidebar="inset"] header:has(> [data-testid="app-page-header-content-row"]) {
+    padding-inline: 16px;
+  }
+
+  /* revert-layer hands the padding back to BB, which reserves room for the
+     traffic lights and sidebar toggle when the sidebar is collapsed. */
+  [data-framed]:not([data-framed="false"]) [data-sidebar="inset"] [data-testid="app-page-header-content-row"] {
+    margin: 0;
+    padding-inline: revert-layer;
+    border: 0;
+    border-radius: 0;
+    background-color: transparent;
+    box-shadow: none;
+  }
+
+  /* The header and a full-width strip above it are window-drag regions; keep
+     every control in the header clickable, the bare band still drags. */
+  [data-framed]:not([data-framed="false"]) header:has(> [data-testid="app-page-header-content-row"])
+    :where(button, a, input, select, textarea, [role="button"], [role="link"], [tabindex]) {
     app-region: no-drag;
     -webkit-app-region: no-drag;
   }
 
-  /* BB 0.47 title-bar header: the header is fixed at the title-bar height
-     (box-content), so the card's top margin spilled it over the content
-     below; and the last toggle carries a negative right margin to reach the
-     window edge, which pushed it out past the card's right border. */
-  [data-framed]:not([data-framed="false"]) [data-sidebar="inset"] header:has(> [data-testid="app-page-header-content-row"]) {
-    height: auto;
-    padding-bottom: 0;
-  }
+  /* The last toggle carries a negative right margin to reach the window edge;
+     against the theme's panel inset it overshoots the panel. */
 
   [data-sidebar="inset"] [data-testid="app-page-header-content-row"] [class*="-mr-[calc(var(--bb-panel-chrome-padding)"] {
     margin-right: 0;
