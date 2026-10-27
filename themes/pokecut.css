@@ -506,12 +506,20 @@ body {
 
   /* Collapsed icon rail: show the full rail, 12px gutter to the inset,
      and clip the footer card that slides off-screen. */
-  /* Sized to the 48px rail itself: at BB's 52px icon width a 4px strip of the
-     list's lighter surface showed between the rail and the panel. */
+  /* Sized to the rail itself (control + 2 × rail padding): at BB's icon width
+     a strip of the list's lighter surface showed between rail and panel. */
   [data-collapsible="rail"][data-side="left"] > [data-sidebar="panel"] {
     overflow: hidden;
-    width: calc(var(--pk-gap) + 48px);
-    min-width: calc(var(--pk-gap) + 48px);
+    width: calc(var(--pk-gap) + var(--bb-sidebar-control-size) + 2 * var(--bb-sidebar-rail-padding));
+    min-width: calc(var(--pk-gap) + var(--bb-sidebar-control-size) + 2 * var(--bb-sidebar-rail-padding));
+  }
+
+  /* Narrower icon rail in the browser: BB pads its 24px controls by 12px a
+     side (48px), on top of the theme's 12px gutter. 6px a side gives a 36px
+     rail; the sidebar toggle derives from the same padding, so the column
+     stays aligned. The macOS app keeps BB's frame metrics (title-bar math). */
+  :root:not(:has([data-framed]:not([data-framed="false"]))) {
+    --bb-sidebar-rail-padding: 6px;
   }
 
   /* Sidebar navigation in the rail (browser): BB pins the sidebar toggle over

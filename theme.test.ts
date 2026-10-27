@@ -226,9 +226,9 @@ test("desktop top row pins a compact New project button after New thread", () =>
   );
 });
 
-test("plugin version is 0.5.42", () => {
+test("plugin version is 0.5.43", () => {
   const pkg = JSON.parse(readFileSync(join(root, "package.json"), "utf8"));
-  assert.equal(pkg.version, "0.5.42");
+  assert.equal(pkg.version, "0.5.43");
 });
 
 function nestedHasSnippets(source: string): string[] {
@@ -453,5 +453,6 @@ test("the Lane Pilot icon is lit only when Lane Pilot or an agent is on (data-lp
 
 test("rail navigation keeps one icon column: toggle moves with the rail, collapsed panel fits the rail", () => {
   assert.match(css, /:root:has\(\[data-testid="app-nav-rail"\]\) \[data-testid="app-sidebar-trigger-overlay"\] \{\s*translate: var\(--pk-gap\) 0;/);
-  assert.match(css, /\[data-collapsible="rail"\]\[data-side="left"\] > \[data-sidebar="panel"\] \{[^}]*width: calc\(var\(--pk-gap\) \+ 48px\);/);
+  assert.match(css, /\[data-collapsible="rail"\]\[data-side="left"\] > \[data-sidebar="panel"\] \{[^}]*width: calc\(var\(--pk-gap\) \+ var\(--bb-sidebar-control-size\) \+ 2 \* var\(--bb-sidebar-rail-padding\)\);/);
+  assert.match(css, /--bb-sidebar-rail-padding: 6px;/);
 });
