@@ -506,9 +506,19 @@ body {
 
   /* Collapsed icon rail: show the full rail, 12px gutter to the inset,
      and clip the footer card that slides off-screen. */
+  /* Sized to the 48px rail itself: at BB's 52px icon width a 4px strip of the
+     list's lighter surface showed between the rail and the panel. */
   [data-collapsible="rail"][data-side="left"] > [data-sidebar="panel"] {
     overflow: hidden;
-    min-width: calc(var(--pk-gap) + var(--sidebar-width-icon, 52px));
+    width: calc(var(--pk-gap) + 48px);
+    min-width: calc(var(--pk-gap) + 48px);
+  }
+
+  /* Sidebar navigation in the rail (browser): BB pins the sidebar toggle over
+     a rail that starts at the window edge; the theme moves the rail in by the
+     gutter, so move the toggle with it to keep one icon column. */
+  :root:has([data-testid="app-nav-rail"]) [data-testid="app-sidebar-trigger-overlay"] {
+    translate: var(--pk-gap) 0;
   }
 
   /* Nothing tucks under the inset here, so the rail is a card of its own:
