@@ -267,6 +267,17 @@ body {
     container-type: normal;
   }
 
+  /* BB 0.47 sizes the body beside the rail as a right-aligned block of the
+     sidebar width minus the rail. The theme's 12px gutter left of the rail
+     makes the column narrower than that, so the block ran 12px under the
+     rail and the cards' 11px inset below was eaten: project cards and the
+     New project button sat flush on the rail, out of line with the footer
+     card. Fit the block to its column. */
+  [data-variant="sidebar"][data-side="left"] [data-testid="nav-rail-sidebar-body"] > div:has(> [data-testid="app-sidebar-body"]) {
+    left: 0;
+    width: auto !important;
+  }
+
   /* Icon rail is wider than BB's reserved column; apply the 19px once, on
      the outermost wrappers (not again on header/content/footer inside the body). */
   [data-variant="sidebar"][data-side="left"] [data-sidebar="sidebar"]:has([data-testid="app-nav-rail"])
@@ -326,15 +337,6 @@ body {
   [data-variant="sidebar"][data-side="left"] [data-testid="app-nav-rail"] {
     anchor-name: --pk-rail;
     padding-bottom: 10px;
-    /* BB's desktop rail draws 16px icons in 24px buttons, small next to the
-       theme's cards; 20px icons in 32px buttons still fit the 48px column. */
-    --bb-sidebar-control-size: 32px;
-    --bb-sidebar-control-icon-size: 20px;
-  }
-
-  [data-variant="sidebar"][data-side="left"] [data-testid="app-nav-rail"] :is(a, button) svg {
-    width: 20px;
-    height: 20px;
   }
 
   /* BB centres the 12px resize handle on the sidebar edge; the theme's panel

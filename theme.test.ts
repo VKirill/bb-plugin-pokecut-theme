@@ -226,9 +226,9 @@ test("desktop top row pins a compact New project button after New thread", () =>
   );
 });
 
-test("plugin version is 0.5.39", () => {
+test("plugin version is 0.5.41", () => {
   const pkg = JSON.parse(readFileSync(join(root, "package.json"), "utf8"));
-  assert.equal(pkg.version, "0.5.39");
+  assert.equal(pkg.version, "0.5.41");
 });
 
 function nestedHasSnippets(source: string): string[] {
@@ -425,9 +425,23 @@ test("pending-label shimmer stays on the compositor (no background-position loop
   assert.match(css, /\.animate-shine \{[^}]*animation: pk-shimmer-pulse[^}]*will-change: opacity;/);
 });
 
-test("sidebar resize handle sits wholly on the sidebar side; rail icons are 20px", () => {
+test("sidebar resize handle sits wholly on the sidebar side", () => {
   assert.match(css, /\[data-testid="app-sidebar-resize-handle"\] \{\s*right: 0;/);
-  assert.match(css, /--bb-sidebar-control-icon-size: 20px;/);
+});
+
+test("the Lane Pilot icon is lit only when Lane Pilot or an agent is on (data-lp-agent), not for the off label", () => {
+  assert.match(css, /button\[data-lp-agent="lane-pilot"\]/);
+  assert.match(css, /button\[data-lp-agent="specialist"\]/);
+  assert.match(css, /:not\(\[aria-label="Lane Pilot \/ агент"\]\)/);
+  assert.doesNotMatch(css, /button\[data-lp-agent="off"\]/);
+});
+
+test("sidebar body block fits its column beside the rail (cards keep their inset)", () => {
+  assert.match(
+    css,
+    /\[data-testid="nav-rail-sidebar-body"\] > div:has\(> \[data-testid="app-sidebar-body"\]\) \{\s*left: 0;\s*width: auto !important;/,
+  );
+  assert.doesNotMatch(css, /--bb-sidebar-control-icon-size: 20px/);
 });
 
 test("the Lane Pilot icon is lit only when Lane Pilot or an agent is on (data-lp-agent), not for the off label", () => {
