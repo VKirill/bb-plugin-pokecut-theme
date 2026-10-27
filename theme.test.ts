@@ -429,3 +429,10 @@ test("sidebar resize handle sits wholly on the sidebar side; rail icons are 20px
   assert.match(css, /\[data-testid="app-sidebar-resize-handle"\] \{\s*right: 0;/);
   assert.match(css, /--bb-sidebar-control-icon-size: 20px;/);
 });
+
+test("the Lane Pilot icon is lit only when Lane Pilot or an agent is on (data-lp-agent), not for the off label", () => {
+  assert.match(css, /button\[data-lp-agent="lane-pilot"\]/);
+  assert.match(css, /button\[data-lp-agent="specialist"\]/);
+  assert.match(css, /:not\(\[aria-label="Lane Pilot \/ агент"\]\)/);
+  assert.doesNotMatch(css, /button\[data-lp-agent="off"\]/);
+});

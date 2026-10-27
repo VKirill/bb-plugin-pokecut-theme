@@ -858,7 +858,9 @@ section[data-root-compose-mobile-recents] li:active {
 /* ── Lane Pilot toggle as an icon ──────────────────────────────────────────
    Lane Pilot's composer button ("Enable Lane Pilot" / agent name) becomes a
    28px icon chip with the agents glyph; the text stays as the accessible name
-   and tooltip. Off: quiet outline. On (any other label): accent tint. */
+   and tooltip. Off: quiet outline. On: accent tint. Lane Pilot 0.1.341+ says
+   its state in data-lp-agent (off | lane-pilot | specialist); older builds are
+   read by their label («Включить Lane Pilot» / «Lane Pilot / агент» = off). */
 [data-plugin-composer-action-plugin="lane-pilot"] button {
   position: relative;
   width: 28px !important;
@@ -891,7 +893,9 @@ section[data-root-compose-mobile-recents] li:active {
   background-color: var(--pk-panel);
 }
 
-[data-plugin-composer-action-plugin="lane-pilot"] button:not([aria-label="Включить Lane Pilot"]):not([aria-label="Enable Lane Pilot"]) {
+[data-plugin-composer-action-plugin="lane-pilot"] button[data-lp-agent="lane-pilot"],
+[data-plugin-composer-action-plugin="lane-pilot"] button[data-lp-agent="specialist"],
+[data-plugin-composer-action-plugin="lane-pilot"] button:not([data-lp-agent]):not([aria-label="Включить Lane Pilot"]):not([aria-label="Enable Lane Pilot"]):not([aria-label="Lane Pilot / агент"]):not([aria-label="Lane Pilot / agent"]) {
   border-color: color-mix(in oklab, var(--primary) 45%, var(--pk-outline));
   background-color: color-mix(in oklab, var(--primary) 12%, var(--pk-card));
   color: var(--primary);
