@@ -326,6 +326,23 @@ body {
   [data-variant="sidebar"][data-side="left"] [data-testid="app-nav-rail"] {
     anchor-name: --pk-rail;
     padding-bottom: 10px;
+    /* BB's desktop rail draws 16px icons in 24px buttons, small next to the
+       theme's cards; 20px icons in 32px buttons still fit the 48px column. */
+    --bb-sidebar-control-size: 32px;
+    --bb-sidebar-control-icon-size: 20px;
+  }
+
+  [data-variant="sidebar"][data-side="left"] [data-testid="app-nav-rail"] :is(a, button) svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  /* BB centres the 12px resize handle on the sidebar edge; the theme's panel
+     (z-index 1) covers its right half, leaving 6px that on Windows sits on
+     the list's scrollbar, so the edge could hardly be grabbed. Keep the whole
+     handle on the sidebar side. */
+  [data-variant="sidebar"][data-side="left"] [data-testid="app-sidebar-resize-handle"] {
+    right: 0;
   }
 
   [data-variant="sidebar"][data-side="left"]

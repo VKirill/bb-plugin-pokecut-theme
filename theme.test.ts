@@ -226,9 +226,9 @@ test("desktop top row pins a compact New project button after New thread", () =>
   );
 });
 
-test("plugin version is 0.5.38", () => {
+test("plugin version is 0.5.39", () => {
   const pkg = JSON.parse(readFileSync(join(root, "package.json"), "utf8"));
-  assert.equal(pkg.version, "0.5.38");
+  assert.equal(pkg.version, "0.5.39");
 });
 
 function nestedHasSnippets(source: string): string[] {
@@ -423,4 +423,9 @@ test("macOS app (BB 0.47): panel reaches the window top, header stays the theme 
 test("pending-label shimmer stays on the compositor (no background-position loop)", () => {
   assert.doesNotMatch(css, /pk-shimmer-text/);
   assert.match(css, /\.animate-shine \{[^}]*animation: pk-shimmer-pulse[^}]*will-change: opacity;/);
+});
+
+test("sidebar resize handle sits wholly on the sidebar side; rail icons are 20px", () => {
+  assert.match(css, /\[data-testid="app-sidebar-resize-handle"\] \{\s*right: 0;/);
+  assert.match(css, /--bb-sidebar-control-icon-size: 20px;/);
 });
