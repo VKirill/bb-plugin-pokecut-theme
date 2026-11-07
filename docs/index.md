@@ -17,6 +17,6 @@ Built by Lane Pilot from page frontmatter.
 | [Development and deployment](deployment.md) | deployment | active | 2026-10-14 |
 | [Chat appearance settings](features/chat-appearance.md) | component | active | 2026-10-18 |
 | [Chat and timeline enhancements](features/chat-enhancements.md) | component | active | 2026-10-18 |
-| [Theme appearance](features/theme-appearance.md) | component | active | 2026-10-18 |
+| [Theme appearance](features/theme-appearance.md) | component | active | 2026-11-07 |
 | [Gotchas](gotchas.md) | gotchas | active | 2026-10-14 |
 | [Pokecut Theme for BB overview](overview.md) | overview | active | 2026-10-18 |
