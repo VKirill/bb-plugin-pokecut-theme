@@ -4,7 +4,7 @@
 // section is the bilingual editor for those preferences.
 import "./app.css";
 import { useEffect } from "react";
-import { definePluginApp, useBbContext, useBbNavigate } from "@get-bb/plugin-sdk/app";
+import { definePluginApp, experimental_useSidebarThreads, useBbContext, useBbNavigate } from "@get-bb/plugin-sdk/app";
 import { usePrefs } from "./prefs";
 import { useThemeActive } from "./theme-active";
 import { rootAttributes } from "./settings";
@@ -20,6 +20,7 @@ import { PokecutSettings } from "./settings-section";
 import { ThemeModeIcon, ThemeModeSwitch } from "./theme-mode";
 import { mountDocumentLocale, t } from "./i18n";
 import { AttentionCounter, AttentionIcon, AttentionTray } from "./attention-tray";
+import { applyDefaultCollapse } from "./recents-collapse";
 
 const ROOT_ATTRIBUTES = ["data-pk-loader", "data-pk-chips", "data-pk-off"];
 
@@ -105,6 +106,16 @@ function FilePreviewLinks() {
   return null;
 }
 
+// Phone Recents: threads with sub-threads start collapsed (see recents-collapse.ts).
+function RecentsDefaultCollapse() {
+  const { threads, status } = experimental_useSidebarThreads();
+  const active = useThemeActive();
+  useEffect(() => {
+    if (active && status === "ready") applyDefaultCollapse(threads);
+  }, [active, status, threads]);
+  return null;
+}
+
 export default definePluginApp((app) => {
   app.slots.experimental_threadHeaderAction({ id: "file-preview-links", title: "Pokecut file links", component: FilePreviewLinks });
   app.slots.experimental_appOverlay({ id: "pokecut-chat-layer", component: PokecutChatLayer });
@@ -113,6 +124,7 @@ export default definePluginApp((app) => {
   app.experimental_icons.register({ name: "pokecut-theme/SunMoon", component: ThemeModeIcon });
   app.experimental_icons.register({ name: "pokecut-theme/Bell", component: AttentionIcon });
   app.slots.experimental_appOverlay({ id: "pokecut-attention-counter", component: AttentionCounter });
+  app.slots.experimental_appOverlay({ id: "pokecut-recents-collapse", component: RecentsDefaultCollapse });
   app.experimental_sidebarFooter.register({
     kind: "disclosure",
     id: "attention",
