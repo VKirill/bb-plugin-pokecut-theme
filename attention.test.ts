@@ -4,6 +4,7 @@ import { attentionThreads, type AttentionThreadInput } from "./attention.ts";
 
 const base: AttentionThreadInput = {
   id: "",
+  parentThreadId: null,
   isHidden: false,
   isArchived: false,
   isUnread: false,
@@ -12,7 +13,7 @@ const base: AttentionThreadInput = {
   latestAttentionAt: 0,
 };
 
-test("questions, then failures, then finished unread work, newest first", () => {
+test("root chats only: questions, then failures, then finished unread work, newest first", () => {
   const threads = [
     { ...base, id: "done-old", isUnread: true, indicator: "unread-success", latestAttentionAt: 1 },
     { ...base, id: "quiet", latestAttentionAt: 9 },
@@ -21,6 +22,7 @@ test("questions, then failures, then finished unread work, newest first", () => 
     { ...base, id: "ask", hasPendingInteraction: true, latestAttentionAt: 0 },
     { ...base, id: "hidden", isHidden: true, isUnread: true },
     { ...base, id: "archived", isArchived: true, hasPendingInteraction: true },
+    { ...base, id: "sub", parentThreadId: "ask", isUnread: true, latestAttentionAt: 99 },
   ];
   assert.deepEqual(
     attentionThreads(threads).map(({ thread, kind }) => `${kind}:${thread.id}`),

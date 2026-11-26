@@ -5,6 +5,7 @@ export type AttentionKind = "ask" | "error" | "done";
 
 export interface AttentionThreadInput {
   id: string;
+  parentThreadId: string | null;
   isHidden: boolean;
   isArchived: boolean;
   isUnread: boolean;
@@ -16,7 +17,8 @@ export interface AttentionThreadInput {
 const ORDER: Record<AttentionKind, number> = { ask: 0, error: 1, done: 2 };
 
 export function attentionKind(thread: AttentionThreadInput): AttentionKind | null {
-  if (thread.isHidden || thread.isArchived) return null;
+  // Sub-threads report to their parent; the tray lists only root chats.
+  if (thread.parentThreadId !== null || thread.isHidden || thread.isArchived) return null;
   if (thread.hasPendingInteraction || thread.indicator === "waiting-for-input") return "ask";
   if (thread.indicator === "unread-error" || thread.indicator === "queued-failed") return "error";
   if (thread.isUnread) return "done";
