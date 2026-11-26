@@ -3,7 +3,7 @@
 // the user (a question, a failure, finished unread work). A row opens its thread.
 import { useEffect, useState, useSyncExternalStore, type MouseEvent } from "react";
 import { createPortal } from "react-dom";
-import { experimental_useSidebarThreads, useBbNavigate } from "@get-bb/plugin-sdk/app";
+import { experimental_useSidebarThreadActions, experimental_useSidebarThreads, useBbNavigate } from "@get-bb/plugin-sdk/app";
 import {
   attentionThreads,
   getAttentionCount,
@@ -44,7 +44,20 @@ function closeMobileDrawer(): void {
 export function AttentionTray({ dismiss }: { dismiss(): void }) {
   const { threads, projects } = experimental_useSidebarThreads();
   const navigate = useBbNavigate();
+  const actions = experimental_useSidebarThreadActions();
+  const [marking, setMarking] = useState(false);
   const items = attentionThreads(threads);
+  // Every unread thread, sub-threads included, so their dots clear in the tree too.
+  const unread = threads.filter((thread) => thread.isUnread && !thread.isHidden && !thread.isArchived);
+
+  const readAll = async () => {
+    setMarking(true);
+    try {
+      await Promise.allSettled(unread.map((thread) => actions.setRead(thread.id, true)));
+    } finally {
+      setMarking(false);
+    }
+  };
   const projectNames = new Map(projects.map((project) => [project.id, project.name]));
 
   const open = (event: MouseEvent<HTMLAnchorElement>, threadId: string) => {
@@ -58,7 +71,14 @@ export function AttentionTray({ dismiss }: { dismiss(): void }) {
 
   return (
     <div className="pk-attn" data-bb-ru-skip="">
-      <div className="pk-mode-title">{t("attention")}</div>
+      <div className="pk-attn-head">
+        <div className="pk-mode-title">{t("attention")}</div>
+        {unread.length > 0 ? (
+          <button type="button" className="pk-attn-readall" disabled={marking} onClick={readAll}>
+            {t("attentionReadAll")}
+          </button>
+        ) : null}
+      </div>
       {items.length === 0 ? (
         <div className="pk-attn-empty">{t("attentionEmpty")}</div>
       ) : (

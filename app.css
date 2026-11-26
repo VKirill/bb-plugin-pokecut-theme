@@ -108,3 +108,12 @@
 .pk-attn-footer-btn .pk-attn-icon { width: 16px; height: 16px; }
 @media (max-width: 767px) and (pointer: coarse) { .pk-attn-footer-btn .pk-attn-icon { width: 20px; height: 20px; } }
 :root:has(.pk-attn-slot) [data-footer-item="plugin:pokecut-theme/attention"] { display: none; }
+.pk-attn-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.pk-attn-readall {
+  height: 24px; padding: 0 8px; border: 0; border-radius: 8px; background: transparent;
+  color: var(--primary); font-size: 12px; font-weight: 600; cursor: pointer;
+}
+.pk-attn-readall:hover { background: var(--state-hover); }
+.pk-attn-readall:disabled { opacity: 0.5; cursor: default; }
+.pk-attn-readall:focus-visible { outline: 2px solid var(--ring); outline-offset: -2px; }
+@media (max-width: 767px) and (pointer: coarse) { .pk-attn-readall { height: 32px; font-size: 14px; } }
