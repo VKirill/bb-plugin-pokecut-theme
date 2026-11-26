@@ -671,6 +671,18 @@ section[data-root-compose-mobile-recents] li {
   border-radius: 12px;
 }
 
+/* BB hangs the collapse chevron 16px left of the row (-ml-6 on its button),
+   in the page gutter; inside the card it fell past the left edge. Move the
+   rows in by that much and let each pill reach back over its chevron. */
+section[data-root-compose-mobile-recents] ul:has(button[aria-expanded]) {
+  padding-left: 20px;
+}
+
+section[data-root-compose-mobile-recents] ul:has(button[aria-expanded]) > li {
+  margin-left: -16px;
+  border-left: 16px solid transparent;
+}
+
 section[data-root-compose-mobile-recents] li:active {
   background-color: var(--state-hover);
 }
@@ -796,10 +808,20 @@ section[data-root-compose-mobile-recents] li:active {
     flex-wrap: nowrap;
   }
 
-  [data-sidebar="footer"] > ul[data-sidebar="menu"] > li > [data-sidebar="menu-button"] {
+  /* Every footer button, nested plugin items included, is one 32px square:
+     a 32px width on BB's 36px coarse height drew the pressed/open state as an
+     oval that touched the strip's edges. */
+  [data-sidebar="footer"] > ul[data-sidebar="menu"] [data-sidebar="menu"] {
+    gap: 0;
+  }
+
+  [data-sidebar="footer"] > ul[data-sidebar="menu"] [data-sidebar="menu-button"] {
     width: 32px;
+    min-width: 32px;
+    height: 32px;
     padding-inline: 0;
     justify-content: center;
+    border-radius: var(--pk-radius-row);
   }
 
   [data-sidebar="footer"] > ul[data-sidebar="menu"] > li.usage-tracker-sidebar {

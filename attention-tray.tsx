@@ -1,0 +1,91 @@
+// "Needs attention" tray in the sidebar footer, like the system tray of a
+// taskbar: a bell with a count; it opens upward into the threads that wait for
+// the user (a question, a failure, finished unread work). A row opens its thread.
+import { useEffect, useSyncExternalStore, type MouseEvent } from "react";
+import { experimental_useSidebarThreads, useBbNavigate } from "@get-bb/plugin-sdk/app";
+import {
+  attentionThreads,
+  getAttentionCount,
+  setAttentionCount,
+  subscribeAttentionCount,
+} from "./attention";
+import { formatRelative } from "./message-times";
+import { t, type I18nKey } from "./i18n";
+
+/** Overlay that keeps the footer badge in step with the live thread list. */
+export function AttentionCounter() {
+  const { threads } = experimental_useSidebarThreads();
+  const count = attentionThreads(threads).length;
+  useEffect(() => setAttentionCount(count), [count]);
+  return null;
+}
+
+export function AttentionIcon({ className }: { className?: string }) {
+  const count = useSyncExternalStore(subscribeAttentionCount, getAttentionCount, () => 0);
+  return (
+    <span className={`pk-attn-icon ${className ?? ""}`} aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
+        <path d="M6 9.5a6 6 0 0 1 12 0c0 4.6 1.8 6.2 2.5 6.9H3.5c.7-.7 2.5-2.3 2.5-6.9z" />
+        <path d="M10 19.6a2.2 2.2 0 0 0 4 0" />
+      </svg>
+      {count > 0 ? <span className="pk-attn-badge">{count > 9 ? "9+" : count}</span> : null}
+    </span>
+  );
+}
+
+// The mobile sidebar is a drawer that stays open over the thread we navigate
+// to; tapping its backdrop is the host's own way to close it.
+function closeMobileDrawer(): void {
+  document.querySelector<HTMLElement>('[data-sidebar-mobile-backdrop][data-state="open"]')?.click();
+}
+
+export function AttentionTray({ dismiss }: { dismiss(): void }) {
+  const { threads, projects } = experimental_useSidebarThreads();
+  const navigate = useBbNavigate();
+  const items = attentionThreads(threads);
+  const projectNames = new Map(projects.map((project) => [project.id, project.name]));
+
+  const open = (event: MouseEvent<HTMLAnchorElement>, threadId: string) => {
+    // Let modified clicks open a new tab or window through the href.
+    if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    event.preventDefault();
+    navigate.toThread(threadId);
+    dismiss();
+    closeMobileDrawer();
+  };
+
+  return (
+    <div className="pk-attn" data-bb-ru-skip="">
+      <div className="pk-mode-title">{t("attention")}</div>
+      {items.length === 0 ? (
+        <div className="pk-attn-empty">{t("attentionEmpty")}</div>
+      ) : (
+        <ul className="pk-attn-list">
+          {items.map(({ thread, kind }) => {
+            const label = t(`attention_${kind}` as I18nKey);
+            const meta = [label, projectNames.get(thread.projectId), formatRelative(thread.latestAttentionAt)]
+              .filter(Boolean)
+              .join(" · ");
+            return (
+              <li key={thread.id}>
+                <a
+                  className="pk-attn-row"
+                  href={thread.href}
+                  data-kind={kind}
+                  aria-label={`${thread.displayTitle} — ${label}`}
+                  onClick={(event) => open(event, thread.id)}
+                >
+                  <span className="pk-attn-dot" aria-hidden="true" />
+                  <span className="pk-attn-text">
+                    <span className="pk-attn-title">{thread.displayTitle}</span>
+                    <span className="pk-attn-meta">{meta}</span>
+                  </span>
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+      )}
+    </div>
+  );
+}

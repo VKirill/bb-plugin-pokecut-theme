@@ -226,9 +226,9 @@ test("desktop top row pins a compact New project button after New thread", () =>
   );
 });
 
-test("plugin version is 0.5.43", () => {
+test("plugin version is 0.5.44", () => {
   const pkg = JSON.parse(readFileSync(join(root, "package.json"), "utf8"));
-  assert.equal(pkg.version, "0.5.43");
+  assert.equal(pkg.version, "0.5.44");
 });
 
 function nestedHasSnippets(source: string): string[] {
@@ -455,4 +455,10 @@ test("rail navigation keeps one icon column: toggle moves with the rail, collaps
   assert.match(css, /:root:has\(\[data-testid="app-nav-rail"\]\) \[data-testid="app-sidebar-trigger-overlay"\] \{\s*translate: var\(--pk-gap\) 0;/);
   assert.match(css, /\[data-collapsible="rail"\]\[data-side="left"\] > \[data-sidebar="panel"\] \{[^}]*width: calc\(var\(--pk-gap\) \+ var\(--bb-sidebar-control-size\) \+ 2 \* var\(--bb-sidebar-rail-padding\)\);/);
   assert.match(css, /--bb-sidebar-rail-padding: 6px;/);
+});
+
+test("phone recents keep the collapse chevron inside the card; footer buttons are 32px squares", () => {
+  assert.match(css, /section\[data-root-compose-mobile-recents\] ul:has\(button\[aria-expanded\]\) \{\s*padding-left: 20px;/);
+  assert.match(css, /ul:has\(button\[aria-expanded\]\) > li \{\s*margin-left: -16px;\s*border-left: 16px solid transparent;/);
+  assert.match(css, /\[data-sidebar="footer"\] > ul\[data-sidebar="menu"\] \[data-sidebar="menu-button"\] \{\s*width: 32px;\s*min-width: 32px;\s*height: 32px;/);
 });

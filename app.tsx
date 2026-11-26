@@ -19,6 +19,7 @@ import { mountTypeaheadTapGuard } from "./typeahead-tap-guard";
 import { PokecutSettings } from "./settings-section";
 import { ThemeModeIcon, ThemeModeSwitch } from "./theme-mode";
 import { mountDocumentLocale, t } from "./i18n";
+import { AttentionCounter, AttentionIcon, AttentionTray } from "./attention-tray";
 
 const ROOT_ATTRIBUTES = ["data-pk-loader", "data-pk-chips", "data-pk-off"];
 
@@ -110,6 +111,15 @@ export default definePluginApp((app) => {
   // The heading is rendered inside the section so it follows the live language.
   app.slots.settingsSection({ id: "chat", component: PokecutSettings });
   app.experimental_icons.register({ name: "pokecut-theme/SunMoon", component: ThemeModeIcon });
+  app.experimental_icons.register({ name: "pokecut-theme/Bell", component: AttentionIcon });
+  app.slots.experimental_appOverlay({ id: "pokecut-attention-counter", component: AttentionCounter });
+  app.experimental_sidebarFooter.register({
+    kind: "disclosure",
+    id: "attention",
+    label: t("attention"),
+    icon: "pokecut-theme/Bell",
+    component: AttentionTray,
+  });
   app.experimental_sidebarFooter.register({
     kind: "disclosure",
     id: "theme-mode",
