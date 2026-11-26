@@ -1,7 +1,8 @@
 // "Needs attention" tray in the sidebar footer, like the system tray of a
 // taskbar: a bell with a count; it opens upward into the threads that wait for
 // the user (a question, a failure, finished unread work). A row opens its thread.
-import { useEffect, useSyncExternalStore, type MouseEvent } from "react";
+import { useEffect, useState, useSyncExternalStore, type MouseEvent } from "react";
+import { createPortal } from "react-dom";
 import { experimental_useSidebarThreads, useBbNavigate } from "@get-bb/plugin-sdk/app";
 import {
   attentionThreads,
@@ -11,6 +12,7 @@ import {
 } from "./attention";
 import { formatRelative } from "./message-times";
 import { t, type I18nKey } from "./i18n";
+import { useThemeActive } from "./theme-active";
 
 /** Overlay that keeps the footer badge in step with the live thread list. */
 export function AttentionCounter() {
@@ -87,5 +89,43 @@ export function AttentionTray({ dismiss }: { dismiss(): void }) {
         </ul>
       )}
     </div>
+  );
+}
+
+const SLOT_CLASS = "pk-attn-slot";
+
+// Pinned bell: BB fills the footer strip in its stored order up to the width
+// that fits, so a plugin item late in that order lands in the "…" menu. While
+// the theme is on, a bell of our own sits first in the strip and toggles the
+// same disclosure; app.css hides BB's copy of the item while ours is there.
+export function PinnedAttentionBell({ toggle }: { toggle(): void }) {
+  const active = useThemeActive();
+  const [slot, setSlot] = useState<HTMLElement | null>(null);
+  useEffect(() => {
+    if (!active) return;
+    const own = document.createElement("li");
+    own.className = SLOT_CLASS;
+    const attach = () => {
+      if (own.isConnected) return;
+      const strip = document.querySelector('[data-sidebar="footer"] > ul[data-sidebar="menu"]');
+      if (!strip) return;
+      strip.prepend(own);
+      setSlot(own);
+    };
+    attach();
+    const observer = new MutationObserver(attach);
+    observer.observe(document.body, { childList: true, subtree: true });
+    return () => {
+      observer.disconnect();
+      own.remove();
+      setSlot(null);
+    };
+  }, [active]);
+  if (!slot) return null;
+  return createPortal(
+    <button type="button" data-sidebar="menu-button" className="pk-attn-footer-btn" aria-label={t("attention")} title={t("attention")} onClick={toggle}>
+      <AttentionIcon />
+    </button>,
+    slot,
   );
 }

@@ -95,3 +95,16 @@
   .pk-attn-title { font-size: 15px; }
   .pk-attn-meta { font-size: 13px; }
 }
+/* Bell pinned first in the footer strip (PinnedAttentionBell); BB's own copy
+   of the item hides while it is there. */
+.pk-attn-slot { display: flex; flex-shrink: 0; list-style: none; }
+.pk-attn-footer-btn {
+  display: flex; width: 32px; height: 32px; align-items: center; justify-content: center; padding: 0;
+  border: 0; border-radius: 10px; background: transparent; color: var(--muted-foreground); cursor: pointer;
+  transition: background-color 150ms ease, color 150ms ease;
+}
+.pk-attn-footer-btn:hover { background: var(--state-hover); color: var(--foreground); }
+.pk-attn-footer-btn:focus-visible { outline: 2px solid var(--ring); outline-offset: -2px; }
+.pk-attn-footer-btn .pk-attn-icon { width: 16px; height: 16px; }
+@media (max-width: 767px) and (pointer: coarse) { .pk-attn-footer-btn .pk-attn-icon { width: 20px; height: 20px; } }
+:root:has(.pk-attn-slot) [data-footer-item="plugin:pokecut-theme/attention"] { display: none; }

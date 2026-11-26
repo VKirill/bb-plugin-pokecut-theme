@@ -19,7 +19,7 @@ import { mountTypeaheadTapGuard } from "./typeahead-tap-guard";
 import { PokecutSettings } from "./settings-section";
 import { ThemeModeIcon, ThemeModeSwitch } from "./theme-mode";
 import { mountDocumentLocale, t } from "./i18n";
-import { AttentionCounter, AttentionIcon, AttentionTray } from "./attention-tray";
+import { AttentionCounter, AttentionIcon, AttentionTray, PinnedAttentionBell } from "./attention-tray";
 import { applyDefaultCollapse } from "./recents-collapse";
 
 const ROOT_ATTRIBUTES = ["data-pk-loader", "data-pk-chips", "data-pk-off"];
@@ -125,12 +125,16 @@ export default definePluginApp((app) => {
   app.experimental_icons.register({ name: "pokecut-theme/Bell", component: AttentionIcon });
   app.slots.experimental_appOverlay({ id: "pokecut-attention-counter", component: AttentionCounter });
   app.slots.experimental_appOverlay({ id: "pokecut-recents-collapse", component: RecentsDefaultCollapse });
-  app.experimental_sidebarFooter.register({
+  const attention = app.experimental_sidebarFooter.register({
     kind: "disclosure",
     id: "attention",
     label: t("attention"),
     icon: "pokecut-theme/Bell",
     component: AttentionTray,
+  });
+  app.slots.experimental_appOverlay({
+    id: "pokecut-attention-bell",
+    component: () => <PinnedAttentionBell toggle={() => attention.toggle()} />,
   });
   app.experimental_sidebarFooter.register({
     kind: "disclosure",
